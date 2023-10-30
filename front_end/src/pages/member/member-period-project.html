@@ -1,0 +1,591 @@
+<div id="main" class="main">
+  <!-- <div class="title_project"> -->
+  <a
+    style="color: rgb(69, 69, 69); font-size: 15px"
+    href="#member/project-is-participating"
+    ><i class="fas fa-home"></i> Danh sách dự án
+  </a>
+  /
+  <a
+    style="color: rgb(69, 69, 69); font-size: 15px"
+    href="#member/project-is-participating/{{detailProject.id}}"
+  >
+    <i class="fas fa-cogs"></i> {{detailProject.name}}</a
+  >
+  /
+  <a style="color: rgb(69, 69, 69); font-size: 15px"
+    ><i class="fas fa-repeat"></i> Giai đoạn</a
+  >
+  <!-- </div> -->
+
+  <br />
+  <div class="container-fluid filter">
+    <section>
+      <div class="title_filter"><i class="fas fa-filter fa-lg"></i> Bộ lọc</div>
+      <hr />
+      <div class="container" style="margin-top: 30px; text-align: center">
+        <div class="row">
+          <div
+            class="col-6"
+            style="
+              text-align: center;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <div class="form-group col-md-6 col-12 d-flex align-items-center">
+              <span
+                for=""
+                style="font-size: 15px"
+                class="fillter-name col-6 text-center"
+                >Tên giai đoạn:</span
+              >
+              <input type="text" class="form-control col-3" />
+            </div>
+          </div>
+          <div
+            class="col-6"
+            style="
+              text-align: center;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <div class="form-group col-md-6 col-12 d-flex align-items-center">
+              <span
+                for=""
+                style="font-size: 15px"
+                class="fillter-name col-6 text-center"
+                >Trạng thái:</span
+              >
+              <select
+                style="font-size: 15px"
+                class="form-control col-6"
+                name=""
+                id=""
+              >
+                <option value="">Chọn trạng thái</option>
+                <option value="">Chưa diễn ra</option>
+                <option value="">Đang diễn ra</option>
+                <option value="">Đã diễn ra</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 40px">
+          <div class="col-6" style="text-align: right">
+            <button class="btn btn-primary">Lọc dữ liệu</button>
+          </div>
+          <div class="col-6" style="text-align: left">
+            <button class="btn btn-danger">Làm mới bộ lọc</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="card-body">
+    <div class="add_new_period">
+      <button
+        data-bs-toggle="modal"
+        data-bs-target="#modal_show_add"
+        class="btn btn-primary"
+        ng-click="clearFormAdd()"
+      >
+        <i class="bx bx-plus"></i>Thêm mới
+      </button>
+    </div>
+
+    <div class="table-responsive mt-4" style="margin-top: 20px">
+      <div>
+        <table
+          id="example"
+          class="table table-bordered m-table d-sm-table m-table--head-bg-primary"
+          style="text-align: center; margin-top: 20px"
+          width="100%"
+        >
+          <thead
+            style="
+              background-color: rgb(50, 121, 215);
+              color: white;
+              font-size: 15px;
+            "
+          >
+            <td width="50px">STT</td>
+            <td>Tên</td>
+            <td>Tiến độ</td>
+            <td>Thời gian bắt đầu</td>
+            <td>Thời gian kết thúc</td>
+            <td>Trạng thái</td>
+            <td>Hành động</td>
+          </thead>
+          <tbody style="font-size: 15px">
+            <tr ng-repeat="item in listPeriod">
+              <td>{{item.stt}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.progress}} %</td>
+              <td>{{item.convertDateStartTime}}</td>
+              <td>{{item.convertDateEndTime}}</td>
+              <td>
+                <span ng-if="item.status == 0" class="span_da_hoan_thanh"
+                  >Đã diễn ra</span
+                >
+                <span ng-if="item.status == 1" class="span_da_dien_ra"
+                  >Đang diễn ra</span
+                >
+                <span ng-if="item.status == 2" class="span_chua_dien_ra"
+                  >Chưa diễn ra</span
+                >
+              </td>
+              <td>
+                <a
+                  href="#member/period-project/detail/{{projectId}}"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal_show_detail"
+                  ng-click="actionDetailPeriod($event, item.id)"
+                >
+                  <div
+                    class="btn_eye"
+                    my-tooltip
+                    tooltip-content="Xem chi tiết"
+                  >
+                    <img src="../../../assets/img/eye-fill.svg" />
+                  </div>
+                </a>
+                <a
+                  href="#member/period-project/update/{{projectId}}"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal_show_update"
+                  ng-click="openModalUpdate($event, item.id)"
+                >
+                  <div
+                    class="btn_pencil"
+                    my-tooltip
+                    tooltip-content="Sửa thông tin giai đoạn"
+                  >
+                    <img src="../../../assets/img/pencil-square.svg" />
+                  </div>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <nav class="paging_custom" aria-label="Page navigation example">
+        <ul class="pagination">
+          <li
+            ng-click="currentPage > 0 ? actionPage(currentPage - 1) : null"
+            ng-class="{ 'disabled': currentPage === 0 }"
+            class="page-item"
+          >
+            <a class="page-link" href="" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li
+            ng-repeat="item in arrayPage"
+            ng-click="actionPage(item - 1)"
+            ng-class="{active: ($index === currentPage)}"
+            class="page-item"
+          >
+            <a class="page-link" href="">{{item}}</a>
+          </li>
+          <li
+            ng-click="totalPages - 1 > currentPage ? actionPage(currentPage + 1) : null"
+            ng-class="{ 'disabled': currentPage === totalPages - 1 }"
+            class="page-item"
+          >
+            <a class="page-link" href="" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <!-- Modal Detail -->
+  <div
+    class="modal fade"
+    id="modal_show_detail"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-lg" role="document">
+      <div class="modal-content">
+        <form id="form_member">
+          <div class="modal-header">
+            <h5 class="modal-title">Chi tiết giai đoạn</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <span style="font-size: 15px">Mã giai đoạn:</span>
+                  <input
+                    type="text"
+                    style="font-size: 15px"
+                    class="form-control"
+                    name=""
+                    ng-model="detailPeriod.code"
+                    id=""
+                    readonly
+                  />
+                </div>
+                <div class="col-6">
+                  <span style="font-size: 15px">Ngày bắt đầu:</span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    style="font-size: 15px"
+                    name=""
+                    ng-model="detailPeriod.startTime"
+                    value="{{detailPeriod.startTime | date:'yyyy-MM-dd'}}"
+                    id=""
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+              <div class="row">
+                <div class="col-6">
+                  <span style="font-size: 15px">Tên giai đoạn:</span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    style="font-size: 15px"
+                    ng-model="detailPeriod.name"
+                    id=""
+                    readonly
+                  />
+                </div>
+                <div class="col-6">
+                  <span style="font-size: 15px">Ngày kết thúc:</span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    style="font-size: 15px"
+                    ng-model="detailPeriod.endTime"
+                    id=""
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+              <div class="row">
+                <div class="col-6">
+                  <label for="" class="form-label" style="font-size: 15px"
+                    >Mô tả giai đoạn:
+                  </label>
+                  <textarea
+                    ng-model="detailPeriod.descriptions"
+                    class="form-control"
+                    name=""
+                    readonly
+                    style="font-size: 15px"
+                    id=""
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div class="col-6">
+                  <label for="" class="form-label" style="font-size: 15px"
+                    >Mục tiêu:
+                  </label>
+                  <textarea
+                    class="form-control"
+                    name=""
+                    style="font-size: 15px"
+                    id=""
+                    readonly
+                    ng-model="detailPeriod.target"
+                    rows="3"
+                  ></textarea>
+                </div>
+              </div>
+              <br />
+              <div class="row">
+                <div class="col-6">
+                  <span style="font-size: 15px">Tiến độ:</span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    style="font-size: 15px"
+                    name=""
+                    ng-model="detailPeriod.progress"
+                    id=""
+                    readonly
+                  />
+                </div>
+                <div class="col-6">
+                  <span style="font-size: 15px">Trạng thái:</span>
+                  <input
+                    type="text"
+                    style="font-size: 15px"
+                    class="form-control"
+                    name=""
+                    ng-model="detailPeriod.statusPeriodStr"
+                    id=""
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn btn-light"
+              data-bs-dismiss="modal"
+            >
+              Hủy
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Add -->
+  <div
+    class="modal fade"
+    id="modal_show_add"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-lg" role="document">
+      <div class="modal-content">
+        <form id="form_member">
+          <div class="modal-header">
+            <h5 class="modal-title">Thêm mới giai đoạn</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <span style="font-size: 15px"
+                    ><span style="color: red">(*)</span> Tên giai đoạn:</span
+                  >
+                  <input
+                    type="text"
+                    style="font-size: 15px"
+                    class="form-control"
+                    name=""
+                    ng-model="tenGiaiDoanAdd"
+                    placeholder="Nhập tên giai đoạn"
+                    id=""
+                  />
+                  <small class="text-danger"
+                    ><p>{{errorNamePeriodAdd}}</p></small
+                  >
+                </div>
+                <div class="col-6">
+                  <span style="font-size: 15px"
+                    ><span style="color: red">(*)</span> Ngày bắt đầu:</span
+                  >
+                  <input
+                    type="datetime-local"
+                    class="form-control"
+                    style="font-size: 15px"
+                    name=""
+                    ng-model="ngayBatDauAdd"
+                    id=""
+                  />
+                  <small class="text-danger"
+                    ><p>{{errorNgayBatDauAdd}}</p></small
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <label for="" class="form-label" style="font-size: 15px"
+                    >Mô tả giai đoạn:</label
+                  >
+                  <textarea
+                    ng-model="moTaAdd"
+                    placeholder="Nhập mô tả"
+                    class="form-control"
+                    name=""
+                    id=""
+                    style="font-size: 15px"
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div class="col-6" style="padding-top: 5px">
+                  <span style="font-size: 15px"
+                    ><span style="color: red">(*)</span> Ngày kết thúc:</span
+                  >
+                  <input
+                    type="datetime-local"
+                    class="form-control"
+                    style="font-size: 15px"
+                    name=""
+                    ng-model="ngayKetThucAdd"
+                    id=""
+                  />
+                  <small class="text-danger"
+                    ><p>{{errorNgayKetThucAdd}}</p></small
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6" style="margin-top: 10px">
+                  <label for="" class="form-label" style="font-size: 15px"
+                    >Mục tiêu:</label
+                  >
+                  <textarea
+                    style="font-size: 15px"
+                    ng-model="mucTieuAdd"
+                    placeholder="Nhập mục tiêu"
+                    class="form-control"
+                    name=""
+                    id=""
+                    rows="3"
+                  ></textarea>
+                </div>
+              </div>
+              <br />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button ng-click="actionAdd()" class="btn btn-primary">
+              Thêm mới
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn btn-light"
+              data-bs-dismiss="modal"
+            >
+              Hủy
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Update -->
+  <div
+    class="modal fade"
+    id="modal_show_update"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg modal-lg" role="document">
+      <div class="modal-content">
+        <form id="form_member">
+          <div class="modal-header">
+            <h5 class="modal-title">Cập nhật giai đoạn</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <span style="font-size: 15px">Tên giai đoạn:</span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name=""
+                    style="font-size: 15px"
+                    ng-model="tenGiaiDoanUpdate"
+                    id=""
+                  />
+                  <small class="text-danger"
+                    ><p>{{errorNamePeriodUpdate}}</p></small
+                  >
+                </div>
+                <div class="col-6">
+                  <span style="font-size: 15px">Ngày bắt đầu:</span>
+                  <input
+                    type="datetime-local"
+                    class="form-control"
+                    style="font-size: 15px"
+                    name=""
+                    ng-model="ngayBatDauUpdate"
+                    id=""
+                  />
+                  <small class="text-danger"
+                    ><p>{{errorNgayBatDauUpdate}}</p></small
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <label for="" class="form-label" style="font-size: 15px"
+                    >Mô tả dự án:</label
+                  >
+                  <textarea
+                    style="font-size: 15px"
+                    ng-model="moTaUpdate"
+                    class="form-control"
+                    name=""
+                    id=""
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div class="col-6" style="padding-top: 5px;">
+                  <span style="font-size: 15px">Ngày kết thúc:</span>
+                  <input
+                    type="datetime-local"
+                    class="form-control"
+                    name=""
+                    style="font-size: 15px"
+                    ng-model="ngayKetThucUpdate"
+                    id=""
+                  />
+                  <small class="text-danger"
+                    ><p>{{errorNgayKetThucUpdate}}</p></small
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6" style="margin-top: 10px;">
+                  <label for="" class="form-label" style="font-size: 15px;">Mục tiêu</label>
+                  <textarea
+                    style="font-size: 15px"
+                    ng-model="mucTieuUpdate"
+                    class="form-control"
+                    name=""
+                    id=""
+                    rows="3"
+                  ></textarea>
+                </div>
+              </div>
+              <br />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button ng-click="actionUpdate()" class="btn btn-primary">
+              Cập nhật
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn btn-light"
+              data-bs-dismiss="modal"
+            >
+              Hủy
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

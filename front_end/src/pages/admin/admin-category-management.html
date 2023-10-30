@@ -1,0 +1,389 @@
+<div id="main" class="main">
+  <div style="padding: 20px">
+    <h4>Quản lý thể loại</h4>
+    <div class="container-fluid filter">
+      <section>
+        <div class="title_filter"><i class="fas fa-filter"></i> Bộ lọc</div>
+        <hr />
+        <div class="container" style="margin-top: 30px; text-align: center">
+          <div class="row">
+            <div
+              class="col-6"
+              style="
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <div class="form-group col-md-6 col-12 d-flex align-items-center">
+                <span
+                  for=""
+                  style="font-size: 15px"
+                  class="fillter-name col-6 text-center"
+                  >Mã thể loại:</span
+                >
+                <input type="text" class="form-control col-lg-6 col-sm-3" />
+              </div>
+            </div>
+            <div
+              class="col-6"
+              style="
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <div class="form-group col-md-6 col-12 d-flex align-items-center">
+                <span
+                  for=""
+                  style="font-size: 15px"
+                  class="fillter-name col-6 text-center"
+                  >Tên thể loại:</span
+                >
+                <input type="text" class="form-control col-lg-6 col-sm-3" />
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 40px">
+            <div class="col-6" style="text-align: right">
+              <button class="btn btn-primary">Tìm kiếm</button>
+            </div>
+            <div class="col-6" style="text-align: left">
+              <button class="btn btn-danger">Làm mới bộ lọc</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="container-fluid category">
+      <!-- <div class="search-bar">
+          <form class="d-flex">
+            <input
+              class="form-control me-2"
+              type="text"
+              placeholder="Tìm kiếm"
+              aria-label="Tìm kiếm"
+              ng-model="input_search"
+              style="width: 400px"
+            />
+            <button
+              class="btn btn-outline-success"
+              type="button"
+              ng-click="searchCategory()"
+            >
+              Tìm kiếm
+            </button>
+          </form>
+        </div>
+
+        <br /> -->
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#modalAddCategory"
+      >
+        <i class="fas fa-plus"></i>
+        Thêm thể loại
+      </button>
+
+      <!-- ---------table category--------- -->
+
+      <div>
+        <table
+          class="table table-bordered m-table d-sm-table m-table--head-bg-primary"
+          style="text-align: center; margin-top: 20px"
+        >
+          <thead
+            style="
+              background-color: rgb(50, 121, 215);
+              color: white;
+              font-size: 15px;
+            "
+          >
+            <tr>
+              <td scope="col">STT</td>
+              <td scope="col">Mã thể loại</td>
+              <td scope="col">Tên thể loại</td>
+              <td scope="col" style="width: 200px">Hành động</td>
+            </tr>
+          </thead>
+          <tbody style="font-size: 15px">
+            <tr ng-repeat="item in listCategory">
+              <td style="display: none">{{item.id}}</td>
+              <td>{{$index+1}}</td>
+              <td>{{item.code}}</td>
+              <td>{{item.name}}</td>
+              <td class="table-action">
+                <a
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalDetailCategory"
+                  ng-click="detailCategory($event,$index)"
+                >
+                  <div
+                    class="btn_eye"
+                    data-toggle="tooltip"
+                    title="Xem chi tiết"
+                  >
+                    <img src="../../../assets/img/eye-fill.svg" />
+                  </div>
+                </a>
+                <a
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalUpdateCategory"
+                  ng-click="detailCategory($event,$index)"
+                >
+                  <div
+                    class="btn_pencil"
+                    data-toggle="tooltip"
+                    title="Sửa thông tin danh mục"
+                  >
+                    <img src="../../../assets/img/pencil-square.svg" />
+                  </div>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div>
+          <nav class="" aria-label="Page navigation example">
+            <ul class="pagination" style="float: right; margin-bottom: 20px">
+              <li
+                ng-click="currentPage > 0 ? actionPage(currentPage - 1) : null"
+                ng-class="{ 'disabled': currentPage === 0 }"
+                class="page-item"
+              >
+                <a class="page-link" href="" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li
+                ng-repeat="item in arrayPage"
+                ng-click="actionPage(item - 1)"
+                ng-class="{active: ($index === currentPage)}"
+                class="page-item"
+              >
+                <a class="page-link" href="">{{item}}</a>
+              </li>
+              <li
+                ng-click="totalPages - 1 > currentPage ? actionPage(currentPage + 1) : null"
+                ng-class="{ 'disabled': currentPage === totalPages - 1 }"
+                class="page-item"
+              >
+                <a class="page-link" href="" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <!--  ----------modal detail category------------- -->
+      <div
+        class="modal fade"
+        id="modalDetailCategory"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Chi tiết danh mục
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label style="font-size: 15px" for="">Mã thể loại:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    style="font-size: 15px"
+                    id=""
+                    ng-model="form_detail_category.code"
+                    readonly
+                  />
+                </div>
+                <br />
+                <div class="form-group">
+                  <label style="font-size: 15px" for="">Tên thể loại:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    style="font-size: 15px;"
+                    ng-model="form_detail_category.name"
+                    readonly
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Thoát
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  ----------modal add category------------- -->
+      <div
+        class="modal fade"
+        id="modalAddCategory"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Thêm thể loại
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="" style="font-size: 15px"
+                    ><span class="text-danger">(*)</span> Mã thể loại:</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    style="font-size: 15px"
+                    id=""
+                    ng-model="form_category.code"
+                  />
+                  <small class="text-danger"><p>{{error_code}}</p></small>
+                </div>
+                <div class="form-group">
+                  <label for="" style="font-size: 15px"
+                    ><span class="text-danger">(*)</span> Tên thể loại:</label
+                  >
+                  <input
+                    type="text"
+                    style="font-size: 15px;"
+                    class="form-control"
+                    ng-model="form_category.name"
+                  />
+                  <small class="text-danger"><p>{{error_name}}</p></small>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                ng-click="insertCategory()"
+              >
+                Thêm
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Thoát
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--  ----------modal update category------------- -->
+      <div
+        class="modal fade"
+        id="modalUpdateCategory"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Cập nhật thể loại
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="" style="font-size: 15px"
+                    ><span class="text-danger">(*)</span> Mã thể loại:</label
+                  >
+                  <input
+                    type="text"
+                    style="font-size: 15px;"
+                    class="form-control"
+                    id=""
+                    ng-model="form_detail_category.code"
+                  />
+                  <small class="text-danger"><p>{{error_code}}</p></small>
+                </div>
+                <div class="form-group">
+                  <label for="" style="font-size: 15px"
+                    ><span class="text-danger">(*)</span> Tên thể loại:</label
+                  >
+                  <input
+                    type="text"
+                    style="font-size: 15px;"
+                    class="form-control"
+                    ng-model="form_detail_category.name"
+                  />
+                  <small class="text-danger"><p>{{error_name}}</p></small>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary btn-sm"
+                ng-click="updateCategory($event)"
+              >
+                Cập nhật
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Thoát
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

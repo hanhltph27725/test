@@ -1,0 +1,148 @@
+<div id="main">
+  <a
+    style="color: rgb(69, 69, 69); font-size: 15px"
+    href="#member/project-is-participating"
+    ><i class="fas fa-home"></i> Danh sách dự án
+  </a>
+  /
+  <a
+    style="color: rgb(69, 69, 69); font-size: 15px"
+    href="#member/project-is-participating/{{detailProject.id}}"
+  >
+    <i class="fas fa-cogs"></i> {{detailProject.name}}</a
+  >
+  /
+  <a style="color: rgb(69, 69, 69); font-size: 15px"
+    ><i class="fas fa-line-chart"></i> Thống kê</a
+  >
+  <div class="container-fluid filter">
+    <section>
+      <div class="title_filter">
+        <i class="fas fa-line-chart fa-lg"></i> Thống kê
+      </div>
+      <hr />
+      <div
+        class="container"
+        style="margin-bottom: 15px; margin-top: 10px"
+      ></div>
+      <div class="container" style="text-align: center; margin-bottom: 20px">
+        <div class="row">
+          <div
+            class="col-6"
+            style="
+              text-align: center;
+              justify-content: center;
+              align-items: center;
+              padding-top: 120px;
+            "
+          >
+            <span style="font-size: 15px"
+              ><i class="fas fa-filter"></i> Lọc thống kê:</span
+            >
+            <select
+              name=""
+              ng-change="changePeriod()"
+              ng-model="valueChangePeriod"
+              class="select_filter_dashboard"
+              id=""
+            >
+              <option value="0">Tổng cả dự án</option>
+              <option value="{{item.id}}" ng-repeat="item in listPeriod">
+                {{item.name}}
+              </option>
+            </select>
+          </div>
+          <div
+            class="col-6"
+            style="
+              text-align: center;
+              justify-content: center;
+              align-items: center;
+              display: flex;
+            "
+          >
+            <div id="progress-container" style="width: 200px; height: 200px">
+              <div style="margin-bottom: 10px; font-size: 15px">
+                <i class="fas fa-chart-line"></i> Tiến độ chung
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="container-fluid" style="margin-top: 50px; text-align: center">
+        <div class="row">
+          <div class="col-6" style="font-size: medium">
+            <i class="fas fa-bar-chart"></i> Biểu đồ cột
+          </div>
+          <div class="col-6" style="font-size: medium">
+            <i class="fas fa-chart-pie"></i> Biểu đồ tròn
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div
+              id="chart_div_column_todo_list"
+              style="width: 100%; height: 400px"
+            ></div>
+          </div>
+          <div class="col-lg-6">
+            <div
+              id="chart_div_pie_todo_list"
+              style="width: 100%; height: 400px"
+            ></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div
+              id="chart_div_column_due_date"
+              style="width: 100%; height: 400px"
+            ></div>
+          </div>
+          <div class="col-lg-6">
+            <div
+              id="chart_div_pie_due_date"
+              style="width: 100%; height: 400px"
+            ></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div
+              id="chart_div_column_member"
+              style="width: 100%; height: 400px"
+            ></div>
+          </div>
+          <div class="col-lg-6">
+            <div
+              id="chart_div_pie_member"
+              style="width: 100%; height: 400px"
+            ></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div
+              id="chart_div_column_label"
+              style="width: 100%; height: 400px"
+            ></div>
+          </div>
+          <div class="col-lg-6">
+            <div
+              id="chart_div_pie_label"
+              style="width: 100%; height: 400px"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <button
+      class="btn_scroll_top"
+      ng-show="showScrollTop"
+      ng-click="scrollToTop()"
+    >
+      <i class="fas fa-rocket"></i>
+    </button>
+  </div>
+</div>

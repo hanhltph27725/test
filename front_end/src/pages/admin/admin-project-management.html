@@ -1,0 +1,1181 @@
+<div id="main" class="main">
+  <div style="padding: 20px">
+    <h4>Quản lý dự án</h4>
+    <div class="container-fluid filter">
+      <section>
+        <div class="title_filter"><i class="fas fa-filter"></i> Bộ lọc</div>
+        <hr />
+        <div class="container" style="margin-top: 30px; text-align: center">
+          <div class="row">
+            <div
+              class="col-lg-6 col-md-12"
+              style="
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <div class="form-group col-md-6 col-12 d-flex align-items-center">
+                <span
+                  for=""
+                  style="font-size: 15px"
+                  class="fillter-name col-6 text-center"
+                  >Tên dự án:</span
+                >
+                <input
+                  type="text"
+                  style="font-size: 15px"
+                  class="form-control col-lg-6 col-sm-3"
+                  ng-model="formSearch.nameProject"
+                />
+              </div>
+            </div>
+            <div
+              class="col-lg-6 col-md-12"
+              style="
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <div class="form-group col-md-6 col-12 d-flex align-items-center">
+                <span
+                  for=""
+                  style="font-size: 15px"
+                  class="fillter-name col-6 text-center"
+                  >Thể loại:</span
+                >
+                <select
+                  style="font-size: 15px"
+                  class="form-control col-lg-6 col-sm-3"
+                  name=""
+                  id=""
+                  ng-model="formSearch.nameCategory"
+                >
+                  <option value="">Chọn thể loại</option>
+                  <option
+                    ng-repeat="cate in listIdCategory"
+                    value="{{cate.name}}"
+                  >
+                    {{cate.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 40px">
+            <div class="col-6" style="text-align: right">
+              <button class="btn btn-primary" ng-click="search()">
+                Tìm kiếm
+              </button>
+            </div>
+            <div class="col-6" style="text-align: left">
+              <button class="btn btn-danger" ng-click="clearInputSearch()">
+                Làm mới bộ lọc
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="container-fluid custom">
+      <!-- form seacrh -->
+      <!-- Content here -->
+      <!-- <div class="search-bar">
+      <form class="d-flex">
+        <input
+          class="form-control me-2"
+          type="text"
+          placeholder="Tìm kiếm theo mã SV, tên"
+          aria-label="Search"
+          style="width: 400px"
+          ng-model="input_search"
+        />
+        <button
+          class="btn btn-outline-success"
+          ng-click="search()"
+          type="button"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+    <br /> -->
+      <!-- Button trigger modal -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        ng-click="clearInputModalAdd()"
+      >
+        <i class="fas fa-plus"></i>
+        Thêm dự án
+      </button>
+      <!-- Modal thêm project -->
+      <table
+        class="table table-bordered m-table d-sm-table m-table--head-bg-primary"
+        style="text-align: center; margin-top: 20px"
+      >
+        <thead
+          style="
+            background-color: rgb(50, 121, 215);
+            color: white;
+            font-size: 15px;
+          "
+        >
+          <tr>
+            <td scope="col" style="display: none">ID</td>
+            <td scope="col">STT</td>
+            <td scope="col">Mã</td>
+            <td scope="col">Tên dự án</td>
+            <td scope="col">Tiến độ</td>
+            <td scope="col">Trạng thái</td>
+            <td scope="col">Ngày bắt đầu</td>
+            <td scope="col">Ngày kết thúc</td>
+            <td scope="col">Hành động</td>
+          </tr>
+        </thead>
+        <tbody style="font-size: 15px">
+          <tr ng-repeat="item in listProject ">
+            <td style="display: none">{{item.id}}</td>
+            <td>{{$index +1}}</td>
+            <td>{{item.code}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.progress}}%</td>
+            <td>
+              <span ng-if="item.statusProject == 0" class="span_da_hoan_thanh"
+                >Đã diễn ra</span
+              >
+              <span ng-if="item.statusProject == 1" class="span_da_dien_ra"
+                >Đang diễn ra</span
+              >
+              <span ng-if="item.statusProject == 2" class="span_chua_dien_ra"
+                >Chưa diễn ra</span
+              >
+            </td>
+            <td>{{item.startTime | date :'dd/MM/yyyy'}}</td>
+            <td>{{item.endTime | date :'dd/MM/yyyy'}}</td>
+            <td>
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModalDetail"
+                ng-click="detail($event,$index)"
+              >
+                <div class="btn_eye" data-toggle="tooltip" title="Xem chi tiết">
+                  <img src="../../../assets/img/eye-fill.svg" />
+                </div>
+              </a>
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModalUpdate"
+                ng-click="detail($event,$index)"
+              >
+                <div
+                  class="btn_pencil"
+                  data-toggle="tooltip"
+                  title="Sửa thông tin dự án"
+                >
+                  <img src="../../../assets/img/pencil-square.svg" />
+                </div>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <nav class="" aria-label="Page navigation example">
+        <ul class="pagination" style="float: right; margin-bottom: 20px">
+          <li
+            ng-click="currentPage > 0 ? actionPage(currentPage - 1) : null"
+            ng-class="{ 'disabled': currentPage === 0 }"
+            class="page-item"
+          >
+            <a class="page-link" href="" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li
+            ng-repeat="item in arrayPage"
+            ng-click="actionPage(item - 1)"
+            ng-class="{active: ($index === currentPage)}"
+            class="page-item"
+          >
+            <a class="page-link" href="">{{item}}</a>
+          </li>
+          <li
+            ng-click="totalPages - 1 > currentPage ? actionPage(currentPage + 1) : null"
+            ng-class="{ 'disabled': currentPage === totalPages - 1 }"
+            class="page-item"
+          >
+            <a class="page-link" href="" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Thêm dự án
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <!-- body model -->
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label style="font-size: 15px" for="">Mã dự án:</label>
+                  <input
+                    type="text"
+                    style="font-size: 15px"
+                    placeholder="Nhập mã dự án"
+                    class="form-control"
+                    id=""
+                    ng-model="form_project.code"
+                  />
+                  <small class="text-danger"><p>{{errorCodeAdd}}</p></small>
+                </div>
+                <div class="form-group">
+                  <label style="font-size: 15px" for="">Tên dự án:</label>
+                  <input
+                    type="text"
+                    style="font-size: 15px"
+                    placeholder="Nhập tên dự án"
+                    class="form-control"
+                    ng-model="form_project.name"
+                  />
+                  <small class="text-danger"><p>{{errorNameAdd}}</p></small>
+                </div>
+                <div class="form-group">
+                  <label style="font-size: 15px">Ngày bắt đầu:</label>
+                  <input
+                    class="form-control"
+                    style="font-size: 15px"
+                    type="date"
+                    ng-model="form_project.startTime"
+                  />
+                  <small class="text-danger"
+                    ><p>{{errorStartTimeAdd}}</p></small
+                  >
+                </div>
+                <div class="form-group">
+                  <label style="font-size: 15px">Ngày kết thúc:</label>
+                  <input
+                    class="form-control"
+                    type="date"
+                    style="font-size: 15px"
+                    ng-model="form_project.endTime"
+                  />
+                  <small class="text-danger"><p>{{errorEndTimeAdd}}</p></small>
+                </div>
+
+                <div class="form-group">
+                  <label style="font-size: 15px">Thể loại:</label>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-light dropdown-toggle form-control"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      style="font-size: 15px"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Chọn thể loại
+                    </button>
+                    <ul
+                      class="dropdown-menu custom"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li
+                        ng-repeat="cate in listIdCategory"
+                        class="li_dropdown_menu"
+                        ng-click="toggleCheckbox($event, cate.id)"
+                        style="font-size: 15px"
+                      >
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          ng-model="selectedCategories[cate.id]"
+                          id="flexCheckDefault"
+                          style="margin-right: 5px"
+                        />
+                        {{cate.name}}
+                      </li>
+                    </ul>
+                  </div>
+                  <small class="text-danger"><p>{{errorCategoryAdd}}</p></small>
+                </div>
+                <div class="mb-3">
+                  <label for="" class="form-label" style="font-size: 15px"
+                    >Mô tả dự án:</label
+                  >
+                  <textarea
+                    class="form-control"
+                    ng-model="form_project.descriptions"
+                    style="font-size: 15px"
+                    placeholder="Nhập mô tả dự án"
+                    name=""
+                    id=""
+                    rows="3"
+                  ></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Thoát
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                ng-click="addProject()"
+              >
+                Thêm
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="modal fade"
+        id="exampleModalUpdate"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Cập nhật dự án
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <!-- ------------- -->
+            <div class="row">
+              <div class="content-title" style="text-align: right">
+                <div class="list-member">
+                  <a
+                    ng-repeat-start="member in listMemberJoinProject | limitTo:4"
+                    data-toggle="tooltip"
+                    title="{{member.name}}"
+                    href=""
+                  >
+                    <img
+                      class="rounded-circle"
+                      width="30px"
+                      height="30px"
+                      src="{{member.image}}"
+                      alt=""
+                    />
+                  </a>
+                  <a ng-repeat-end></a>
+                  <a
+                    class="btn btn-success custom_button"
+                    class="btn-people"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal_showMember_update"
+                    role="button"
+                    style="margin: 7px"
+                    data-toggle="tooltip"
+                    title="Thêm thành viên"
+                  >
+                    <i class="bi bi-plus-circle custom"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <!-- body model -->
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <input
+                    type="hidden"
+                    class="form-control"
+                    id=""
+                    ng-model="form_project_update.id"
+                  />
+                </div>
+                <div class="form-group">
+                  <label style="font-size: 15px" for="">Mã dự án:</label>
+                  <input
+                    type="text"
+                    style="font-size: 15px"
+                    class="form-control"
+                    id=""
+                    ng-model="form_project_update.code"
+                  />
+                  <small class="text-danger"><p>{{errorCodeUpdate}}</p></small>
+                </div>
+                <div class="form-group">
+                  <label style="font-size: 15px" for="">Tên dự án:</label>
+                  <input
+                    type="text"
+                    style="font-size: 15px"
+                    class="form-control"
+                    ng-model="form_project_update.name"
+                  />
+                  <small class="text-danger"><p>{{errorNameUpdate}}</p></small>
+                </div>
+                <div class="form-group">
+                  <label style="font-size: 15px" for="start"
+                    >Ngày bắt đầu:</label
+                  >
+                  <input
+                    class="form-control"
+                    style="font-size: 15px"
+                    type="date"
+                    ng-model="form_project_update.startTime"
+                  />
+                  <small class="text-danger"
+                    ><p>{{errorStartTimeUpdate}}</p></small
+                  >
+                </div>
+                <div class="form-group">
+                  <label style="font-size: 15px" for="start"
+                    >Ngày kết thúc:</label
+                  >
+                  <input
+                    class="form-control"
+                    style="font-size: 15px"
+                    type="date"
+                    ng-model="form_project_update.endTime"
+                  />
+                  <small class="text-danger"
+                    ><p>{{errorEndTimeUpdate}}</p></small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <div class="form-group">
+                    <label style="font-size: 15px">Thể loại:</label>
+                    <div class="dropdown">
+                      <button
+                        class="btn btn-light dropdown-toggle form-control"
+                        type="button"
+                        id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown"
+                        style="font-size: 15px"
+                        aria-expanded="false"
+                      >
+                        Chọn thể loại
+                      </button>
+                      <ul
+                        class="dropdown-menu custom"
+                        aria-labelledby="dropdownMenuButton1"
+                      >
+                        <li
+                          ng-repeat="cate in listIdCategory"
+                          class="li_dropdown_menu"
+                          style="font-size: 15px"
+                          ng-click="toggleCheckboxUpdate($event, cate)"
+                        >
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            ng-model="cate.checkboxCategory"
+                            ng-change="updateDetail(cate.id)"
+                            id="flexCheckDefault"
+                            style="margin-right: 5px"
+                          />
+                          {{cate.name}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <small class="text-danger"><p>{{errorCategory}}</p></small>
+                </div>
+
+                <!-- <div class="form-group">
+                  <label style="font-size: 15px" for="">Mô tả dự án: </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    ng-model="form_project_update.descriptions"
+                  />
+                  <small class="text-danger"
+                    ><p>{{errorDescriptionsUpdate}}</p></small
+                  >
+                </div> -->
+                <div class="mb-3">
+                  <label for="" class="form-label" style="font-size: 15px"
+                    >Mô tả dự án:</label
+                  >
+                  <textarea
+                    ng-model="form_project_update.descriptions"
+                    style="font-size: 15px"
+                    class="form-control"
+                    name=""
+                    id=""
+                    rows="3"
+                  ></textarea>
+                </div>
+              </form>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Thoát
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  ng-click="Update($event)"
+                >
+                  Cập nhật
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal update project -->
+
+      <!-- Modal detail project -->
+      <div
+        class="modal fade"
+        id="exampleModalDetail"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg modal-lg" role="document">
+          <div class="modal-content">
+            <form id="form_member">
+              <div class="modal-header">
+                <h5 class="modal-title">Chi tiết dự án</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <br />
+              <div class="row">
+                <div class="content-title" style="text-align: right">
+                  <div class="list-member">
+                    <a
+                      ng-repeat-start="member in listMemberJoinProject | limitTo:4"
+                      data-toggle="tooltip"
+                      title="{{member.name}}"
+                      href=""
+                    >
+                      <img
+                        class="rounded-circle"
+                        width="30px"
+                        height="30px"
+                        src="{{member.image}}"
+                        alt=""
+                      />
+                    </a>
+                    <a ng-repeat-end></a>
+                    <a
+                      href="#"
+                      class="btn_eye_member"
+                      style="float: right; margin-left: 5px; margin-right: 5px"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modal_showMember_join_project"
+                      ng-click="detail($event,$index)"
+                    >
+                      <div
+                        class="btn_eye"
+                        data-toggle="tooltip"
+                        title="Xem chi tiết thành viên"
+                      >
+                        <img src="../../../assets/img/eye-fill.svg" />
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-6">
+                      <label style="font-size: 15px">Mã dự án:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="font-size: 15px"
+                        name=""
+                        ng-model="form_project_update.code"
+                        id=""
+                        readonly
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label style="font-size: 15px"> Ngày bắt đầu:</label>
+                      <input
+                        type="date"
+                        style="font-size: 15px"
+                        class="form-control"
+                        name=""
+                        ng-model="form_project_update.startTime"
+                        id=""
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col-6">
+                      <label style="font-size: 15px"> Tên dự án:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="font-size: 15px"
+                        name=""
+                        ng-model="form_project_update.name"
+                        id=""
+                        readonly
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label style="font-size: 15px"> Ngày kết thúc:</label>
+                      <input
+                        type="date"
+                        style="font-size: 15px"
+                        class="form-control"
+                        name=""
+                        ng-model="form_project_update.endTime"
+                        id=""
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="col-6">
+                      <label style="font-size: 15px"> Thể loại :</label>
+                      <div class="dropdown">
+                        <button
+                          class="btn btn-light dropdown-toggle form-control"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                          style="font-size: 15px"
+                        >
+                          Thể loại dự án
+                        </button>
+                        <ul
+                          class="dropdown-menu custom"
+                          aria-labelledby="dropdownMenuButton1"
+                        >
+                          <li
+                            ng-repeat="cate in listIdCategory"
+                            class="li_dropdown_menu"
+                            style="font-size: 15px"
+                          >
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              ng-model="selectedCategories[cate.id]"
+                              ng-checked="cate.checkboxCategory"
+                              id="flexCheckDefault"
+                              style="margin-right: 5px"
+                            />
+                            {{cate.name}}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <label style="font-size: 15px"> Trạng thái:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="font-size: 15px"
+                        name=""
+                        id=""
+                        value=" {{form_project_update.statusProject == 1 ? 'Chưa diễn ra' : (form_project_update.statusProject == 0 ?
+                            'Đang diễn ra' :'Đã hoàn thành' )}}"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6" style="margin-top: 10px">
+                      <label style="font-size: 15px">Tiến độ dự án:</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        style="font-size: 15px"
+                        name=""
+                        ng-model="form_project_update.progress"
+                        id=""
+                        readonly
+                      />
+                    </div>
+
+                    <div class="col-6" style="margin-top: 10px">
+                      <div class="mb-3">
+                        <label
+                          for=""
+                          class="form-label"
+                          style="font-size: 15px"
+                        >
+                          Mô tả dự án:</label
+                        >
+                        <textarea
+                          ng-model="form_project_update.descriptions"
+                          readonly
+                          style="font-size: 15px"
+                          class="form-control"
+                          name=""
+                          id=""
+                          rows="3"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Hủy
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- modal thêm  thành viên  -->
+      <div
+        class="modal fade"
+        id="modal_showMember"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg modal-lg" role="document">
+          <div class="modal-content">
+            <form id="form_member">
+              <div class="modal-header">
+                <h5 class="modal-title">Danh sách các thành viên</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="container">
+                  <!-- search merber  -->
+                  <input
+                    class="form-control me-2"
+                    type="text"
+                    ng-model="searchtxt.name "
+                    placeholder="Tìm kiếm theo mã SV, tên"
+                    aria-label="Search"
+                    style="width: 400px"
+                  />
+                  <div class="custom_member" style="margin-top: 10px">
+                    <table class="table table-borderless">
+                      <thead>
+                        <tr>
+                          <th scope="col" style="display: none">ID</th>
+                          <th scope="col"></th>
+                          <th scope="col">Họ và tên</th>
+                          <th scope="col">Chức vụ</th>
+                          <th scope="col">Vị trí</th>
+                          <th scope="col">Thêm thành viên</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- <tr ng-repeat="member in listMemberById  | filter : searchtxt "> -->
+                        <tr
+                          ng-repeat="member in filteredItems = (listMemberById | filter: searchtxt )"
+                        >
+                          <td style="display: none">{{member.id}}</td>
+                          <td>
+                            <img
+                              class="rounded-circle"
+                              width="50px"
+                              height="50px"
+                              src="{{member.image}}"
+                              alt=""
+                            />
+                          </td>
+                          <td>{{member.name}}</td>
+                          <td>
+                            {{member.role == 0 ? "Quản lý" : "Thành viên"}}
+                          </td>
+                          <td>
+                            <select
+                              style="font-size: 15px"
+                              class="form-control col-lg-6 col-sm-3"
+                              name=""
+                              id="valueSelectedRoleAdd"
+                            >
+                              <option selected value="">Mời chọn vị trí</option>
+                              <option value="0">MANAGER</option>
+                              <option value="1">LEADER</option>
+                              <option value="2">DEV</option>
+                              <option value="3">TESTER</option>
+                            </select>
+                          </td>
+                          <td>
+                            <input
+                              type="checkbox"
+                              style="
+                                width: 20px;
+                                height: 20px;
+                                margin-left: 50px;
+                              "
+                              class="checkBoxMemberAdd"
+                              ng-click="toggleSelection(member, $index)"
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  ng-click="addMemberProject($event)"
+                >
+                  Thêm
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- modal thành viên đã tham gia dự án  -->
+      <div
+        class="modal fade"
+        id="modal_showMember_join_project"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg modal-lg" role="document">
+          <div class="modal-content">
+            <form id="form_member">
+              <div class="modal-header">
+                <h5 class="modal-title">
+                  Danh sách các thành viên tham gia dự án
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="container">
+                  <div class="custom_member">
+                    <table class="table table-borderless">
+                      <tbody>
+                        <tr ng-repeat="member in listMemberJoinProject">
+                          <td>
+                            <img
+                              class="rounded-circle"
+                              width="50px"
+                              height="50px"
+                              src="{{member.image}}"
+                              alt=""
+                            />
+                          </td>
+                          <td>{{member.name}}</td>
+                          <td>
+                            {{member.role == 0 ? "Quản lý" : "Thành viên"}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Hủy
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- model upate thành vien  -->
+      <div
+        class="modal fade"
+        id="modal_showMember_update"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg modal-lg" role="document">
+          <div class="modal-content">
+            <form id="form_member">
+              <div class="modal-header">
+                <h5 class="modal-title">
+                  Danh sách các thành viên đang tham gia dự án
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="container">
+                  <!-- search merber  -->
+                  <input
+                    class="form-control me-2"
+                    type="text"
+                    ng-model="searchtxt.name"
+                    placeholder="Tìm kiếm theo mã SV, tên"
+                    aria-label="Search"
+                    style="width: 400px"
+                  />
+                  <br />
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal_showMember_add_member"
+                  >
+                    Thêm thành viên
+                  </button>
+
+                  <div class="custom_member">
+                    <table class="table table-borderless">
+                      <thead>
+                        <tr>
+                          <th scope="col" style="display: none">ID</th>
+                          <th scope="col"></th>
+                          <th scope="col">Họ và tên</th>
+                          <th scope="col">Chức vụ</th>
+                          <th scope="col">Hành động</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- <tr ng-repeat="member in listMemberById  | filter : searchtxt "> -->
+                        <tr
+                          ng-repeat="member in filteredItems = (listMemberJoinProject | filter: searchtxt )"
+                        >
+                          <td style="display: none">{{member.id}}</td>
+                          <td>
+                            <img
+                              class="rounded-circle"
+                              width="50px"
+                              height="50px"
+                              src="{{member.image}}"
+                              alt=""
+                            />
+                          </td>
+                          <td>{{member.name}}</td>
+                          <td>
+                            {{member.role == 0 ? "Quản lý" : "Thành viên"}}
+                          </td>
+                          <td>
+                            <button
+                              class="btn_nghi_viec_custom"
+                              id="button1"
+                              ng-click="deleteMenberJoinProject($event,listMemberJoinProject.indexOf(member)) "
+                              href="#"
+                              data-toggle="tooltip"
+                              title="Nghỉ việc"
+                              role="button"
+                            >
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  ng-click="loadDeleteMemberProject($event)"
+                >
+                  Cập nhật
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="modal_showMember_add_member"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg modal-lg" role="document">
+          <div class="modal-content">
+            <form id="form_member">
+              <div class="modal-header">
+                <h5 class="modal-title">Danh sách các thành viên</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="container">
+                  <!-- search merber  -->
+                  <input
+                    class="form-control me-2"
+                    type="text"
+                    ng-model="searchtxt.name"
+                    placeholder="Tìm kiếm theo mã SV, tên"
+                    aria-label="Search"
+                    style="width: 400px"
+                  />
+                  <div class="custom_member" style="margin-top: 10px">
+                    <table class="table table-borderless">
+                      <thead>
+                        <tr>
+                          <th scope="col" style="display: none">ID</th>
+                          <th scope="col"></th>
+                          <th scope="col">Họ và tên</th>
+                          <th scope="col">Chức vụ</th>
+                          <th scope="col">Vị trí</th>
+                          <th scope="col">Thêm thành viên</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- <tr ng-repeat="member in listMemberById  | filter : searchtxt "> -->
+                        <tr
+                          ng-repeat="member in filteredItems = (listMemberNotJoinProject | filter: searchtxt )"
+                        >
+                          <td style="display: none">{{member.id}}</td>
+                          <td>
+                            <img
+                              class="rounded-circle"
+                              width="50px"
+                              height="50px"
+                              src="{{member.image}}"
+                              alt=""
+                            />
+                          </td>
+                          <td>{{member.name}}</td>
+                          <td>
+                            {{member.role == 0 ? "Quản lý" : "Thành viên"}}
+                          </td>
+                          <td>
+                            <select
+                              style="font-size: 15px"
+                              class="form-control col-lg-6 col-sm-3"
+                              name=""
+                              id="valueSelectedRole"
+                            >
+                              <option selected value="">Mời chọn vị trí</option>
+                              <option value="0">MANAGER</option>
+                              <option value="1">LEADER</option>
+                              <option value="2">DEV</option>
+                              <option value="3">TESTER</option>
+                            </select>
+                          </td>
+                          <td>
+                            <input
+                              type="checkbox"
+                              style="
+                                width: 20px;
+                                height: 20px;
+                                margin-left: 50px;
+                              "
+                              class="checkBoxMemberUpdate"
+                              ng-click="toggleSelectionUpdate(member, $index)"
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  ng-click="addMemberProjectUpdate($event);"
+                >
+                  Cập nhật
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

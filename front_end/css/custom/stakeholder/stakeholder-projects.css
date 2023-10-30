@@ -1,0 +1,90 @@
+body{
+  margin-top:20px;
+  background-color: #f7f7fc;
+  overflow-y: auto;
+  }
+
+  .card-subtitle, .card-title {
+      font-weight: 400;
+  }
+  .card-title {
+      font-size: .875rem;
+      color: #495057;
+  }
+  .card {
+      margin-bottom: 24px;
+      box-shadow: 0 0 0.875rem 0 rgba(33,37,41,.05);
+  }
+  .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      background-color: #fff;
+      background-clip: initial;
+      border: 0 solid transparent;
+      border-radius: .25rem;
+  }
+  .card-body {
+      flex: 1 1 auto;
+      padding: 1.25rem;
+  }
+  .card-header:first-child {
+      border-radius: .25rem .25rem 0 0;
+  }
+  .card-header {
+      border-bottom-width: 1px;
+  }
+  .pb-0 {
+      padding-bottom: 0!important;
+  }
+  .card-header {
+      padding: 1rem 1.25rem;
+      margin-bottom: 0;
+      background-color: #fff;
+      border-bottom: 0 solid transparent;
+  }
+  .nameProject{
+        font-size: 20px;
+        font-weight: 500;
+  }
+  /* ---------------------------------- */
+  .card{
+    display: block;
+    top: 0px;
+    position: relative;
+    border-radius: 10px;
+    text-decoration: none;
+    z-index: 0;
+    overflow: hidden;
+    border: 1px solid #f2f8f9;
+  
+    &:hover {
+      transition: all 0.2s ease-out;
+      box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+      top: -4px;
+      border: 1px solid #cccccc;
+      background-color: white;
+    }
+  
+    &:before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      background: #00838d;
+      border-radius: 32px;
+      transform: scale(2);
+      transform-origin: 50% 50%;
+      transition: transform 0.15s ease-out;
+    }
+  
+    &:hover:before {
+      transform: scale(2.15);
+    }
+  }
+  form{
+    padding: 12px 0px 13px 0px;
+  }
+  
+ 

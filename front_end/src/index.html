@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myModule">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Portal Project | FPT Polytechnic</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+    <!-- stakeholder ST -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Favicons -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/img/favicon_ptpm.png"
+    />
+    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="../lib/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../lib/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../js/plugin/toastr/build/toastr.css" />
+    <link rel="stylesheet" href="../lib/fontawesome/all.css" />
+    <link href="../lib/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="//cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../css/custom/style.css" />
+  </head>
+  <body ng-controller="myCtrl">
+    <!-- <header ng-include="'./layout/header.html'"></header> -->
+    <div ng-include="'./layout/loading.html'"></div>
+    <header>
+      <div id="header" class="header fixed-top d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
+          <a class="logo d-flex align-items-center">
+            <img
+              style="width: 100px; height: 80px"
+              src="../assets/img/3.png"
+              alt=""
+            />
+            <span
+              class="d-none d-lg-block"
+              style="font-size: 28px; color: white"
+              >Projects</span
+            >
+          </a>
+          <i style="color: white" class="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+        <!-- End Logo -->
+
+        <div class="search-bar">
+          <form
+            class="search-form d-flex align-items-center"
+            method="POST"
+            action="#"
+          >
+            <input
+              type="text"
+              name="query"
+              placeholder="Search"
+              title="Enter search keyword"
+            />
+            <button type="submit" title="Search">
+              <i class="bi bi-search"></i>
+            </button>
+          </form>
+        </div>
+        <!-- End Search Bar -->
+
+        <nav class="header-nav ms-auto">
+          <ul class="d-flex align-items-center">
+            <li class="nav-item d-block d-lg-none">
+              <a class="nav-link nav-icon search-bar-toggle" href="#">
+                <i class="bi bi-search"></i>
+              </a>
+            </li>
+            <!-- End Search Icon-->
+
+            <li class="nav-item dropdown">
+              <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                <i style="color: white" class="bi bi-bell"></i>
+                <span
+                  ng-if="countNotificationMember > 0"
+                  class="badge bg-primary badge-number"
+                  >{{countNotificationMember}}</span
+                > </a
+              ><!-- End Notification Icon -->
+
+              <ul
+                ng-click="stopEvent($event)"
+                class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
+              >
+                <li
+                  class="dropdown-header"
+                  style="width: 300px; font-weight: 500"
+                >
+                  Thông báo
+                  <!-- <a href="#"
+                      ><span class="badge rounded-pill bg-primary p-2 ms-2"
+                        >View all</span
+                      ></a
+                    > -->
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <div ng-repeat="item in listNotification">
+                  <a
+                    href="{{item.url}}"
+                    ng-click="updateStatusNotificationMember(item, item.id)"
+                  >
+                    <li class="notification-item" style="cursor: pointer">
+                      <i class="fas fa-comment fa-lg"></i>
+                      <div style="margin-left: 10px">
+                        <p
+                          ng-class="{'bold-text': item.status === 0}"
+                          style="font-size: 14px"
+                        >
+                          {{item.content}}
+                        </p>
+                        <p ng-class="{'bold-text': item.status === 0}">
+                          {{item.convertDate}}
+                        </p>
+                      </div>
+                    </li>
+                  </a>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                </div>
+                <li
+                  ng-if="totalPagesNotification > 1 && totalPagesNotification - 1 > currentPageNotification"
+                  style="text-align: center"
+                >
+                  <span
+                    ng-click="showMoreNotification()"
+                    style="
+                      font-size: 14px;
+                      text-decoration: underline;
+                      cursor: pointer;
+                    "
+                    >Xem thêm</span
+                  >
+                </li>
+                <li ng-if="totalPagesNotification == 0" style="text-align: center; font-size: 15px; margin-top: 10px;"><span>Bạn chưa có thông báo nào !</span></li>
+              </ul>
+              <!-- End Notification Dropdown Items -->
+            </li>
+            <!-- End Notification Nav -->
+
+            <!-- End Messages Nav -->
+
+            <li class="nav-item dropdown pe-3">
+              <a
+                class="nav-link nav-profile d-flex align-items-center pe-0"
+                href="#"
+                data-bs-toggle="dropdown"
+              >
+                <img
+                  src="../assets/img/anh1.jpg"
+                  alt="Profile"
+                  class="rounded-circle"
+                />
+                <span
+                  style="color: white"
+                  class="d-none d-md-block dropdown-toggle ps-2"
+                  >Công Thắng</span
+                > </a
+              ><!-- End Profile Iamge Icon -->
+
+              <ul
+                class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
+              >
+                <li class="dropdown-header">
+                  <h6>Nguyễn Công Thắng</h6>
+                  <span>Java Developer</span>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center"
+                    href="users-profile.html"
+                  >
+                    <i class="bi bi-person"></i>
+                    <span>My Profile</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center"
+                    href="users-profile.html"
+                  >
+                    <i class="bi bi-gear"></i>
+                    <span>Account Settings</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center"
+                    href="pages-faq.html"
+                  >
+                    <i class="bi bi-question-circle"></i>
+                    <span>Need Help?</span>
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+
+                <li>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Sign Out</span>
+                  </a>
+                </li>
+              </ul>
+              <!-- End Profile Dropdown Items -->
+            </li>
+            <!-- End Profile Nav -->
+          </ul>
+        </nav>
+        <!-- End Icons Navigation -->
+      </div>
+    </header>
+    <!-- <aside ng-include="'./layout/menu.html'"></aside> -->
+    <aside>
+      <div id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+          <li class="nav-heading">Admin</li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#admin/project-management">
+              <i class="bi bi-person"></i>
+              <span>Quản lý dự án</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#admin/category-management">
+              <i class="bi bi-person"></i>
+              <span>Quản lý thể loại</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#admin/label-management">
+              <i class="bi bi-person"></i>
+              <span>Quản lý nhãn</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#admin/stakeholder-management">
+              <i class="bi bi-person"></i>
+              <span>Quản lý bên liên quan</span>
+            </a>
+          </li>
+          <li class="nav-heading">Member</li>
+          <li class="nav-item">
+            <a
+              class="nav-link collapsed"
+              href="#member/project-is-participating"
+            >
+              <i class="bi bi-person"></i>
+              <span>Dự án của tôi</span>
+            </a>
+          </li>
+          <li class="nav-heading">BLQ</li>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#stakeholder/projects">
+              <i class="bi bi-person"></i>
+              <span>Danh sách dự án</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    <section ng-view></section>
+    <!-- <footer ng-include="'./layout/footer.html'"></footer> -->
+    <!-- <footer> -->
+    <!-- <div id="footer" class="footer"> -->
+    <!-- <div class="copyright"> -->
+    <!-- &copy; Copyright <strong><span>Portal Projects - 2023</span></strong -->
+    <!-- >. All Rights Reserved -->
+    <!-- </div> -->
+    <!-- <div class="credits"> -->
+    <!-- All the links in the footer should remain intact. -->
+    <!-- You can delete the links only if you purchased the pro version. -->
+    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+    <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+    <!-- Designed by <a href="https://bootstrapmade.com/">Portal-Projects</a> -->
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- </footer> -->
+
+    <!-- Thư viện -->
+    <script type="text/javascript" src="../lib/api-google/loader.js"></script>
+    <script src="../lib/progress-bar/progress-bar.js"></script>
+    <script src="../lib/fontawesome/all.js"></script>
+    <script src="../lib/angular.js"></script>
+    <!-- 10 -->
+    <script src="../lib/angular-route.js"></script>
+    <!-- 11 -->
+    <script src="../lib/angular-css/angular-css.js"></script>
+    <!-- 12 -->
+    <script src="../js/plugin/jquery/dist/jquery.js"></script>
+
+    <script src="../lib/bundle/bundle.js"></script>
+
+    <script src="../lib/bootbox/bootbox.js"></script>
+
+    <script src="../js/plugin/toastr/build/toastr.min.js"></script>
+
+    <script src="../lib/vendor/tinymce/tinymce.min.js"></script>
+    <!-- 8 -->
+    <script src="../js/custom/main.js"></script>
+    <!-- 9 -->
+    <script src="../lib/angular.js"></script>
+    <!-- 10 -->
+    <script src="../lib/angular-route.js"></script>
+    <!-- 11 -->
+    <script src="../lib/angular-css/angular-css.js"></script>
+    <!-- 12 -->
+    <script src="../lib/angular-dragdrop/src/angular-dragdrop.min.js"></script>
+
+    <script src="../lib/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js"></script>
+
+    <script src="../lib/angular-websocket/dist/angular-websocket.js"></script>
+
+    <script src="../lib/sockjs-client/dist/sockjs.min.js"></script>
+
+    <script src="../lib/stompjs/lib/stomp.js"></script>
+
+    <script src="../lib/angular-select2/angular-select2.js"></script>
+
+    <script src="../lib/lodash/lodash.js"></script>
+
+    <script src="../lib/quill/quill.js"></script>
+
+    <script src="../lib/ng-file-upload-12.2.3/dist/ng-file-upload.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- 13 -->
+    <script src="https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js"></script>
+    <!-- 14 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-resource.min.js"></script>
+    <!-- 15 -->
+    <script src="./app.js"></script>
+    <!-- API -->
+    <script src="./config/api-admin.js"></script>
+    <script src="./config/api-member.js"></script>
+    <script src="./config/api-stakeholder.js"></script>
+    <script src="./controller/main.js"></script>
+    <!-- Service -->
+    <script src="./service/member/me-project-service.js"></script>
+    <script src="./service/member/me-member-service.js"></script>
+    <script src="./service/member/me-resource-service.js"></script>
+    <script src="./service/member/me-period-service.js"></script>
+    <script src="./service/admin/ad-project-service.js"></script>
+    <script src="./service/admin/ad-Adminlabel-service.js"></script>
+    <script src="./service/admin/ad-category-server.js"></script>
+    <script src="./service/admin/ad-stakeholder-service.js"></script>
+    <script src="./service/member/me-todo-service.js"></script>
+    <script src="./service/member/me-assign-service.js"></script>
+    <script src="./service/member/me-label-service.js"></script>
+    <script src="./service/member/me-member-project-service.js"></script>
+    <script src="./service/member/me-label-todo-service.js"></script>
+    <script src="./service/member/me-todo-list-service.js"></script>
+    <script src="./service/member/me-todo-todolist-helper.js"></script>
+    <script src="./service/member/me-activity-service.js"></script>
+    <script src="./service/member/me-comment-service.js"></script>
+    <script src="./service/member/me-image-service.js"></script>
+    <script src="./service/member/me-notification-member-service.js"></script>
+    <script src="./service/member/me-dashboard-service.js"></script>
+    <script src="./service/stakeholder/st-stakeholder-projects-detail-service.js"></script>
+    <script src="./service/stakeholder/st-stakeholder-projects-service.js"></script>
+    <!-- Component -->
+    <script src="./component/member/js/todo/me-todo-component.js"></script>
+    <script src="./component/member/js/period/me-period-component.js"></script>
+    <script src="./component/member/js/todo-list/me-todo-list-component.js"></script>
+    <script src="./component/member/js/member-project/me-member-project-component.js"></script>
+    <script src="./component/member/js/assign/me-assign-component.js"></script>
+    <script src="./component/member/js/label/me-label-component.js"></script>
+    <script src="./component/member/js/member/me-member-component.js"></script>
+    <script src="./component/member/js/project/me-project-component.js"></script>
+    <script src="./component/member/js/activity/me-activity-component.js"></script>
+    <script src="./component/member/js/stom-client/stom-client-component.js"></script>
+    <script src="./component/member/js/comment/me-comment-component.js"></script>
+    <script src="./component/member/js/image/me-image-component.js"></script>
+    <script src="./component/member/js/resource/me-resource-component.js"></script>
+    <script src="./component/member/js/viewtable/view-table.js"></script>
+    <!-- Controller -->
+    <script src="./controller/admin/admin-project-management.js"></script>
+    <script src="./controller/admin/admin-project-management-detail.js"></script>
+    <script src="./controller/admin/admin-stakeholder-management.js"></script>
+    <script src="./controller/admin/admin-label-management.js"></script>
+    <script src="./controller/admin/admin-category-management.js"></script>
+    <script src="./controller/member/member-project-is-participating.js"></script>
+    <script src="./controller/member/member-project-is-participating-detail.js"></script>
+    <script src="./controller/member/member-period-project.js"></script>
+    <script src="./controller/stakeholder/stakeholder-projects.js"></script>
+    <script src="./controller/stakeholder/stakeholder-projects-detail.js"></script>
+    <script src="./controller/member/dashboard.js"></script>
+    <!-- Route -->
+    <script src="./route.js"></script>
+  </body>
+</html>

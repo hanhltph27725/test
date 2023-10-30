@@ -1,0 +1,548 @@
+<div id="main" class="main">
+  <div style="padding: 20px">
+    <h4>Quản lý các bên liên quan</h4>
+    <div class="container-fluid filter">
+      <section>
+        <div class="title_filter"><i class="fas fa-filter"></i> Bộ lọc</div>
+        <hr />
+        <div class="container" style="margin-top: 30px; text-align: center">
+          <div class="row">
+            <div
+              class="col-6"
+              style="
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <div class="form-group col-md-6 col-12 d-flex align-items-center">
+                <span
+                  for=""
+                  style="font-size: 15px"
+                  class="fillter-name col-6 text-center"
+                  >Mã:</span
+                >
+                <input
+                  type="text"
+                  class="form-control col-lg-6 col-sm-3"
+                  ng-model="input_searchUser"
+                />
+              </div>
+            </div>
+            <div
+              class="col-6"
+              style="
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <div class="form-group col-md-6 col-12 d-flex align-items-center">
+                <span
+                  for=""
+                  style="font-size: 15px"
+                  class="fillter-name col-6 text-center"
+                  >Tên bên liên quan:</span
+                >
+                <input
+                  type="text"
+                  class="form-control col-lg-6 col-sm-3"
+                  ng-model="input_searchName"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 40px">
+            <div class="col-6" style="text-align: right">
+              <button class="btn btn-primary" ng-click="searchStakeholder()">
+                Tìm kiếm
+              </button>
+            </div>
+            <div class="col-6" style="text-align: left">
+              <button class="btn btn-danger" ng-click="clearBoLoc()">
+                Làm mới bộ lọc
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="container-fluid stakeholder">
+      <button
+        class="btn btn-primary btn-add-product"
+        data-bs-toggle="modal"
+        data-bs-target="#stakeholderModal"
+        ng-click="clearModal()"
+      >
+        <i class="fas fa-plus"></i>
+        Thêm bên liên quan
+      </button>
+      <table
+      class="table table-bordered m-table d-sm-table m-table--head-bg-primary"
+        style="text-align: center; margin-top: 20px"
+      >
+        <thead
+          style="
+            background-color: rgb(50, 121, 215);
+            color: white;
+            font-size: 15px;
+          "
+        >
+          <tr>
+            <th scope="col" style="display: none; font-weight: 400;">ID</th>
+            <th scope="col" style="font-weight: 400;">STT</th>
+            <th scope="col" style="font-weight: 400;">Tài khoản</th>
+            <th scope="col" style="font-weight: 400;">Họ và tên</th>
+            <th scope="col" style="font-weight: 400;">SĐT</th>
+            <!-- <th scope="col">EmailFE</th> -->
+            <th scope="col" style="font-weight: 400;">Email FPT</th>
+            <th scope="col" style="font-weight: 400;">Hành động</th>
+          </tr>
+        </thead>
+        <tbody style="font-size: 15px">
+          <tr ng-repeat="item in listStakeholder">
+            <td style="display: none">{{item.id}}</td>
+            <td>{{item.stt}}</td>
+            <td>{{item.userName}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.phoneNumber}}</td>
+            <!-- <td>{{item.emailFe}}</td> -->
+            <td>{{item.emailFpt}}</td>
+            <td>
+              <a
+                href="#"
+                id="btnView"
+                data-bs-toggle="modal"
+                data-bs-target="#stakeholderModalDetail"
+                ng-click="detailStakeholder($event,$index)"
+              >
+                <div class="btn_eye" data-toggle="tooltip" title="Xem chi tiết">
+                  <img src="../../../assets/img/eye-fill.svg" />
+                </div>
+              </a>
+              <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#stakeholderModalUpdate"
+                ng-click="detailStakeholder($event,$index)"
+                id="btnUpdate"
+              >
+                <div
+                  class="btn_pencil"
+                  data-toggle="tooltip"
+                  title="Sửa thông tin stakeholder"
+                >
+                  <img src="../../../assets/img/pencil-square.svg" />
+                </div>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <nav class="" aria-label="Page navigation example">
+        <ul class="pagination" style="float: right; margin-bottom: 20px">
+          <li
+            ng-click="currentPage > 0 ? actionPage(currentPage - 1) : null"
+            ng-class="{ 'disabled': currentPage === 0 }"
+            class="page-item"
+          >
+            <a class="page-link" href="" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li
+            ng-repeat="item in arrayPage"
+            ng-click="actionPage(item - 1)"
+            ng-class="{active: ($index === currentPage)}"
+            class="page-item"
+          >
+            <a class="page-link" href="">{{item}}</a>
+          </li>
+          <li
+            ng-click="totalPages - 1 > currentPage ? actionPage(currentPage + 1) : null"
+            ng-class="{ 'disabled': currentPage === totalPages - 1 }"
+            class="page-item"
+          >
+            <a class="page-link" href="" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- modal add stakeholder -->
+      <div
+        class="modal fade"
+        id="stakeholderModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="productModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="productModalLabel">
+                Thêm bên liên quan
+              </h5>
+            </div>
+
+            <form ng-submit="addStakeholder()" method="post" id="frmProduct">
+              <div class="modal-body">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >Tài khoản</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="font-size: 15px"
+                      placeholder="Nhập tài khoản"
+                      ng-model="form_stakeholder.username"
+                      name="username"
+                      id="user"
+                    />
+                    <small class="text-danger"><p>{{error_username}}</p></small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >Họ và tên</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      style="font-size: 15px"
+                      class="form-control"
+                      placeholder="Nhập họ và tên"
+                      ng-model="form_stakeholder.name"
+                      name="name"
+                      id="name"
+                    />
+                    <small class="text-danger"><p>{{error_name}}</p></small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >SĐT</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="font-size: 15px"
+                      placeholder="Nhập số điện thoại"
+                      ng-model="form_stakeholder.phoneNumber"
+                      name="phoneNumber"
+                      id="phone"
+                    />
+                    <small class="text-danger"><p>{{error_phone}}</p></small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >Email FE</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      style="font-size: 15px"
+                      class="form-control"
+                      placeholder="Nhập email FE"
+                      ng-model="form_stakeholder.emailFE"
+                      name="emailFE"
+                      id="emailFe"
+                    />
+                    <small class="text-danger"><p>{{error_emailFe}}</p></small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >Email FPT</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="font-size: 15px"
+                      placeholder="Nhập email FPT"
+                      ng-model="form_stakeholder.emailFPT"
+                      name="emailFPT"
+                      id="emailFpt"
+                    />
+                    <small class="text-danger"><p>{{error_emailFpt}}</p></small>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                  ng-click="clearModal()"
+                >
+                  Hủy
+                </button>
+                <button type="submit" class="btn btn-primary btn-submit">
+                  Thêm
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- modal update stakeholder -->
+      <div
+        class="modal fade"
+        id="stakeholderModalUpdate"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="productModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="productModalLabel">
+                Cập nhật thông tin
+              </h5>
+            </div>
+
+            <form
+              id="frmProduct"
+              ng-submit="updateStakeholder($event)"
+              method="put"
+            >
+              <div class="modal-body">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >Tài khoản</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="font-size: 15px"
+                      placeholder="Nhập tài khoản"
+                      ng-model="form_stakeholder.username"
+                      name="username"
+                      id="user"
+                    />
+                    <small class="text-danger"><p>{{error_username}}</p></small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >Họ và tên</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="font-size: 15px"
+                      placeholder="Nhập tên"
+                      ng-model="form_stakeholder.name"
+                      name="name"
+                      id="name"
+                    />
+                    <small class="text-danger"><p>{{error_name}}</p></small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >SĐT</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="font-size: 15px"
+                      placeholder="Nhập số điện thoại"
+                      ng-model="form_stakeholder.phoneNumber"
+                      name="phoneNumber"
+                      id="phone"
+                    />
+                    <small class="text-danger"><p>{{error_phone}}</p></small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >Email FE</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      style="font-size: 15px"
+                      class="form-control"
+                      placeholder="Nhập email FE"
+                      ng-model="form_stakeholder.emailFE"
+                      name="emailFE"
+                      id="emailFe"
+                    />
+                    <small class="text-danger"><p>{{error_emailFe}}</p></small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >Email FPT</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="font-size: 15px"
+                      placeholder="Nhập email FPT"
+                      ng-model="form_stakeholder.emailFPT"
+                      name="emailFPT"
+                      id="emailFpt"
+                    />
+                    <small class="text-danger"><p>{{error_emailFpt}}</p></small>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                  ng-click="clearModal()"
+                >
+                  Hủy
+                </button>
+                <button type="submit" class="btn btn-primary btn-submit">
+                  Cập nhật
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- modal detail stakeholder -->
+      <div
+        class="modal fade"
+        id="stakeholderModalDetail"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="productModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="productModalLabel">
+                Thông tin bên liên quan
+              </h5>
+            </div>
+
+            <form
+              id="frmProduct"
+              ng-submit="updateStakeholder($event)"
+              method="put"
+            >
+              <div class="modal-body">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >Tài khoản</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      style="font-size: 15px"
+                      class="form-control"
+                      placeholder="Nhập tài khoản"
+                      ng-model="form_stakeholder.username"
+                      name="username"
+                      id="user"
+                    />
+                    <small class="text-danger"><p>{{error_username}}</p></small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >Họ và tên</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="font-size: 15px"
+                      placeholder="Họ và Nhập tên"
+                      ng-model="form_stakeholder.name"
+                      name="name"
+                      id="name"
+                    />
+                    <small class="text-danger"><p>{{error_name}}</p></small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >SĐT</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="font-size: 15px"
+                      placeholder="Nhập số điện thoại"
+                      ng-model="form_stakeholder.phoneNumber"
+                      name="phoneNumber"
+                      id="phone"
+                    />
+                    <small class="text-danger"><p>{{error_phone}}</p></small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >Email FE</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="font-size: 15px"
+                      placeholder="Nhập email FE"
+                      ng-model="form_stakeholder.emailFE"
+                      name="emailFE"
+                      id="emailFe"
+                    />
+                    <small class="text-danger"><p>{{error_emailFe}}</p></small>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label" style="font-size: 15px"
+                    >Email FPT</label
+                  >
+                  <div class="col-sm-8">
+                    <input
+                      type="text"
+                      style="font-size: 15px"
+                      class="form-control"
+                      placeholder="Nhập email FPT"
+                      ng-model="form_stakeholder.emailFPT"
+                      name="emailFPT"
+                      id="emailFpt"
+                    />
+                    <small class="text-danger"><p>{{error_emailFpt}}</p></small>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                  ng-click="clearModal()"
+                >
+                  Hủy
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,91 @@
+.title_project {
+  float: left;
+}
+
+#main {
+  padding: 20px;
+}
+
+body {
+  /* font-family: "Open Sans", sans-serif; */
+  font-family: var(--bs-body-font-family);
+  font-size: var(--bs-body-font-size);
+  font-weight: var(--bs-body-font-weight);
+  background: #f6f9ff;
+  color: #444444;
+  height: calc(100vh - 110px);
+}
+
+.title_project a {
+  float: left;
+  color: rgb(97, 96, 96);
+  font-size: 15px;
+}
+
+.add_new_period {
+ margin-bottom: -30px;
+}
+
+.container-fluid.filter {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 2px 2px 2px rgb(235, 235, 235);
+  padding: 20px 20px 50px 20px;
+  margin-top: 20px;
+}
+
+.title_filter {
+  font-size: 20px;
+}
+
+.card-body {
+  margin-top: 20px;
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  box-shadow: 2px 2px 2px rgb(235, 235, 235);
+}
+
+.form-control.custom-input-search {
+  width: 25%;
+  float: left;
+}
+
+.btn.btn-primary.custom-btn {
+  margin-left: 10px;
+  margin-top: 2px;
+}
+
+.paging_custom {
+  float: right;
+}
+
+.table.table-striped.table-hover {
+  font-size: 14px;
+}
+
+.span_da_hoan_thanh {
+  font-size: 13px;
+  background-color: rgb(86, 217, 74);
+  color: white;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.span_da_dien_ra {
+  font-size: 13px;
+  background-color: rgb(62, 152, 221);
+  color: white;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.span_chua_dien_ra {
+  font-size: 13px;
+  background-color: rgb(217, 74, 74);
+  color: white;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+body {
+  overflow-y: auto;
+}

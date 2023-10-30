@@ -1,0 +1,4149 @@
+<div id="main" class="main">
+  <div class="row">
+    <div class="content-title">
+      <div class="title-project">
+        <a href="#member/project-is-participating"
+          ><i class="fas fa-home"></i> Danh sách dự án</a
+        >
+        / <i class="fas fa-cogs"></i> {{detailProject.name}}
+      </div>
+      <div
+        class="option_todo"
+        ng-click="openDialogNote($event)"
+        style="margin-right: 5px"
+      >
+        <div class="select_option_todo">
+          <i class="fas fa-sticky-note"></i> Lưu ý
+        </div>
+      </div>
+      <div class="option_todo" ng-click="openViewBoard($event)">
+        <div
+          ng-class="{ 'selected_options': selectedView == 'board' }"
+          class="select_option_todo"
+        >
+          <i class="fas fa-columns"></i> Board
+        </div>
+      </div>
+      <div
+        class="option_todo"
+        ng-click="openDialogViewTable($event)"
+        style="margin-left: 10px; margin-right: 10px"
+      >
+        <div
+          ng-class="{ 'selected_options': selectedView == 'table' }"
+          class="select_option_todo"
+        >
+          <i class="fas fa-table"></i> Table
+        </div>
+      </div>
+      <div class="div_period">
+        <div ng-click="openDialogShowMenu($event)" class="period">
+          <i class="fas fa-repeat"></i> Giai đoạn
+        </div>
+        <div
+          class="dialogShowMenu"
+          ng-show="showDialogShowMenu"
+          ng-style="dialogStyleShowMenu"
+        >
+          <div class="dialog-contentShowMenu">
+            <button
+              type="button"
+              class="closeShowMenu"
+              ng-click="closeDialogShowMenu()"
+            >
+              &times;
+            </button>
+            <h4 class="dialog-titleShowMenu">Giai đoạn</h4>
+            <div class="dialog-bodyShowMenu">
+              <div class="container-fluid">
+                <div class="content_period">
+                  <span><i class="bx bx-layout"></i> Giai đoạn của dự án</span>
+                  <br />
+                  <select
+                    ng-change="changePeriod()"
+                    ng-model="valuePeriod"
+                    class="period_all"
+                    name=""
+                    id="valuePeriodId"
+                  >
+                    <option
+                      value="{{item.id}}"
+                      ng-repeat="item in listPeriodById"
+                    >
+                      {{item.name}}
+                    </option>
+                  </select>
+                  <div class="btn_detail_period">
+                    <a href="#member/period-project/{{detailProject.id}}"
+                      ><button class="detail_period">Xem chi tiết</button></a
+                    >
+                    <button class="period_happen">
+                      Giai đoạn đang diễn ra
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="list-member">
+        <a
+          style="margin-left: -5px"
+          ng-repeat-start="member in listMemberProject | limitTo:5"
+          href=""
+          ng-click="openDialogProfile($event)"
+        >
+          <img
+            class="rounded-circle"
+            width="32px"
+            height="32px"
+            my-tooltip
+            tooltip-content="{{member.name + ' ' + member.code}}"
+            src="{{member.image}}"
+            alt=""
+          />
+        </a>
+        <a ng-repeat-end></a>
+        <button
+          style="margin-left: -5px"
+          ng-show="checkNumberMember"
+          class="btn-people"
+        >
+          +{{numberMemberMore}}
+        </button>
+        <a
+          class="eye-detail"
+          style="position: relative"
+          ng-click="openDialogAllMemberProject($event)"
+        >
+          <div
+            my-tooltip
+            tooltip-content="Danh sách thành viên của dự án"
+            style="margin-left: -1px"
+          >
+            <i class="fas fa-eye"></i></div
+        ></a>
+        <div
+          class="dialogAllMemberProject"
+          ng-show="showDialogAllMemberProject"
+          ng-style="dialogStyleAllMemberProject"
+        >
+          <div class="dialog-contentAllMemberProject">
+            <button
+              type="button"
+              class="closeAllMemberProject"
+              ng-click="closeDialogAllMemberProject()"
+            >
+              &times;
+            </button>
+            <h4 class="dialog-titleAllMemberProject">Thành viên trong dự án</h4>
+            <div class="dialog-bodyAllMemberProject">
+              <div class="container-fluid" style="margin-bottom: 5px">
+                <div class="row" style="padding: 10px">
+                  <br />
+                  <div class="member_all_project">
+                    <span
+                      ng-if="listManagerProject != ''"
+                      style="font-size: 14px; margin-left: -10px"
+                      >Quản lý</span
+                    >
+                    <br ng-if="listManagerProject != ''" />
+                    <div
+                      ng-if="listManagerProject != ''"
+                      class="all_manager_project"
+                    >
+                      <a
+                        style="margin-left: -5px"
+                        ng-repeat="member in listManagerProject"
+                        href=""
+                      >
+                        <img
+                          class="rounded-circle"
+                          width="35px"
+                          height="35px"
+                          my-tooltip
+                          tooltip-content="{{member.name + ' ' + member.code}}"
+                          src="{{member.image}}"
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                    <span
+                      ng-if="listLeaderProject != ''"
+                      style="font-size: 14px; margin-left: -10px"
+                      >Trưởng nhóm</span
+                    >
+                    <br ng-if="listLeaderProject != ''" />
+                    <div
+                      ng-if="listLeaderProject != ''"
+                      class="all_manager_project"
+                    >
+                      <a
+                        style="margin-left: -5px"
+                        ng-repeat="member in listLeaderProject"
+                        href=""
+                      >
+                        <img
+                          class="rounded-circle"
+                          width="35px"
+                          height="35px"
+                          my-tooltip
+                          tooltip-content="{{member.name + ' ' + member.code}}"
+                          src="{{member.image}}"
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                    <span
+                      ng-if="listDevProject != ''"
+                      style="font-size: 14px; margin-left: -10px"
+                      >Dev</span
+                    >
+                    <br ng-if="listDevProject != ''" />
+                    <div
+                      ng-if="listDevProject != ''"
+                      class="all_manager_project"
+                    >
+                      <a
+                        style="margin-left: -5px"
+                        ng-repeat="member in listDevProject"
+                        href=""
+                      >
+                        <img
+                          class="rounded-circle"
+                          width="35px"
+                          height="35px"
+                          my-tooltip
+                          tooltip-content="{{member.name + ' ' + member.code}}"
+                          src="{{member.image}}"
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                    <span
+                      ng-if="listTesterProject != ''"
+                      style="font-size: 14px; margin-left: -10px"
+                      >Tester</span
+                    >
+                    <br ng-if="listTesterProject != ''" />
+                    <div
+                      ng-if="listTesterProject != ''"
+                      class="all_manager_project"
+                    >
+                      <a
+                        style="margin-left: -5px"
+                        ng-repeat="member in listTesterProject"
+                        href=""
+                      >
+                        <img
+                          class="rounded-circle"
+                          width="35px"
+                          height="35px"
+                          my-tooltip
+                          tooltip-content="{{member.name + ' ' + member.code}}"
+                          src="{{member.image}}"
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                    <button
+                      ng-click="openDialogMemberManager($event)"
+                      class="btn_manager_member_project"
+                    >
+                      Quản lý thành viên
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="more-menu">...</div>
+        <div id="right-menu">
+          <button id="close-menu">X</button>
+          <header>
+            <h2>Menu</h2>
+          </header>
+          <ul class="menu-list">
+            <li id="change-background" class="menu-item">Thay đổi hình nền</li>
+            <li class="menu-item">Thay đổi màu nền</li>
+          </ul>
+        </div>
+        <div id="new-menu" class="hidden">
+          <button style="color: white" id="previous-menu">
+            <img src="../../../assets/img/back.svg" alt="" />
+          </button>
+          <button style="color: white" id="close-new-menu">X</button>
+          <header>
+            <h5>Thay đổi hình nền</h5>
+          </header>
+          <div
+            style="margin-top: 3px"
+            class="container-fluid"
+            id="body_new_menu"
+          >
+            <div class="row">
+              <div
+                ng-repeat="item in listBackground"
+                style="padding-left: 0; padding-right: 0"
+                class="col-6"
+              >
+                <img
+                  ng-click="changeBackground(item, '0')"
+                  class="img-background"
+                  src="{{item}}"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn_X_filter" my-tooltip tooltip-content="Làm mới bộ lọc">
+        X
+      </button>
+      <div
+        class="div_filter_todo"
+        style="margin-right: 0; border-radius: 5px 0px 0px 5px"
+      >
+        <div ng-click="openDialogFilter($event)">
+          <i class="fas fa-filter"></i> Bộ lọc
+        </div>
+        <div
+          class="dialogFilter"
+          ng-show="showDialogFilter"
+          ng-style="dialogStyleFilter"
+        >
+          <div class="dialog-contentFilter">
+            <button
+              type="button"
+              class="closeFilter"
+              ng-click="closeDialogFilter()"
+            >
+              &times;
+            </button>
+            <h4 class="dialog-titleFilter">
+              <i class="fas fa-filter"></i> Bộ lọc
+            </h4>
+            <div class="dialog-bodyFilter">
+              <div class="container-fluid">
+                <div class="keyword_filter">
+                  <span style="font-size: 15px">Từ khóa tìm kiếm</span> <br />
+                  <input
+                    type="text"
+                    ng-change="filterByName($event)"
+                    placeholder="Nhập từ khóa tìm kiếm"
+                    class="input_keyword_filter"
+                    ng-model="nameTodoFilter"
+                  />
+                  <span class="note_keyword_filter">Tìm kiếm tên đầu việc</span>
+                </div>
+                <div class="member_filter">
+                  <span style="font-size: 15px">Thành viên</span> <br />
+                  <div class="no_member_filter">
+                    <input
+                      type="checkbox"
+                      ng-click="onMemberClicked($event)"
+                      value="none"
+                      id="none_member"
+                      class="form-check-input custom_member_filter"
+                    />
+                    <i style="margin-left: 5px" class="fas fa-user"></i
+                    ><span ng-click="checkedNoneMember($event)">
+                      Thẻ không có thành viên</span
+                    >
+                  </div>
+                  <div class="assign_me_filter">
+                    <input
+                      style="margin-top: 6px"
+                      type="checkbox"
+                      id="assign_me"
+                      value="{{userCurrent.id}}"
+                      ng-click="onMemberClicked($event)"
+                      class="form-check-input custom_member_filter"
+                    />
+                    <a
+                      my-tooltip
+                      tooltip-content="{{userCurrent.name + ' ' + userCurrent.code}}"
+                      href=""
+                    >
+                      <img
+                        class="rounded-circle"
+                        width="30px"
+                        height="30px"
+                        src="{{userCurrent.image}}"
+                        alt=""
+                      />
+                    </a>
+                    <span
+                      ng-click="checkedAssignMe($event)"
+                      style="margin-left: 1px"
+                    >
+                      Thẻ đã giao cho tôi</span
+                    >
+                  </div>
+                  <div class="dropdown member">
+                    <input
+                      style="margin-top: 6px"
+                      type="checkbox"
+                      id="checked_all"
+                      ng-click="clickAllMember($event)"
+                      class="form-check-input custom_member_filter"
+                    />
+                    <input
+                      class="btn btn-primary dropdown-toggle"
+                      type="text"
+                      ng-model="searchMemberFilter"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      placeholder="Chọn thành viên"
+                    />
+                    <ul class="dropdown-menu member">
+                      <li
+                        ng-repeat="item in listMemberFilter | filter: searchMemberFilter as resultsMemberFilter"
+                        ng-if="item.id != userCurrent.id"
+                      >
+                        <div
+                          class="dropdown-item form-check"
+                          ng-click="onMemberClicked($event)"
+                        >
+                          <input
+                            class="form-check-input member"
+                            type="checkbox"
+                            ng-click="onMemberClicked($event)"
+                            id="list_member_filter_id"
+                            value="{{item.id}}"
+                          />
+                          <a
+                            my-tooltip
+                            tooltip-content="{{item.name + ' ' + item.code}}"
+                            href=""
+                          >
+                            <img
+                              class="rounded-circle"
+                              width="29px"
+                              height="29px"
+                              src="{{item.image}}"
+                              alt=""
+                            />
+                          </a>
+                          <label
+                            style="cursor: pointer"
+                            class="form-check-label member"
+                          >
+                            {{item.code}} {{item.name}}
+                          </label>
+                        </div>
+                      </li>
+                      <li
+                        style="text-align: center; font-size: 14px"
+                        ng-if="listMemberFilter.length > 1 && resultsMemberFilter.length === 0"
+                      >
+                        <div class="dropdown-item no-result">
+                          Không tìm thấy thành viên nào
+                        </div>
+                      </li>
+                      <li
+                        style="text-align: center; font-size: 14px"
+                        ng-if="listMemberFilter.length === 1"
+                      >
+                        <div class="dropdown-item no-result">
+                          Danh sách trống
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="due_date_filter">
+                    <span>Ngày hạn</span>
+                    <div class="no_member_filter">
+                      <input
+                        type="checkbox"
+                        value="noDueDate"
+                        ng-click="onMemberClicked($event)"
+                        id="no_due_date"
+                        class="form-check-input custom_member_filter"
+                      />
+                      <i
+                        style="margin-left: 5px"
+                        class="fas fa-clock fa-lg"
+                      ></i>
+                      <div class="title_label_filter">
+                        <span
+                          ng-click="checkedNoDueDate($event)"
+                          style="margin-bottom: 10px"
+                        >
+                          Thẻ không có ngày hạn</span
+                        >
+                      </div>
+                    </div>
+                    <div class="no_member_filter">
+                      <input
+                        type="checkbox"
+                        value="overDueDate"
+                        id="over_due_date"
+                        ng-click="onMemberClicked($event)"
+                        class="form-check-input custom_member_filter"
+                      />
+                      <i
+                        style="margin-left: 5px; color: red"
+                        class="fas fa-clock fa-lg"
+                      ></i>
+                      <div class="title_label_filter">
+                        <span
+                          ng-click="checkedOverDueDate($event)"
+                          style="margin-bottom: 10px"
+                        >
+                          Thẻ quá hạn</span
+                        >
+                      </div>
+                    </div>
+                    <div class="no_member_filter">
+                      <input
+                        type="checkbox"
+                        value="complete"
+                        id="complete"
+                        ng-click="onMemberClicked($event)"
+                        class="form-check-input custom_member_filter"
+                      />
+                      <i
+                        style="margin-left: 5px"
+                        class="fas fa-clock fa-lg"
+                      ></i>
+                      <div class="title_label_filter">
+                        <span
+                          ng-click="checkedComplete($event)"
+                          style="margin-bottom: 10px"
+                        >
+                          Thẻ đã hoàn thành</span
+                        >
+                      </div>
+                    </div>
+                    <div class="no_member_filter">
+                      <input
+                        type="checkbox"
+                        value="notComplete"
+                        id="not_complete"
+                        ng-click="onMemberClicked($event)"
+                        class="form-check-input custom_member_filter"
+                      />
+                      <i
+                        style="margin-left: 5px"
+                        class="fas fa-clock fa-lg"
+                      ></i>
+                      <div class="title_label_filter">
+                        <span
+                          ng-click="checkedNotComplete($event)"
+                          style="margin-bottom: 10px"
+                        >
+                          Thẻ chưa hoàn thành</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list_label_filter">
+                    <span>Nhãn</span>
+                    <div class="no_member_filter">
+                      <input
+                        type="checkbox"
+                        id="none_label"
+                        value="none"
+                        ng-click="onMemberClicked($event)"
+                        class="form-check-input custom_member_filter"
+                      />
+                      <i style="margin-left: 5px" class="fas fa-tag fa-lg"></i>
+                      <div class="title_label_filter">
+                        <span
+                          ng-click="checkedNoneLabel($event)"
+                          style="margin-bottom: 10px"
+                        >
+                          Thẻ không có nhãn</span
+                        >
+                      </div>
+                    </div>
+                    <div class="dropdown member">
+                      <input
+                        style="margin-top: 6px"
+                        type="checkbox"
+                        id="checked_all_label"
+                        ng-click="clickAllLabel($event)"
+                        class="form-check-input custom_member_filter"
+                      />
+                      <input
+                        class="btn btn-primary dropdown-toggle"
+                        type="text"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        ng-model="searchLabelFilter"
+                        placeholder="Chọn nhãn"
+                      />
+                      <ul class="dropdown-menu member">
+                        <li
+                          ng-repeat="item in listLabelFilter | filter:searchLabelFilter as resultsLabelFilter"
+                          ng-if="item.id != userCurrent.id"
+                        >
+                          <div
+                            class="dropdown-item form-check labels"
+                            ng-click="onMemberClicked($event)"
+                          >
+                            <input
+                              class="form-check-input member"
+                              ng-click="onMemberClicked($event)"
+                              type="checkbox"
+                              id="list_label_filter_id"
+                              value="{{item.id}}"
+                            />
+                            <span class="border_label_filter">
+                              <label
+                                style="cursor: pointer"
+                                ng-style="{ backgroundColor: item.colorLabel }"
+                                class="form-check-label member"
+                              >
+                                {{item.name}}
+                              </label>
+                            </span>
+                          </div>
+                        </li>
+                        <li
+                          style="text-align: center; font-size: 14px"
+                          ng-if="listLabelFilter.length > 0 && resultsLabelFilter.length === 0"
+                        >
+                          <div class="dropdown-item no-result">
+                            Không tìm thấy nhãn nào
+                          </div>
+                        </li>
+                        <li
+                          style="text-align: center; font-size: 14px"
+                          ng-if="listLabelFilter.length === 0"
+                        >
+                          <div class="dropdown-item no-result">
+                            Danh sách trống
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-click="openDialogSort($event)" class="div_sort_todo">
+        <div><i class="fas fa-sort"></i> Sắp xếp</div>
+      </div>
+      <a href="#member/project/dashboard/{{detailProject.id}}">
+        <div ng-click="filter()" class="div_sort_todo">
+          <div><i class="fas fa-chart-line"></i> Thống kê</div>
+        </div></a
+      >
+    </div>
+  </div>
+  <br />
+  <div class="container-custom-trello">
+    <div class="row flex-nowrap">
+      <div
+        ng-repeat="xx in listTask"
+        dnd-draggable="xx"
+        dnd-dropzone="listTask"
+        dnd-list="listTask"
+        dnd-effect-allowed="move"
+        class="item"
+        dnd-drop="onDropCard(xx, $index)"
+        dnd-dragstart="onDragStartCard(xx, $index)"
+        style="width: auto; padding-right: 0"
+      >
+        <div class="card trello-card">
+          <div>
+            <input
+              class="input_card_title"
+              ng-value="xx.name"
+              name=""
+              id="nameTodoListUpdate"
+              ng-model="xx.name"
+              ng-change="updateNameTodoList(xx.id, $index)"
+            />
+            <span
+              ng-click="openDialogMenuTodoList($event, xx)"
+              class="menu_todo_list"
+              >...</span
+            >
+          </div>
+          <div class="card-body">
+            <ul
+              class="list-group"
+              dnd-dropzone="xx.todoList"
+              dnd-list="xx.todoList"
+              ng-init="externalSources=['external']"
+              dnd-allow-same-container
+              dnd-external-sources="externalSources"
+              dnd-drop="onDrop($event, index, item, external, type, xx)"
+            >
+              <li
+                ng-repeat="item in xx.todoList"
+                dnd-draggable="item"
+                dnd-selected="selected = item"
+                ng-class="{selected: selected === item}"
+                class="list-group-item"
+                dnd-effect-allowed="move"
+                dnd-dragstart="onDragStart($index, xx.todoList)"
+                dnd-dragend="onDragEnd(item, xx, $event, $index)"
+                dnd-moved="draggedItem = item"
+                style="list-style: none"
+                ng-click="actionDetailTodo($event, item.id, xx)"
+              >
+                <div ng-if="item.nameFile != null" class="img_todo_show">
+                  <img
+                    src="../../../assets/imgTodo/{{item.id}}/{{item.nameFile}}"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <span
+                    ng-repeat="lb in item.labels"
+                    my-tooltip
+                    tooltip-content="{{lb.name}}"
+                    class="label_todo"
+                    ng-style="{ backgroundColor: lb.colorLabel }"
+                    ><span class="label_dot"></span>{{lb.name}}</span
+                  >
+                </div>
+                <a
+                  class="url_detail_todo"
+                  href="#member/project-is-participating/{{detailProject.id}}?idPeriod={{periodCurrentId}}?idTodo={{item.id}}"
+                  ng-click="actionDetailTodo($event, item.id, xx)"
+                  >{{item.name}}
+                </a>
+
+                <br ng-if="item.priorityLevel != null" />
+                <span
+                  ng-if="item.priorityLevel != null"
+                  my-tooltip
+                  tooltip-content="{{item.priorityLevel == 0 ? 'Độ ưu tiên: Quan trọng' : item.priorityLevel == 1 ? 'Độ ưu tiên: Cao'  : item.priorityLevel == 2 ? 'Độ ưu tiên: Trung bình'  : item.priorityLevel == 3 ? 'Độ ưu tiên: Thấp' : '' }}"
+                  class="prioritylevel_todo"
+                  ng-style="{ backgroundColor: item.priorityLevel == 0 ? 'red' : item.priorityLevel == 1 ? 'orange' : item.priorityLevel == 2 ? '#317fc8': item.priorityLevel == 3 ? '#6bb973' : '' }"
+                >
+                </span>
+
+                <br /><i
+                  my-tooltip
+                  tooltip-content="Thẻ có mô tả"
+                  ng-if="item.descriptions == '<p><br></p>' || item.descriptions != null"
+                  class="bx bx-menu"
+                ></i>
+
+                <span
+                  my-tooltip
+                  tooltip-content="Đã hoàn thành {{item.numberTodoComplete}} trên tổng số {{item.numberTodo}} đầu việc"
+                  ng-if="item.numberTodo > 0 && item.numberTodo != item.numberTodoComplete"
+                  style="margin-left: 3px"
+                  ><i class="fas fa-tasks"></i>
+                  {{item.numberTodoComplete}}/{{item.numberTodo}}</span
+                >
+                <span
+                  my-tooltip
+                  tooltip-content="Đã hoàn thành xong tất cả các đầu việc"
+                  class="task_complete"
+                  ng-if="item.numberTodo > 0 && item.numberTodo == item.numberTodoComplete"
+                  style="margin-left: 3px"
+                  ><i class="fas fa-check"></i>
+                  {{item.numberTodoComplete}}/{{item.numberTodo}}</span
+                >
+                <span
+                  ng-if="item.progressOfTodo > 0 && item.progressOfTodo != 100 && item.numberTodo > 0"
+                  my-tooltip
+                  tooltip-content="Tiến độ: {{item.progressOfTodo}} %"
+                  class="progress_show_todo"
+                  ><i class="bx bx-line-chart"></i>
+                  {{item.progressOfTodo}}%</span
+                >
+                <span
+                  ng-if=" item.progressOfTodo > 0 && item.numberTodo == 0 && item.progressOfTodo != 100"
+                  my-tooltip
+                  tooltip-content="Tiến độ: {{item.progressOfTodo}} %"
+                  class="progress_show_todo"
+                  ><i class="bx bx-line-chart"></i>
+                  {{item.progressOfTodo}}%</span
+                >
+                <span
+                  ng-if="item.numberTodo == 0 && item.progressOfTodo == 100"
+                  my-tooltip
+                  tooltip-content="Tiến độ: {{item.progressOfTodo}} %"
+                  class="progress_show_todo"
+                  style="background-color: #4a95ea"
+                  ><i class="bx bx-line-chart"></i>
+                  {{item.progressOfTodo}}%</span
+                >
+                <span
+                  ng-if="item.numberTodo > 0 && item.progressOfTodo == 100"
+                  my-tooltip
+                  tooltip-content="Tiến độ: {{item.progressOfTodo}} %"
+                  class="progress_show_todo"
+                  style="background-color: #4a95ea"
+                  ><i class="bx bx-line-chart"></i>
+                  {{item.progressOfTodo}}%</span
+                >
+                <span
+                  ng-if="item.deadline != null && item.completionTime == null"
+                  ng-mouseenter="showDeadlineView = true"
+                  ng-mouseleave="showDeadlineView = false"
+                  class="deadline_show_todo"
+                  ng-click="changeCompleteTodoOut(0, item.id, xx.id)"
+                  my-tooltip
+                  tooltip-content="Hạn của công việc này là {{item.deadlineString}}"
+                  ><input
+                    ng-show="showDeadlineView"
+                    class="form-check-input form-check-sm"
+                    type="checkbox"
+                  /><i class="bx bx-time" ng-hide="showDeadlineView"></i>
+                  {{item.deadlineString}}</span
+                >
+                <span
+                  ng-if="item.deadline != null && item.completionTime != null && item.completionTime < item.deadline"
+                  ng-mouseenter="showDeadlineView = true"
+                  ng-mouseleave="showDeadlineView = false"
+                  class="complete_show_todo"
+                  ng-click="changeCompleteTodoOut(1, item.id, xx.id)"
+                  my-tooltip
+                  tooltip-content="Đã hoàn thành công việc trước deadline"
+                  ><input
+                    ng-show="showDeadlineView"
+                    checked
+                    class="form-check-input form-check-sm"
+                    type="checkbox"
+                  /><i class="bx bx-task" ng-hide="showDeadlineView"></i>
+                  {{item.deadlineString}}</span
+                >
+                <span
+                  ng-if="item.deadline != null && item.completionTime != null && item.completionTime > item.deadline"
+                  ng-mouseenter="showDeadlineView = true"
+                  ng-mouseleave="showDeadlineView = false"
+                  class="complete_late_show_todo"
+                  ng-click="changeCompleteTodoOut(1, item.id, xx.id)"
+                  my-tooltip
+                  tooltip-content="Đã hoàn thành công việc sau deadline"
+                  ><input
+                    ng-show="showDeadlineView"
+                    checked
+                    class="form-check-input form-check-sm"
+                    type="checkbox"
+                  /><i class="bx bx-task" ng-hide="showDeadlineView"></i>
+                  {{item.deadlineString}}</span
+                >
+                <div
+                  class="list_member_todo"
+                  style="z-index: 3; position: relative"
+                >
+                  <a
+                    ng-repeat="member in item.members track by $index"
+                    my-tooltip
+                    tooltip-content="{{member.name + ' ' + member.code}}"
+                    href=""
+                    style="margin-left: -8px"
+                  >
+                    <img
+                      class="rounded-circle"
+                      width="32px"
+                      height="32px"
+                      src="{{member.image}}"
+                      alt=""
+                    />
+                  </a>
+                </div>
+              </li>
+
+              <li
+                draggable="false"
+                ondragstart="return false;"
+                ng-show="xx.checkShowAddCard"
+                style="z-index: 2"
+              >
+                <div class="form_add_card">
+                  <textarea
+                    placeholder="Nhập tiêu đề của thẻ"
+                    class="input_add_custom"
+                    name="inputTitle"
+                    ng-model="nameTodoAdd"
+                  ></textarea>
+                  <button
+                    ng-click="addNewCard($index, xx.id, xx.name)"
+                    class="btn_add_custom"
+                  >
+                    Thêm thẻ
+                  </button>
+                  <button
+                    class="btn_close_custom"
+                    ng-click="closeAddNewCard($index)"
+                  >
+                    X
+                  </button>
+                  <div class="toggle-menu">
+                    <button class="btn_popup_custom" ng-click="toggleMenu()">
+                      ...
+                    </button>
+                    <ul ng-show="showMenu">
+                      <li><a href="#">Edit</a></li>
+                      <li><a href="#">Delete</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li
+                ng-hide="xx.checkShowAddCard"
+                class="li_custom"
+                style="color: #e6e3e3; margin-top: 0; height: 5px"
+              >
+                <hr />
+              </li>
+              <!-- </li> -->
+            </ul>
+          </div>
+          <ul class="ul_add-card">
+            <li
+              class="list-group-item add-card"
+              ng-click="addACard($index)"
+              ng-hide="xx.checkShowAddCard"
+            >
+              <i class="bx bx-plus"></i> Thêm một thẻ mới
+            </li>
+            <!-- <li class="list-group-item"> -->
+          </ul>
+        </div>
+      </div>
+      <div
+        ng-hide="checkShowAddTodoList"
+        ng-click="checkShowAddTodoList = true"
+        class="div_add_todolist"
+      >
+        <div><i class="bx bx-plus"></i> Thêm danh sách</div>
+      </div>
+      <div ng-show="checkShowAddTodoList" class="form_add_todo_list">
+        <input
+          type="text"
+          ng-model="nameTodoListAdd"
+          placeholder="Nhập tiêu đề của danh sách"
+          class="input_add_todo_list"
+        />
+        <button ng-click="addTodoList()" class="btn_add_list">
+          Thêm danh sách
+        </button>
+        <button class="btn_x_list" ng-click="closeAddTodoList()">X</button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="modal_show_detail_todo"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <form id="form_member">
+          <div
+            ng-click="openDialogShowDetailImage($event, null)"
+            class="img_header_modal"
+            ng-if="detailTodo.nameFile != null"
+          >
+            <img
+              src="../../../assets/imgTodo/{{detailTodo.id}}/{{detailTodo.nameFile}}"
+              alt=""
+            />
+          </div>
+          <div class="modal-header">
+            <div class="modal-title">
+              <h5 style="width: auto">
+                <i class="fas fa-tasks fa-lg"></i>
+                <b
+                  ><input
+                    class="title_detail_todo"
+                    type="text"
+                    ng-model="nameDetailTodoUpdate"
+                    ng-change="updateNameDetailTodo()"
+                /></b>
+                <br />
+                <p style="font-size: 14px; margin-top: 10px">
+                  trong danh sách {{itemListTask.name}}
+                </p>
+              </h5>
+            </div>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-9">
+                  <div style="margin-bottom: 15px">
+                    <span style="font-size: 15px">Loại đầu việc:</span>
+                    <button
+                      ng-if="detailTodo.type == 'TAI_LIEU'"
+                      class="btn_document"
+                    >
+                      Tài liệu</button
+                    ><button
+                      ng-click="updateTypeTodo(0)"
+                      ng-if="detailTodo.type == 'CONG_VIEC'"
+                      class="btn_document_disabled"
+                    >
+                      Tài liệu</button
+                    ><button
+                      ng-if="detailTodo.type == 'CONG_VIEC'"
+                      class="btn_todo"
+                    >
+                      Công việc</button
+                    ><button
+                      ng-click="updateTypeTodo(1)"
+                      ng-if="detailTodo.type == 'TAI_LIEU'"
+                      class="btn_todo_disabled"
+                    >
+                      Công việc
+                    </button>
+                  </div>
+                  <div class="row">
+                    <div class="member__label">
+                      <div class="member_detail_todo">
+                        <h6 style="font-size: 14px">Thành viên</h6>
+                        <a
+                          ng-repeat="member in detailTodo.listMemberDetailTodo"
+                          my-tooltip
+                          tooltip-content="{{member.name + ' ' + member.code}}"
+                          href=""
+                        >
+                          <img
+                            class="rounded-circle"
+                            width="37px"
+                            height="37px"
+                            src="{{member.image}}"
+                            alt=""
+                          />
+                        </a>
+                        <button
+                          my-tooltip
+                          tooltip-content="Thêm thành viên"
+                          ng-click="openDialogAddMember($event)"
+                          class="btn-add-member"
+                        >
+                          <i class="bx bx-plus"></i>
+                        </button>
+                      </div>
+                      <div class="label_detail_todo">
+                        Nhãn
+                        <div class="span_custom_label">
+                          <span
+                            ng-repeat="lb in detailTodo.listLabelDetailTodo"
+                            my-tooltip
+                            tooltip-content="{{lb.name}}"
+                            class="span_label"
+                            ng-style="{ backgroundColor: lb.colorLabel }"
+                            ><span class="label_dot_detail"></span
+                            >{{lb.name}}</span
+                          >
+                          <span
+                            my-tooltip
+                            tooltip-content="Thêm nhãn"
+                            ng-click="openDialogAddLabel($event)"
+                            class="span_label_plus"
+                            ><i class="bx bx-plus"></i
+                          ></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    ng-if="detailTodo.priorityLevel != null"
+                    class="priority-level-custom-todo"
+                  >
+                    <div class="title-priority">Độ ưu tiên:</div>
+                    <span
+                      class="span-priority"
+                      my-tooltip
+                      tooltip-content="{{detailTodo.priorityLevel == 'QUAN_TRONG' ? 'Quan
+                      trọng' : (detailTodo.priorityLevel == 'CAO' ? 'Cao' :
+                      (detailTodo.priorityLevel == 'TRUNG_BINH' ? 'Trung bình'
+                      : (detailTodo.priorityLevel == 'THAP' ? 'Thấp' :
+                      '')))}}"
+                      ng-style="{ backgroundColor: detailTodo.priorityLevel == 'QUAN_TRONG' ? 'red' : detailTodo.priorityLevel == 'CAO' ? 'orange' : detailTodo.priorityLevel == 'TRUNG_BINH' ? '#317fc8' : detailTodo.priorityLevel == 'THAP' ? '#6bb973' : '' }"
+                    >
+                    </span>
+                  </div>
+                  <div
+                    ng-if="detailTodo.deadline != null"
+                    class="deadline_detail_todo"
+                  >
+                    Ngày hạn:
+                    <input
+                      type="checkbox"
+                      ng-model="valueComplete"
+                      id="valueComplete"
+                      ng-click="changeCompleteTodo()"
+                      class="form-check-input deadline"
+                    />
+                    <span
+                      ng-click="openDialogAddDeadline($event)"
+                      class="span_convert_date_string"
+                    >
+                      {{detailTodo.convertDate}}</span
+                    >
+                  </div>
+                  <div
+                    class="complete_detail_todo"
+                    ng-if="detailTodo.completionTime != null"
+                  >
+                    <span style="font-size: 14px">Ngày hoàn thành:</span>
+                    <span class="value_detail_complete"
+                      >{{detailTodo.convertDateComplete}}</span
+                    >
+                    <span
+                      ng-if="detailTodo.completionTime < detailTodo.deadline"
+                      class="complete_before_deadline"
+                      >Hoàn thành</span
+                    >
+                    <span
+                      ng-if="detailTodo.completionTime > detailTodo.deadline"
+                      class="complete_after_deadline"
+                      >Quá hạn</span
+                    >
+                  </div>
+                  <br />
+                  <div class="descipstions_custom">
+                    <i class="fas fa-list fa-lg"></i><span> Mô tả </span>
+
+                    <div class="box_quill_description">
+                      <div
+                        quill-editor
+                        class="quill_descriptions"
+                        ng-model="detailTodo.descriptions"
+                      ></div>
+                    </div>
+
+                    <button
+                      class="btn_save_descriptions"
+                      ng-click="saveDescriptionsTodo()"
+                    >
+                      Lưu mô tả
+                    </button>
+                    <button
+                      ng-click="resetDescriptionsTodo()"
+                      class="btn_reset_descriptions"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                  <div
+                    ng-if="listResource.length > 0"
+                    class="list_resource_detail_todo"
+                  >
+                    <div
+                      class="dialogUpdateAttachment"
+                      ng-show="showDialogUpdateAttachment"
+                      ng-style="dialogStyleUpdateAttachment"
+                    >
+                      <div class="dialog-contentUpdateAttachment">
+                        <button
+                          type="button"
+                          class="closeUpdateAttachment"
+                          ng-click="closeDialogUpdateAttachment()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleUpdateAttachment">
+                          Cập nhật link đính kèm
+                        </h4>
+                        <div class="dialog-bodyUpdateAttachment">
+                          <div
+                            class="container-fluid"
+                            style="margin-bottom: 10px"
+                          >
+                            <div style="margin-top: 10px">
+                              <span style="font-size: 15px; margin-top: 10px"
+                                ><span style="color: red">(*)</span> Đường
+                                link</span
+                              >
+                              <input
+                                class="input_add_attachment"
+                                type="text"
+                                ng-model="urlUpdateAttachment"
+                                placeholder="Dán link đính kèm"
+                                id="valueUpdateUrlAttachment"
+                              />
+                              <br />
+                              <span style="font-size: 15px">Tên link</span>
+                              <br />
+                              <input
+                                class="input_name_attachment"
+                                type="text"
+                                ng-model="nameUpdateAttachment"
+                                id="valueUpdateNameAttachment"
+                                placeholder="Nhập tên link"
+                              />
+                            </div>
+                            <button
+                              ng-click="updateAttachment()"
+                              class="btn_attachment"
+                            >
+                              Cập nhật
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <i class="fas fa-link fa-lg"></i
+                    ><span style="font-size: 17px; font-weight: 500">
+                      Link đính kèm</span
+                    >
+
+                    <div
+                      ng-repeat="item in listResource"
+                      class="box_list_resource"
+                    >
+                      <a
+                        class="link_name_content"
+                        href="{{item.url}}"
+                        target="{{item.url}}"
+                        ><div class="value_resource">
+                          <!-- <span>Link</span> -->
+                          <i class="fas fa-link"></i></div
+                      ></a>
+                      <span></span>
+                      <div class="content_resource">
+                        <span ng-if="item.name != null" class="name_resource"
+                          >{{item.name}}</span
+                        >
+                        <span
+                          ng-if="item.name == null || item.name == ''"
+                          class="name_resource"
+                          >{{item.url}}</span
+                        ><br />
+                        <span style="font-size: 15px"
+                          >Ngày tạo: {{item.convertDate}}</span
+                        >
+                        <br />
+                        <span
+                          ng-click="openDialogUpdateAttachment($event, item.id, item.url, item.name)"
+                          style="font-size: 15px; text-decoration: underline"
+                          >Chỉnh sửa</span
+                        >
+                        <span
+                          ng-click="openDialogConfirmDeleteResource($event, item.id, item.url, item.name)"
+                          style="
+                            font-size: 15px;
+                            text-decoration: underline;
+                            margin-left: 10px;
+                          "
+                          >Xóa</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="checklist_custom">
+                    <i class="fas fa-tasks fa-lg"></i>
+                    <span style="font-size: 17px; font-weight: 500">
+                      Danh sách đầu việc</span
+                    >
+                    <div class="list_task_checklist">
+                      <progress id="progressTodo" max="100"></progress>
+                      <div
+                        ng-repeat="chklist in detailTodo.listTaskDetailTodo"
+                        class="checkbox_list d-flex flex-wrap"
+                        ng-click="showSaveTodoInCheckList($index, chklist.name, $event)"
+                      >
+                        <input
+                          ng-checked="chklist.statusTodo == 0 ? false : true"
+                          type="checkbox"
+                          class="form-check-input custom"
+                          ng-click="changeProgressTodo(chklist.id, chklist.statusTodo)"
+                        /><span
+                          ng-hide="chklist.checkShowFormUpdateTodoInTask"
+                          class="content_checklist"
+                        >
+                          {{chklist.name}}
+                        </span>
+
+                        <div
+                          ng-show="chklist.checkShowFormUpdateTodoInTask"
+                          class="show_form_update_todo_in_checklist"
+                        >
+                          <textarea
+                            name=""
+                            class="textarea_update_todo_in_task"
+                            cols="30"
+                            id="valueSaveTodoInChecklist"
+                            rows="10"
+                          ></textarea>
+                          <br />
+                          <button
+                            ng-click="saveTodoInCheckList($index, chklist.id)"
+                            class="save_todo_in_checkList"
+                          >
+                            Lưu
+                          </button>
+                          <button
+                            type="button"
+                            class="close_todo_in_checklist"
+                            ng-click="closeSaveTodoInCheckList($index)"
+                          >
+                            X
+                          </button>
+                        </div>
+                        <div
+                          my-tooltip
+                          tooltip-content="Xóa"
+                          class="div_remove_todo_in_checklist"
+                        >
+                          <button
+                            type="button"
+                            class="remove_todo_in_checklist"
+                            ng-click="removeTodoInCheckList(chklist.id)"
+                          >
+                            <i class="bx bx-minus"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <button
+                        ng-hide="showAddTodoInList"
+                        ng-click="showAddTodoInList = true"
+                        class="btn_show_add_todo_in_checklist"
+                      >
+                        Thêm đầu việc
+                      </button>
+                      <button
+                        ng-if="detailTodo.listTaskDetailTodo.length == 0"
+                        class="uoc_luong"
+                        ng-click="openDialogUocLuong($event)"
+                      >
+                        Ước lượng
+                      </button>
+                      <div
+                        class="dialogUocLuong"
+                        ng-show="showDialogUocLuong"
+                        ng-style="dialogStyleUocLuong"
+                      >
+                        <div class="dialog-contentUocLuong">
+                          <button
+                            type="button"
+                            class="closeUocLuong"
+                            ng-click="closeDialogUocLuong()"
+                          >
+                            &times;
+                          </button>
+                          <h4 class="dialog-titleUocLuong">Ước lượng</h4>
+                          <div class="dialog-bodyUocLuong">
+                            <div
+                              class="container d-flex justify-content-center"
+                            >
+                              <div
+                                class="row"
+                                style="margin-top: 10px; margin-bottom: 10px"
+                              >
+                                <div class="content_uoc_luong">
+                                  <span style="font-size: 14px"
+                                    >Bạn ước lượng mình hoàn thành bao nhiêu
+                                    phần trăm công việc</span
+                                  >
+                                  <br />
+                                  <span
+                                    style="
+                                      justify-content: center;
+                                      font-size: 14px;
+                                    "
+                                    >{{valueChangeProgress}}%</span
+                                  >
+                                  <br />
+                                  <input
+                                    type="range"
+                                    class="uoc_luong_progress"
+                                    ng-model="valueChangeProgress"
+                                  />
+                                  <button
+                                    ng-click="changeProgressUocLuong()"
+                                    class="saveChangeProgress"
+                                  >
+                                    Lưu thay đổi
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        ng-show="showAddTodoInList"
+                        class="add_new_todo_in_checklist"
+                      >
+                        <textarea
+                          name=""
+                          placeholder="Thêm đầu việc mới"
+                          ng-model="valueAddTodoInChecklist"
+                          class="textarea_add_todo_in_checklist"
+                          cols="30"
+                          rows="10"
+                        ></textarea>
+                        <br />
+                        <button
+                          ng-click="addNewTodoInCheckList($index, detailTodo.id)"
+                          class="btn_add_todo_in_checklist"
+                        >
+                          Thêm đầu việc
+                        </button>
+                        <button
+                          ng-click="closeAddTodoInCheckList()"
+                          class="btn_close_todo_in_checklist"
+                        >
+                          Hủy
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="position_show_dialog_update_name_image"
+                    style="position: relative"
+                  ></div>
+                  <div
+                    ng-if="listImageDetailTodo.length > 0"
+                    class="list_image_detail_todo"
+                  >
+                    <div
+                      class="dialogUpdateNameImage"
+                      ng-show="showDialogUpdateNameImage"
+                      ng-style="dialogStyleUpdateNameImage"
+                    >
+                      <div class="dialog-contentUpdateNameImage">
+                        <h4 class="dialog-titleUpdateNameImage">
+                          Cập nhật tên ảnh
+                        </h4>
+                        <button
+                          type="button"
+                          class="closeUpdateNameImage"
+                          ng-click="closeDialogUpdateNameImage()"
+                        >
+                          &times;
+                        </button>
+                        <div class="dialog-bodyUpdateNameImage">
+                          <div
+                            class="container"
+                            style="margin-bottom: 10px"
+                          ></div>
+                          <span style="font-size: 15px">Tên ảnh:</span>
+                          <div>
+                            <input
+                              type="text"
+                              class="input_update_name_image"
+                              name=""
+                              ng-model="valueUpdateNameImage"
+                              id="valueUpdateNameImage"
+                            />
+                            <button
+                              ng-click="updateNameImage()"
+                              class="btn_update_name_image"
+                            >
+                              Cập nhật
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <i class="fas fa-image fa-lg"></i>
+                    <span style="font-size: 17px; font-weight: 500"
+                      >Hình ảnh</span
+                    >
+                    <div
+                      ng-repeat="item in listImageDetailTodo"
+                      class="box_list_image"
+                    >
+                      <div
+                        class="value_img"
+                        ng-click="openDialogShowDetailImage($event, item)"
+                      >
+                        <img
+                          width="100%"
+                          height="50%"
+                          src="../../../assets/imgTodo/{{item.todoId}}/{{item.nameFile}}"
+                          alt=""
+                        />
+                      </div>
+                      <span></span>
+                      <div class="content_img">
+                        <span
+                          style="
+                            font-size: 17px;
+                            font-weight: 500;
+                            word-wrap: break-word;
+                          "
+                          >{{item.nameImage}}</span
+                        >
+                        <br />
+                        <span style="font-size: 15px"
+                          >Ngày tạo: {{item.convertDate}}</span
+                        >
+                        <br />
+                        <span
+                          ng-click="openDialogUpdateNameImage($event, item.id, item.nameImage)"
+                          style="text-decoration: underline; font-size: 15px"
+                          >Chỉnh sửa</span
+                        ><span
+                          ng-click="openDialogConfirmDeleteImage($event, item.id, item.nameFile, item.nameImage, item.statusImage)"
+                          style="
+                            text-decoration: underline;
+                            margin-left: 10px;
+                            font-size: 15px;
+                          "
+                          >Xóa</span
+                        >
+                        <span
+                          ng-click="changeCoverImage(item.id, item.nameFile, item.statusImage)"
+                          ng-if="item.statusImage == 0"
+                          style="
+                            text-decoration: underline;
+                            margin-left: 10px;
+                            font-size: 15px;
+                          "
+                          >Xóa khỏi tiêu đề</span
+                        >
+                        <span
+                          ng-click="changeCoverImage(item.id, item.nameFile, item.statusImage)"
+                          ng-if="item.statusImage == 1"
+                          style="
+                            text-decoration: underline;
+                            margin-left: 10px;
+                            font-size: 15px;
+                          "
+                          >Đặt làm ảnh tiêu đề</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="position_tag_comment" style="position: relative">
+                    <div
+                      class="dialogSearchMemberComment"
+                      ng-show="showDialogSearchMemberComment"
+                      ng-style="dialogStyleSearchMemberComment"
+                    >
+                      <div class="dialog-contentSearchMemberComment">
+                        <button
+                          type="button"
+                          class="closeSearchMemberComment"
+                          ng-click="closeDialogSearchMemberComment()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleSearchMemberComment">
+                          Thành viên
+                        </h4>
+                        <div class="dialog-bodySearchMemberComment">
+                          <div class="container" style="margin-bottom: 10px">
+                            <div class="row">
+                              <input
+                                type="text"
+                                class="input_search_member"
+                                placeholder="Tìm kiếm thành viên"
+                                name="inputSearchMember"
+                                id=""
+                                ng-model="searchMemberDialog"
+                              />
+                              <span
+                                style="
+                                  font-size: 13px;
+                                  color: rgb(41, 125, 177);
+                                  font-weight: 500;
+                                "
+                                >Tìm kiếm theo mã SV, tên, UserEmail</span
+                              >
+                            </div>
+                            <div style="margin-top: 10px; margin-bottom: 10px">
+                              <span style="font-size: 14px"
+                                >Danh sách thành viên</span
+                              >
+                            </div>
+                            <div
+                              class="d-flex flex-wrap search-member-comment"
+                              ng-click="chosenMemberSearchComment(item.username)"
+                              style="margin-bottom: 7px; margin-top: 7px"
+                              ng-repeat="item in listMemberSearchComment | filter:searchMemberDialog as resultslistMemberSearchComment"
+                            >
+                              <a href="">
+                                <img
+                                  class="rounded-circle"
+                                  width="35px"
+                                  height="35px"
+                                  my-tooltip
+                                  tooltip-content="{{item.name + ' ' + item.code}}"
+                                  src="{{item.image}}"
+                                  alt=""
+                                />
+                              </a>
+                              <span class="name_member_search_comment"
+                                >{{item.name + ' ' + item.code}}</span
+                              >
+                            </div>
+                            <div
+                              style="text-align: center; font-size: 14px"
+                              ng-if="listMemberSearchComment.length > 1 && resultslistMemberSearchComment.length === 0"
+                            >
+                              <div class="dropdown-item no-result">
+                                Không tìm thấy thành viên nào
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="comment_custom">
+                    <i class="fas fa-comment fa-lg"></i
+                    ><span style="font-size: 17px; font-weight: 500">
+                      Bình luận
+                    </span>
+                    <br />
+                    <div class="write_comment_me">
+                      <a href="">
+                        <img
+                          class="rounded-circle"
+                          width="38px"
+                          height="38px"
+                          my-tooltip
+                          tooltip-content="{{userCurrent.name + ' ' + userCurrent.code}}"
+                          src="{{userCurrent.image}}"
+                          alt=""
+                        />
+                      </a>
+                      <div class="box_quill_add_comment">
+                        <div
+                          quill-editor-comment
+                          class="quill_add_comment"
+                          ng-change="changeCommentInput($event)"
+                          ng-model="valueContentComment"
+                        ></div>
+                      </div>
+                    </div>
+                    <span
+                      ng-show="isComment"
+                      ng-disabled="isComment"
+                      class="btn_comment_disabled"
+                    >
+                      <i class="fas fa-paper-plane"></i> Bình luận
+                    </span>
+                    <span
+                      ng-hide="isComment"
+                      ng-click="commentTodo()"
+                      class="btn_comment"
+                    >
+                      <i class="fas fa-paper-plane"></i> Bình luận
+                    </span>
+                    <div
+                      class="comment_custom_detail_todo"
+                      ng-repeat="item in listCommentByIdTodo"
+                    >
+                      <div class="list_comment_user">
+                        <div>
+                          <a href="">
+                            <img
+                              class="rounded-circle"
+                              width="38px"
+                              height="38px"
+                              my-tooltip
+                              tooltip-content="{{item.nameMember}}"
+                              src="{{item.imageMember}}"
+                              alt=""
+                            />
+                          </a>
+                          <span class="name_user_comment"
+                            >{{item.nameMember}}</span
+                          >
+                          <span class="time_comment_created"
+                            >{{item.convertDate}}</span
+                          >
+                          <span
+                            ng-if="item.statusEdit == true"
+                            style="font-size: 12px; margin-left: 5px"
+                            >Đã chỉnh sửa</span
+                          >
+                        </div>
+                        <div
+                          ng-show="item.showFormEditComment == false"
+                          class="box_quill_view_comment"
+                        >
+                          <div
+                            quill-viewer
+                            style="border-radius: 15px"
+                            class="quill_add_comment"
+                            ng-change="changeCommentInput($event)"
+                            ng-model="item.content"
+                          ></div>
+                        </div>
+
+                        <div
+                          ng-show="item.showFormEditComment == true"
+                          class="form_edit_comment"
+                        >
+                          <div class="box_quill_edit_comment">
+                            <div
+                              quill-editor-comment
+                              class="quill_edit_comment"
+                              ng-model="valueEditComment"
+                            ></div>
+                          </div>
+                          <button
+                            ng-click="saveContentComment($index)"
+                            class="save_edit_comment"
+                          >
+                            Lưu
+                          </button>
+                          <button
+                            class="x_edit_comment"
+                            ng-click="item.showFormEditComment = false"
+                          >
+                            X
+                          </button>
+                        </div>
+                        <div style="display: flex">
+                          <div
+                            ng-if="userCurrent.id != item.memberId"
+                            class="reply_comment"
+                            ng-click="replyComment(item.memberId)"
+                          >
+                            Phản hồi
+                          </div>
+                          <div
+                            ng-if="userCurrent.id == item.memberId"
+                            class="edit_comment"
+                            ng-click="editComment(item.id, $index, item.content)"
+                          >
+                            Chỉnh sửa
+                          </div>
+                          <div
+                            ng-if="userCurrent.id == item.memberId"
+                            class="delete_comment"
+                            ng-click="deleteComment(item.id)"
+                          >
+                            Xóa
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      ng-if="totalPagesComment > 1 && currentPageComment < totalPagesComment - 1"
+                      class="div_show_more"
+                      ng-click="showMore()"
+                    >
+                      <span class="show_more">Xem thêm</span>
+                    </div>
+                  </div>
+                  <div class="activity_custom">
+                    <i class="fas fa-th-large fa-lg"></i>
+                    <span style="font-size: 17px; font-weight: 500">
+                      Hoạt động
+                    </span>
+                    <span
+                      ng-hide="showDetailActivityTrueFalse"
+                      ng-click="showDetailActivity()"
+                      class="btn_show_activity"
+                      >Hiện hoạt động</span
+                    >
+                    <span
+                      ng-show="showDetailActivityTrueFalse"
+                      ng-click="showDetailActivityTrueFalse = false"
+                      class="btn_show_activity"
+                      >Ẩn hoạt động</span
+                    >
+                    <br />
+                    <div style="margin-top: 15px">
+                      <div
+                        ng-show="showDetailActivityTrueFalse"
+                        ng-repeat="item in listActivityByIdTodo"
+                        class="list_activity_detail"
+                      >
+                        <a href="">
+                          <img
+                            class="rounded-circle"
+                            width="38px"
+                            height="38px"
+                            my-tooltip
+                            tooltip-content="{{item.nameMemberCreated}}"
+                            src="{{item.imageMemberCreated}}"
+                            alt=""
+                          />
+                        </a>
+                        <div class="content_activity">
+                          <span
+                            ><label style="font-weight: 500; font-size: 16px"
+                              >{{item.nameMemberCreated}}</label
+                            >
+                            {{item.contentAction}}</span
+                          ><br />
+                          <span class="time_created_activity">
+                            {{item.convertDate}}</span
+                          >
+                          <br />
+                          <img
+                            ng-if="item.urlImage != null"
+                            class="image_activity"
+                            src="../../../assets/imgTodo/{{item.urlImage}}"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <span style="font-size: 14px; margin-left: -10px">Gợi ý</span>
+
+                  <div class="row">
+                    <button
+                      ng-click="joinAssign(null, detailTodo.id)"
+                      ng-if="checkJoinTodo == true"
+                      class="btn_join_todo"
+                    >
+                      <i class="fas fa-user"></i>
+                      Tham gia
+                    </button>
+                    <button
+                      ng-click="outAssign(null, detailTodo.id)"
+                      ng-if="checkJoinTodo == false"
+                      class="btn_out_todo"
+                    >
+                      <i class="fas fa-sign-out"></i>
+                      Rời khỏi thẻ
+                    </button>
+                  </div>
+                  <span
+                    style="font-size: 14px; margin-left: -10px; margin-top: 5px"
+                    >Thêm vào thẻ</span
+                  >
+                  <div class="row" style="margin-bottom: 10px">
+                    <button
+                      ng-click="openDialogAddMember($event)"
+                      class="btn_add_to_card"
+                    >
+                      <i class="fas fa-user"></i> Thành viên
+                    </button>
+                    <div
+                      class="dialogAddMember"
+                      ng-show="showDialogAddMember"
+                      ng-style="dialogStyleAddMember"
+                    >
+                      <div class="dialog-contentAddMember">
+                        <button
+                          type="button"
+                          class="closeAddMember"
+                          ng-click="closeDialogAddMember()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleAddMember">Thành viên</h4>
+                        <div class="dialog-bodyAddMember">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <input
+                                type="text"
+                                class="input_search_member"
+                                placeholder="Tìm kiếm thành viên"
+                                name="inputSearchMember"
+                                id=""
+                                ng-model="searchMemberDialog"
+                              />
+                              <span
+                                style="
+                                  font-size: 13px;
+                                  color: rgb(41, 125, 177);
+                                  font-weight: 500;
+                                "
+                                >Tìm kiếm theo mã SV, tên, UserEmail</span
+                              >
+                            </div>
+                            <div style="margin-top: 10px; margin-bottom: 10px">
+                              <span style="font-size: 14px"
+                                >Danh sách thành viên</span
+                              >
+                            </div>
+                            <div class="d-flex flex-wrap">
+                              <a
+                                ng-repeat="member in listMemberProject | filter:searchMemberDialog as results1"
+                                my-tooltip
+                                tooltip-content="{{member.name + ' ' + member.code}}"
+                                href=""
+                                ng-click="createOrDeleteAssign($event, member.id, member.name + ' ' + member.code , member.email, idTodoAssign, member.checkMemberAssign)"
+                              >
+                                <img
+                                  class="rounded-circle"
+                                  width="35px"
+                                  height="35px"
+                                  src="{{member.image}}"
+                                  alt="" />
+                                <i
+                                  ng-show="member.checkMemberAssign"
+                                  class="bx bx-check custom"
+                                ></i
+                              ></a>
+                              <label
+                                ng-if="listMemberProject.length > 0 && results1.length == 0"
+                                style="
+                                  text-align: center;
+                                  font-size: 14px;
+                                  color: red;
+                                  font-weight: 550;
+                                "
+                              >
+                                <span>Không tìm thấy thành viên nào</span>
+                              </label>
+
+                              <label
+                                ng-if="listMemberProject.length == 0"
+                                style="
+                                  text-align: center;
+                                  font-size: 14px;
+                                  color: red;
+                                  font-weight: 550;
+                                "
+                              >
+                                <span>Danh sách trống</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      ng-click="openDialogAddLabel($event)"
+                      class="btn_add_to_card"
+                    >
+                      <i class="fas fa-tag"></i> Nhãn
+                    </button>
+                    <div
+                      class="dialogAddLabel"
+                      ng-show="showDialogAddLabel"
+                      ng-style="dialogStyleAddLabel"
+                    >
+                      <div class="dialog-contentAddLabel">
+                        <button
+                          type="button"
+                          class="closeAddLabel"
+                          ng-click="closeDialogAddLabel()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleAddLabel">Nhãn</h4>
+                        <div class="dialog-bodyAddLabel">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <input
+                                type="text"
+                                class="input_search_label"
+                                placeholder="Tìm kiếm nhãn"
+                                name="inputSearchLabel"
+                                id=""
+                                ng-model="searchLabelDialog"
+                              />
+                              <span
+                                style="
+                                  font-size: 13px;
+                                  margin-left: -10px;
+                                  color: rgb(41, 125, 177);
+                                  font-weight: 500;
+                                "
+                                >Tìm kiếm theo mã nhãn, tên nhãn</span
+                              >
+                            </div>
+                            <div style="margin-top: 10px; margin-bottom: 10px">
+                              <span style="font-size: 14px"
+                                >Danh sách nhãn</span
+                              >
+                            </div>
+                            <div
+                              ng-repeat="lb in listLabel | filter:searchLabelDialog as results2"
+                              class="d-flex flex-wrap custom_label"
+                            >
+                              <input
+                                type="checkbox"
+                                ng-click="changeCheckboxLabel(lb.id, idTodoAssign, lb.checkLabel)"
+                                value="{{lb.id}}"
+                                class="form-check-input custom_label"
+                                name="checkbox_label"
+                                ng-checked="lb.checkLabel"
+                                id="{{lb.id +  '_label'}}"
+                              /><label
+                                style="cursor: pointer"
+                                for="{{lb.id +  '_label'}}"
+                              >
+                                <span
+                                  class="span_label_detail"
+                                  ng-style="{ backgroundColor: lb.colorLabel }"
+                                  ><span class="label_dot_detail"></span
+                                  >{{lb.name}}</span
+                                ></label
+                              >
+                              <i
+                                my-tooltip
+                                tooltip-content="Cập nhật nhãn"
+                                ng-click="openDialogUpdateLabel($event, lb.id, lb.name, lb.colorLabel)"
+                                class="bx bx-pencil cusom_label"
+                              ></i>
+                              <i
+                                my-tooltip
+                                tooltip-content="Xóa nhãn"
+                                class="bx bx-trash cusom_label"
+                                ng-click="openDialogConfirmDeleteLabel($event, lb.id)"
+                              ></i>
+                            </div>
+                            <label
+                              ng-if="listLabel.length > 0 && results2.length == 0"
+                              style="
+                                text-align: center;
+                                font-size: 14px;
+                                color: red;
+                                font-weight: 550;
+                              "
+                            >
+                              <span>Không tìm thấy nhãn nào</span>
+                            </label>
+
+                            <label
+                              ng-if="listLabel.length == 0"
+                              style="
+                                text-align: center;
+                                font-size: 14px;
+                                color: red;
+                                font-weight: 550;
+                              "
+                            >
+                              <span>Danh sách trống</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="btn_add_label">
+                          <button ng-click="openDialogCreateLabel($event)">
+                            <i class="bx bx-plus"></i> Thêm mới nhãn
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="dialogConfirmDeleteLabel"
+                      ng-show="showDialogConfirmDeleteLabel"
+                      ng-style="dialogStyleConfirmDeleteLabel"
+                    >
+                      <div class="dialog-contentConfirmDeleteLabel">
+                        <button
+                          type="button"
+                          class="closeConfirmDeleteLabel"
+                          ng-click="closeDialogConfirmDeleteLabel()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleConfirmDeleteLabel">Xác nhận</h4>
+                        <div class="dialog-bodyConfirmDeleteLabel">
+                          <div
+                            class="container"
+                            style="margin-bottom: 7px; padding-top: 10px"
+                          >
+                            <span style="font-size: 14px"
+                              >Bạn có chắc muốn xóa nhãn này không ?</span
+                            >
+                            <button
+                              class="delete_image"
+                              ng-click="deleteLabel()"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="dialogCreateLabel"
+                      ng-show="showDialogCreateLabel"
+                      ng-style="dialogStyleCreateLabel"
+                    >
+                      <div class="dialog-contentCreateLabel">
+                        <button
+                          type="button"
+                          style="float: left"
+                          class="backCreateLabel"
+                          ng-click="backDialogAddLabel($event)"
+                        >
+                          <img src="../../../assets/img/back.svg" alt="" />
+                        </button>
+                        <button
+                          type="button"
+                          class="closeCreateLabel"
+                          ng-click="closeDialogCreateLabel()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleCreateLabel">Thêm nhãn</h4>
+                        <div class="dialog-bodyCreateLabel">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="box_show_label_chosen">
+                                <label
+                                  ng-style="{'background-color': colorLabelCreate}"
+                                  class="span_create_label"
+                                  ><span class="label_dot_detail"></span
+                                  >{{nameLabelCreate}}</label
+                                >
+                              </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px">
+                              <span style="margin-left: -12px; font-size: 15px"
+                                >Tên nhãn:</span
+                              >
+                              <input
+                                type="text"
+                                placeholder="Nhập tên nhãn"
+                                ng-model="nameLabelCreate"
+                                maxlength="27"
+                                class="name_label_create"
+                              />
+                              <span
+                                style="
+                                  margin-left: -12px;
+                                  font-size: 15px;
+                                  margin-top: 10px;
+                                "
+                                >Màu nhãn:
+                              </span>
+                              <div
+                                class="container-fluid"
+                                style="margin-top: 10px"
+                              >
+                                <div class="row">
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#FA8072'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#FA8072'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#FFD700'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#FFD700'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#cdc150'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#cdc150'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#FF4500'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#FF4500'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#7AA1E4'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#7AA1E4'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#FF6347'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#FF6347'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#EE82EE'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#EE82EE'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#47799C'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#47799C'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#FFA500'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#FFA500'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#06bb00'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#06bb00'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#1b88c7'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#1b88c7'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#9966FF'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#9966FF'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#a15e00'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#a15e00'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#478086'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#478086'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#00085c'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#00085c'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#861919'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelCreate = '#861919'"
+                                    ></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="btn_add_label">
+                          <button ng-click="createLabel()">
+                            <i class="bx bx-plus"></i> Thêm mới nhãn
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="dialogUpdateLabel"
+                      ng-show="showDialogUpdateLabel"
+                      ng-style="dialogStyleUpdateLabel"
+                    >
+                      <div class="dialog-contentUpdateLabel">
+                        <button
+                          type="button"
+                          style="float: left"
+                          class="backUpdateLabel"
+                          ng-click="backDialogAddLabel($event)"
+                        >
+                          <img src="../../../assets/img/back.svg" alt="" />
+                        </button>
+                        <button
+                          type="button"
+                          class="closeUpdateLabel"
+                          ng-click="closeDialogUpdateLabel()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleUpdateLabel">Cập nhật nhãn</h4>
+                        <div class="dialog-bodyUpdateLabel">
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="box_show_label_chosen">
+                                <label
+                                  ng-style="{'background-color': colorLabelUpdate}"
+                                  class="span_create_label"
+                                  ><span class="label_dot_detail"></span
+                                  >{{nameLabelUpdate}}</label
+                                >
+                              </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px">
+                              <span style="margin-left: -12px; font-size: 15px"
+                                >Tên nhãn:</span
+                              >
+                              <input
+                                type="text"
+                                placeholder="Nhập tên nhãn"
+                                ng-model="nameLabelUpdate"
+                                maxlength="27"
+                                class="name_label_create"
+                              />
+                              <span
+                                style="
+                                  margin-left: -12px;
+                                  font-size: 15px;
+                                  margin-top: 10px;
+                                "
+                                >Màu nhãn:
+                              </span>
+                              <div
+                                class="container-fluid"
+                                style="margin-top: 10px"
+                              >
+                                <div class="row">
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#FA8072'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#FA8072'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#FFD700'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#FFD700'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#cdc150'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#cdc150'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#FF4500'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#FF4500'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#7AA1E4'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#7AA1E4'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#FF6347'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#FF6347'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#EE82EE'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#EE82EE'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#47799C'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#47799C'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#FFA500'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#FFA500'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#06bb00'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#06bb00'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#1b88c7'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#1b88c7'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#9966FF'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#9966FF'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#a15e00'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#a15e00'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#478086'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#478086'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#00085c'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#00085c'"
+                                    ></label>
+                                  </div>
+                                  <div class="col-3">
+                                    <label
+                                      ng-style="{'background-color':'#861919'}"
+                                      class="color_label_create"
+                                      ng-click="colorLabelUpdate = '#861919'"
+                                    ></label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="btn_add_label">
+                          <button
+                            ng-click="updateLabel()"
+                            ng-click="createLabel()"
+                          >
+                            <i class="bx bx-pencil"></i> Cập nhật
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      ng-click="openDialogAddPriorityLevel($event)"
+                      class="btn_add_to_card"
+                    >
+                      <i class="fas fa-flag"></i>
+                      Độ ưu tiên
+                    </button>
+                    <div
+                      class="dialogAddPriorityLevel"
+                      ng-show="showDialogAddPriorityLevel"
+                      ng-style="dialogStyleAddPriorityLevel"
+                    >
+                      <div class="dialog-contentAddPriorityLevel">
+                        <button
+                          type="button"
+                          class="closeAddPriorityLevel"
+                          ng-click="closeDialogAddPriorityLevel()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleAddPriorityLevel">Độ ưu tiên</h4>
+                        <div class="dialog-bodyAddPriorityLevel">
+                          <div class="container-fluid">
+                            <div class="form-check">
+                              <div class="form-check-item">
+                                <label
+                                  style="
+                                    color: red;
+                                    font-weight: bold;
+                                    cursor: pointer;
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    ng-click="actionChangePriorityLevel(0, detailTodo.id)"
+                                    ng-checked="detailTodo.priorityLevel == 'QUAN_TRONG'"
+                                    class="form-check-input radio"
+                                    name="priorityLevel"
+                                  />Quan trọng
+                                </label>
+                              </div>
+                              <div class="form-check-item">
+                                <label
+                                  style="
+                                    color: orange;
+                                    font-weight: bold;
+                                    cursor: pointer;
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    ng-click="actionChangePriorityLevel(1, detailTodo.id)"
+                                    ng-checked="detailTodo.priorityLevel == 'CAO'"
+                                    class="form-check-input radio"
+                                    name="priorityLevel"
+                                  />Cao
+                                </label>
+                              </div>
+                              <div class="form-check-item">
+                                <label
+                                  style="
+                                    color: #317fc8;
+                                    font-weight: bold;
+                                    cursor: pointer;
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    ng-click="actionChangePriorityLevel(2, detailTodo.id)"
+                                    ng-checked="detailTodo.priorityLevel == 'TRUNG_BINH'"
+                                    class="form-check-input radio"
+                                    name="priorityLevel"
+                                  />Trung bình
+                                </label>
+                              </div>
+                              <div class="form-check-item">
+                                <label
+                                  style="
+                                    color: #6bb973;
+                                    font-weight: bold;
+                                    cursor: pointer;
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    ng-click="actionChangePriorityLevel(3, detailTodo.id)"
+                                    ng-checked="detailTodo.priorityLevel == 'THAP'"
+                                    class="form-check-input radio"
+                                    name="priorityLevel"
+                                  />Thấp
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="dialogConfirmDeleteImage"
+                      ng-show="showDialogConfirmDeleteImage"
+                      ng-style="dialogStyleConfirmDeleteImage"
+                    >
+                      <div class="dialog-contentConfirmDeleteImage">
+                        <button
+                          type="button"
+                          class="closeConfirmDeleteImage"
+                          ng-click="closeDialogConfirmDeleteImage()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleConfirmDeleteImage">Xác nhận</h4>
+                        <div class="dialog-bodyConfirmDeleteImage">
+                          <div
+                            class="container"
+                            style="margin-bottom: 7px; padding-top: 10px"
+                          >
+                            <span style="font-size: 14px"
+                              >Bạn có chắc muốn xóa ảnh này không ?</span
+                            >
+                            <button
+                              class="delete_image"
+                              ng-click="deleteImage()"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="dialogConfirmDeleteResource"
+                      ng-show="showDialogConfirmDeleteResource"
+                      ng-style="dialogStyleConfirmDeleteResource"
+                    >
+                      <div class="dialog-contentConfirmDeleteResource">
+                        <button
+                          type="button"
+                          class="closeConfirmDeleteResource"
+                          ng-click="closeDialogConfirmDeleteResource()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleConfirmDeleteResource">
+                          Xác nhận
+                        </h4>
+                        <div class="dialog-bodyConfirmDeleteResource">
+                          <div
+                            class="container"
+                            style="margin-bottom: 7px; padding-top: 10px"
+                          >
+                            <span style="font-size: 14px"
+                              >Bạn có chắc muốn xóa link đính kèm này không
+                              ?</span
+                            >
+                            <button
+                              class="delete_image"
+                              ng-click="deleteResource()"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- <button class="btn_add_to_card">
+                      <i class="bx bx-task"></i> Đầu việc
+                    </button> -->
+                    <button
+                      ng-click="openDialogAddDeadline($event)"
+                      class="btn_add_to_card"
+                    >
+                      <i class="fas fa-clock"></i> Ngày hạn
+                    </button>
+                    <div
+                      class="dialogAddDeadline"
+                      ng-show="showDialogAddDeadline"
+                      ng-style="dialogStyleAddDeadline"
+                    >
+                      <div class="dialog-contentAddDeadline">
+                        <button
+                          type="button"
+                          class="closeAddDeadline"
+                          ng-click="closeDialogAddDeadline()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleAddDeadline">Ngày hạn</h4>
+                        <div class="dialog-bodyAddDeadline">
+                          <div class="container">
+                            <div class="content-deadline">
+                              <span style="font-size: 14px"><span style="color: red;">(*) </span>Ngày hạn:</span>
+                              <input
+                                class="input_deadline"
+                                type="datetime-local"
+                                ng-model="timeDeadline"
+                                name=""
+                              />
+                              <div style="margin-top: 15px">
+                                <span style="font-size: 14px; margin-top: 30px"
+                                  >Đặt lời nhắc nhở ngày hết hạn</span
+                                >
+                                <br />
+                                <select class="select_due_date" ng-model="reminderValue" name="">
+                                  <option class="option_due_date" value="none">
+                                    None
+                                  </option>
+                                  <option
+                                    class="option_due_date"
+                                    value="0"
+                                  >
+                                    Tại thời điểm hết hạn
+                                  </option>
+                                  <option
+                                    class="option_due_date"
+                                    value="3600000"
+                                  >
+                                    Trước 1 giờ
+                                  </option>
+                                  <option
+                                    class="option_due_date"
+                                    value="7200000"
+                                  >
+                                    Trước 2 giờ
+                                  </option>
+                                  <option
+                                    class="option_due_date"
+                                    value="86400000"
+                                  >
+                                    Trước 1 ngày
+                                  </option>
+                                </select>
+                              </div>
+                              <div class="note_due_date">
+                                <span
+                                  >Lưu ý: Nhắc nhở sẽ được gửi đến tất cả các
+                                  thành viên của thẻ này</span
+                                >
+                              </div>
+
+                              <button
+                                ng-click="saveDueDate()"
+                                class="save_due_date"
+                              >
+                                Lưu
+                              </button>
+                              <button
+                                ng-click="removeDueDate()"
+                                class="remove_due_date"
+                              >
+                                Xóa
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      ng-click="openDialogAddImage($event)"
+                      class="btn_add_to_card"
+                    >
+                      <i class="fas fa-image"></i> Hình ảnh
+                    </button>
+                    <div
+                      class="dialogAddImage"
+                      ng-show="showDialogAddImage"
+                      ng-style="dialogStyleAddImage"
+                    >
+                      <div class="dialog-contentAddImage">
+                        <button
+                          type="button"
+                          class="closeAddImage"
+                          ng-click="closeDialogAddImage()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleAddImage">Hình ảnh</h4>
+                        <div class="dialog-bodyAddImage">
+                          <div
+                            class="container-fluid"
+                            style="margin-bottom: 10px"
+                          >
+                            <div style="margin-top: 10px">
+                              <span style="font-size: 15px; margin-top: 10px"
+                                >Đính kèm ảnh</span
+                              >
+                              <input
+                                class="input_image_upload"
+                                type="file"
+                                accept="image/*"
+                                id="valueFileImageUpload"
+                              />
+                            </div>
+                            <button
+                              class="btn_upload_image"
+                              ng-click="uploadFileImage($event)"
+                            >
+                              Tải ảnh lên
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      ng-click="openDialogAddAttachment($event)"
+                      class="btn_add_to_card"
+                    >
+                      <i class="fas fa-link"></i> Link đính kèm
+                    </button>
+                    <div
+                      class="dialogAddAttachment"
+                      ng-show="showDialogAddAttachment"
+                      ng-style="dialogStyleAddAttachment"
+                    >
+                      <div class="dialog-contentAddAttachment">
+                        <button
+                          type="button"
+                          class="closeAddAttachment"
+                          ng-click="closeDialogAddAttachment()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleAddAttachment">Link đính kèm</h4>
+                        <div class="dialog-bodyAddAttachment">
+                          <div
+                            class="container-fluid"
+                            style="margin-bottom: 10px"
+                          >
+                            <div style="margin-top: 10px">
+                              <span style="font-size: 15px; margin-top: 10px"
+                                ><span style="color: red">(*)</span> Đường
+                                link</span
+                              >
+                              <input
+                                class="input_add_attachment"
+                                type="text"
+                                ng-model="urlAttachment"
+                                placeholder="Dán link đính kèm"
+                                id="valueAttachment"
+                              />
+                              <br />
+                              <span style="font-size: 15px">Tên link</span>
+                              <br />
+                              <input
+                                class="input_name_attachment"
+                                type="text"
+                                ng-model="nameAttachment"
+                                placeholder="Nhập tên link"
+                              />
+                            </div>
+                            <button
+                              ng-click="addAttachment()"
+                              class="btn_attachment"
+                            >
+                              Đính kèm
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="hanh_dong">Hành động</span>
+                  <div class="row">
+                    <button
+                      ng-click="openDialogConfirmDeleteTodo($event)"
+                      class="btn_add_to_card"
+                    >
+                      <i class="fas fa-trash"></i> Xóa thẻ
+                    </button>
+                    <div
+                      class="dialogConfirmDeleteTodo"
+                      ng-show="showDialogConfirmDeleteTodo"
+                      ng-style="dialogStyleConfirmDeleteTodo"
+                    >
+                      <div class="dialog-contentConfirmDeleteTodo">
+                        <button
+                          type="button"
+                          class="closeConfirmDeleteTodo"
+                          ng-click="closeDialogConfirmDeleteTodo()"
+                        >
+                          &times;
+                        </button>
+                        <h4 class="dialog-titleConfirmDeleteTodo">Xác nhận</h4>
+                        <div class="dialog-bodyConfirmDeleteTodo">
+                          <div
+                            class="container"
+                            style="margin-bottom: 7px; padding-top: 10px"
+                          >
+                            <span style="font-size: 14px"
+                              >Bạn có chắc muốn xóa đầu việc này không ?</span
+                            ><br />
+                            <span
+                              style="
+                                color: red;
+                                font-weight: 500;
+                                font-size: 14px;
+                              "
+                              >(*) Lưu ý: Nếu bạn xóa đầu việc thì tất cả dữ
+                              liệu về thành viên, nhãn, ngày hạn ... sẽ
+                              mất.</span
+                            >
+                            <button
+                              class="delete_image"
+                              ng-click="deleteTodo()"
+                            >
+                              Xóa
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="dialogShowDetailImage"
+                    ng-show="showDialogShowDetailImage"
+                    ng-style="dialogStyleShowDetailImage"
+                  >
+                    <div class="dialog-contentShowDetailImage">
+                      <button
+                        type="button"
+                        class="closeShowDetailImage"
+                        ng-click="closeDialogShowDetailImage()"
+                      >
+                        &times;
+                      </button>
+                      <h4 class="dialog-titleShowDetailImage">
+                        {{titleShowDetailImage}}
+                      </h4>
+                      <div class="dialog-bodyShowDetailImage">
+                        <div class="container" style="width: 90%">
+                          <div class="row">
+                            <img
+                              src="../../../assets/imgTodo/{{pathIdTodo}}/{{pathNameFile}}"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Modal detail image -->
+  <!-- Dialog view table -->
+  <div
+    class="dialogViewTable"
+    ng-show="showDialogViewTable"
+    ng-style="dialogStyleViewTable"
+  >
+    <div class="dialog-contentViewTable">
+      <div class="dialog-titleViewTable">
+        <table class="table m-table d-sm-table m-table--head-bg-primary">
+          <thead
+            style="
+              background-color: rgb(255, 255, 255);
+              color: rgb(99, 99, 99);
+              font-size: 15px;
+              font-weight: 600;
+              text-align: left;
+            "
+          >
+            <tr>
+              <td><i class="fas fa-tasks fa-lg"></i> Đầu việc</td>
+              <td style="width: 20%; padding-left: 3px">
+                <i class="fas fa-columns fa-lg"></i> Danh sách
+              </td>
+              <td style="width: 18%"><i class="fas fa-tag fa-lg"></i> Nhãn</td>
+              <td style="width: 19%">
+                <i class="fas fa-user fa-lg"></i> Thành viên
+              </td>
+              <td class="deadline_and_progress" style="width: 13%">
+                <i class="fas fa-clock fa-lg"></i> Ngày hạn |
+                <i class="fas fa-line-chart fa-lg"></i> Tiến độ
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="dialog-bodyViewTable">
+        <table class="table m-table d-sm-table m-table--head-bg-primary">
+          <tbody class="tbody_view_table">
+            <tr ng-repeat="xx in listTodoViewTable">
+              <td
+                class="td_name_todo_view_table"
+                ng-click="actionDetailTodo($event, xx.id, xx.objTodoList)"
+              >
+                <a
+                  class="url_detail_todo"
+                  my-tooltip
+                  style="padding-left: 5px"
+                  tooltip-content="{{xx.priorityLevel == 0 ? 'Độ ưu tiên: Quan trọng' : xx.priorityLevel == 1 ? 'Độ ưu tiên: Cao'  : xx.priorityLevel == 2 ? 'Độ ưu tiên: Trung bình'  : xx.priorityLevel == 3 ? 'Độ ưu tiên: Thấp' : 'Không có độ ưu tiên' }}"
+                  ng-style="{ color: xx.priorityLevel == 0 ? 'red' : xx.priorityLevel == 1 ? 'orange' : xx.priorityLevel == 2 ? '#317fc8': xx.priorityLevel == 3 ? '#6bb973' : 'rgb(61, 61, 61)' }"
+                  href="#member/project-is-participating/{{detailProject.id}}?idPeriod={{periodCurrentId}}?idTodo={{xx.id}}"
+                  ng-click="actionDetailTodo($event, xx.id, xx)"
+                  ><i class="fas fa-tasks"></i> {{xx.name}}
+                </a>
+              </td>
+              <td style="width: 20%; padding: 0">
+                <select
+                  ng-model="xx.objTodoList.id"
+                  class="select_list_todo_list"
+                  name=""
+                  id="valueTodoListNew"
+                  ng-change="updateIndexTodoViewTable(xx, $index)"
+                >
+                  <option ng-repeat="lt in listTask" value="{{lt.id}}">
+                    {{lt.name}}
+                  </option>
+                </select>
+              </td>
+              <td
+                ng-click="openDialogAddLabelTableView($event, xx.id, xx.objTodoList)"
+                style="width: 18%"
+                class="td_labels_view_table"
+              >
+                <span
+                  ng-repeat="lb in xx.labels"
+                  ng-if="xx.labels.length > 0"
+                  my-tooltip
+                  tooltip-content="{{lb.name}}"
+                  class="label_todo"
+                  style="font-weight: 400"
+                  ng-style="{ backgroundColor: lb.colorLabel }"
+                  ><span class="label_dot"></span>{{lb.name}}</span
+                >
+                <span ng-if="xx.labels.length == 0">-</span>
+              </td>
+              <td
+                ng-click="openDialogAddMemberTableView($event, xx.id, xx.objTodoList)"
+                class="td_members_view_table"
+                style="
+                  width: 19%;
+                  padding: 0;
+                  padding-top: 4px;
+                  cursor: pointer;
+                "
+              >
+                <span ng-if="xx.members.length == 0">-</span
+                ><a
+                  ng-repeat="member in xx.members track by $index"
+                  my-tooltip
+                  tooltip-content="{{member.name + ' ' + member.code}}"
+                  href=""
+                  style="margin-left: -8px"
+                >
+                  <img
+                    class="rounded-circle"
+                    width="32px"
+                    height="32px"
+                    src="{{member.image}}"
+                    alt=""
+                  />
+                </a>
+              </td>
+              <td style="width: 13%" class="td_deadline_view_table">
+                <span ng-if="xx.deadline == null">-</span
+                ><span
+                  ng-if="xx.deadline != null && xx.completionTime == null"
+                  ng-mouseenter="showDeadlineView = true"
+                  ng-mouseleave="showDeadlineView = false"
+                  class="deadline_show_todo"
+                  style="font-weight: 400"
+                  ng-click="changeCompleteTodoOut(0, xx.id, xx.objTodoList.id)"
+                  my-tooltip
+                  tooltip-content="Hạn của công việc này là {{xx.deadlineString}}"
+                  ><input
+                    ng-show="showDeadlineView"
+                    class="form-check-input form-check-sm"
+                    type="checkbox"
+                  /><i class="bx bx-time" ng-hide="showDeadlineView"></i>
+                  {{xx.deadlineString}}</span
+                >
+                <span
+                  ng-if="xx.deadline != null && xx.completionTime != null && xx.completionTime < xx.deadline"
+                  ng-mouseenter="showDeadlineView = true"
+                  ng-mouseleave="showDeadlineView = false"
+                  class="complete_show_todo"
+                  style="font-weight: 400"
+                  ng-click="changeCompleteTodoOut(1, xx.id, xx.objTodoList.id)"
+                  my-tooltip
+                  tooltip-content="Đã hoàn thành công việc trước deadline"
+                  ><input
+                    ng-show="showDeadlineView"
+                    checked
+                    class="form-check-input form-check-sm"
+                    type="checkbox"
+                  /><i class="bx bx-task" ng-hide="showDeadlineView"></i>
+                  {{xx.deadlineString}}</span
+                >
+                <span
+                  ng-if="xx.deadline != null && xx.completionTime != null && xx.completionTime > xx.deadline"
+                  ng-mouseenter="showDeadlineView = true"
+                  ng-mouseleave="showDeadlineView = false"
+                  class="complete_late_show_todo"
+                  ng-click="changeCompleteTodoOut(1, xx.id, xx.objTodoList.id)"
+                  my-tooltip
+                  style="font-weight: 400"
+                  tooltip-content="Đã hoàn thành công việc sau deadline"
+                  ><input
+                    ng-show="showDeadlineView"
+                    checked
+                    class="form-check-input form-check-sm"
+                    type="checkbox"
+                  /><i class="bx bx-task" ng-hide="showDeadlineView"></i>
+                  {{xx.deadlineString}}</span
+                >
+                <span
+                  my-tooltip
+                  tooltip-content="Đã hoàn thành {{xx.numberTodoComplete}} trên tổng số {{xx.numberTodo}} đầu việc"
+                  ng-if="xx.numberTodo > 0 && xx.numberTodo != xx.numberTodoComplete"
+                  style="margin-left: 3px; font-weight: 400"
+                  ><i class="bx bx-task"></i>
+                  {{xx.numberTodoComplete}}/{{xx.numberTodo}}</span
+                >
+                <span
+                  my-tooltip
+                  tooltip-content="Đã hoàn thành xong tất cả các đầu việc"
+                  class="task_complete"
+                  ng-if="xx.numberTodo > 0 && xx.numberTodo == xx.numberTodoComplete"
+                  style="margin-left: 3px; font-weight: 400"
+                  ><i class="bx bx-task"></i>
+                  {{xx.numberTodoComplete}}/{{xx.numberTodo}}</span
+                >
+                <span
+                  ng-if="xx.progressOfTodo > 0 && xx.progressOfTodo != 100 && xx.numberTodo > 0"
+                  my-tooltip
+                  tooltip-content="Tiến độ: {{xx.progressOfTodo}} %"
+                  class="progress_show_todo"
+                  style="font-weight: 400"
+                  ><i class="bx bx-line-chart"></i> {{xx.progressOfTodo}}%</span
+                >
+                <span
+                  ng-if=" xx.progressOfTodo > 0 && xx.numberTodo == 0 && xx.progressOfTodo != 100"
+                  my-tooltip
+                  tooltip-content="Tiến độ: {{xx.progressOfTodo}} %"
+                  class="progress_show_todo"
+                  style="font-weight: 400"
+                  ><i class="bx bx-line-chart"></i> {{xx.progressOfTodo}}%</span
+                >
+                <span
+                  ng-if="xx.numberTodo == 0 && xx.progressOfTodo == 100"
+                  my-tooltip
+                  tooltip-content="Tiến độ: {{xx.progressOfTodo}} %"
+                  class="progress_show_todo"
+                  style="background-color: #4a95ea; font-weight: 400"
+                  ><i class="bx bx-line-chart"></i> {{xx.progressOfTodo}}%</span
+                >
+                <span
+                  ng-if="xx.numberTodo > 0 && xx.progressOfTodo == 100"
+                  my-tooltip
+                  tooltip-content="Tiến độ: {{xx.progressOfTodo}} %"
+                  class="progress_show_todo"
+                  style="background-color: #4a95ea; font-weight: 400"
+                  ><i class="bx bx-line-chart"></i> {{xx.progressOfTodo}}%</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="descipstions_view_table">
+          <span style="font-size: 15px; color: rgb(255, 0, 0)"
+            >(*) Lưu ý: Độ ưu tiên của đầu việc sẽ dựa vào màu sắc ở tên của đầu
+            việc đó</span
+          >
+        </div>
+        <button
+          ng-click="openDialogViewBtnAddTodoTodoList($event)"
+          class="btn_add_todo_todoList_view_table"
+        >
+          <i class="fas fa-plus"></i> Thêm
+        </button>
+        <div
+          class="dialogViewBtnAddTodoTodoList"
+          ng-show="showDialogViewBtnAddTodoTodoList"
+          ng-style="dialogStyleViewBtnAddTodoTodoList"
+        >
+          <div class="dialog-contentViewBtnAddTodoTodoList">
+            <div class="dialog-bodyViewBtnAddTodoTodoList">
+              <div
+                class="container"
+                style="margin-bottom: 7px; padding-top: 10px"
+              >
+                <div class="row">
+                  <button
+                    ng-click="openDialogAddTodoViewTable($event)"
+                    class="btn_add_card_view_table"
+                  >
+                    Thẻ
+                  </button>
+                </div>
+                <div class="row">
+                  <button
+                    ng-click="openDialogAddTodoListViewTable($event)"
+                    class="btn_add_todo_list_view_table"
+                  >
+                    Danh sách
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="dialogAddTodoViewTable"
+          ng-show="showDialogAddTodoViewTable"
+          ng-style="dialogStyleAddTodoViewTable"
+        >
+          <div class="dialog-contentAddTodoViewTable">
+            <button
+              type="button"
+              class="closeAddTodoViewTable"
+              ng-click="closeDialogAddTodoViewTable()"
+            >
+              &times;
+            </button>
+            <h4 class="dialog-titleAddTodoViewTable">Thêm thẻ</h4>
+            <div class="dialog-bodyAddTodoViewTable">
+              <div
+                class="container"
+                style="margin-bottom: 7px; padding-top: 10px; color: dimgrey"
+              >
+                <div class="row">
+                  <span style="font-size: 15px">Tiêu đề:</span> <br />
+                  <input
+                    type="text"
+                    ng-change="watchValueImputNameCardViewTable()"
+                    ng-model="valueInputNameCardViewTable"
+                    maxlength="100"
+                    placeholder="Nhập tiêu đề của thẻ"
+                    class="input_title_card_view_table"
+                  />
+                </div>
+                <div class="row" style="margin-top: 10px">
+                  <span style="font-size: 15px">Danh sách:</span><br />
+                  <select
+                    class="select_chosen_todo_list_view_table"
+                    name=""
+                    id="valueSelectTodoListCardViewTable"
+                  >
+                    <option
+                      class="option_chosen_todo_list_view_table"
+                      value="{{item.id}}"
+                      ng-repeat="item in listTask"
+                    >
+                      {{item.name}}
+                    </option>
+                  </select>
+                </div>
+                <div class="row" style="margin-top: 15px">
+                  <button
+                    ng-hide="checkValueINputNameCardViewTable"
+                    class="btn_add_todo_view_table_disabled"
+                    disabled
+                  >
+                    Thêm thẻ
+                  </button>
+                  <button
+                    ng-show="checkValueINputNameCardViewTable"
+                    ng-click="addTodoCardViewTable()"
+                    class="btn_add_todo_view_table"
+                  >
+                    Thêm thẻ
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="dialogAddTodoListViewTable"
+          ng-show="showDialogAddTodoListViewTable"
+          ng-style="dialogStyleAddTodoListViewTable"
+        >
+          <div class="dialog-contentAddTodoListViewTable">
+            <button
+              type="button"
+              class="closeAddTodoListViewTable"
+              ng-click="closeDialogAddTodoListViewTable()"
+            >
+              &times;
+            </button>
+            <h4 class="dialog-titleAddTodoListViewTable">Thêm danh sách</h4>
+            <div class="dialog-bodyAddTodoListViewTable">
+              <div
+                class="container"
+                style="margin-bottom: 7px; padding-top: 10px; color: dimgrey"
+              >
+                <div class="row">
+                  <span style="font-size: 15px">Tiêu đề:</span> <br />
+                  <input
+                    type="text"
+                    ng-model="valueInputNameTodoListViewTable"
+                    placeholder="Nhập tiêu đề của danh sách"
+                    class="input_title_card_view_table"
+                    maxlength="100"
+                    ng-change="watchValueImputNameTodoListViewTable()"
+                  />
+                </div>
+                <div class="row" style="margin-top: 15px">
+                  <button
+                    ng-hide="checkValueINputNameTodoListViewTable"
+                    class="btn_add_todo_view_table_disabled"
+                  >
+                    Thêm danh sách
+                  </button>
+                  <button
+                    ng-click="addTodoListViewTable()"
+                    ng-show="checkValueINputNameTodoListViewTable"
+                    class="btn_add_todo_view_table"
+                  >
+                    Thêm danh sách
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="dialogMemberManager"
+    ng-show="showDialogMemberManager"
+    ng-style="dialogStyleMemberManager"
+  >
+    <div class="dialog-contentMemberManager">
+      <button
+        type="button"
+        class="closeMemberManager"
+        ng-click="closeDialogMemberManager()"
+      >
+        &times;
+      </button>
+      <h4 class="dialog-titleMemberManager">Quản lý thành viên trong dự án</h4>
+      <div class="dialog-bodyMemberManager">
+        <div
+          class="container-fluid"
+          style="margin-top: 15px; margin-bottom: 15px"
+        >
+          <div class="box_add_member" style="float: left">
+            <button
+              class="btn_add_member_manager"
+              ng-click="openDialogMemberOutProject($event)"
+            >
+              Thêm thành viên
+            </button>
+          </div>
+          <div class="box_search_member" style="float: right">
+            <span style="font-size: 15px">Tìm kiếm: </span>
+            <input
+              type="text"
+              ng-model="valueSearchMemberManager"
+              placeholder="Nhập tên, mã SV, Email ..."
+              class="input_search_dialog_member_manager"
+            />
+          </div>
+          <br />
+          <table
+            class="table table-bordered m-table d-sm-table m-table--head-bg-primary"
+            style="text-align: center; margin-top: 20px"
+          >
+            <thead
+              style="
+                background-color: rgb(50, 121, 215);
+                color: white;
+                font-size: 15px;
+              "
+            >
+              <tr>
+                <td scope="col" style="width: 30px">STT</td>
+
+                <td scope="col">Họ và tên</td>
+                <td scope="col" style="width: 100px">Mã SV</td>
+                <td scope="col">Email</td>
+                <td scope="col">Trạng thái</td>
+                <td scope="col" style="width: 150px">Vai trò</td>
+                <td scope="col" style="width: 150px">Hành động</td>
+              </tr>
+            </thead>
+            <tbody style="font-size: 15px">
+              <tr
+                ng-repeat="item in listMemberProject | filter: valueSearchMemberManager as resultsMember"
+              >
+                <td>{{$index + 1}}</td>
+                <td>
+                  <a style="margin-left: -5px" href="">
+                    <img
+                      class="rounded-circle"
+                      width="35px"
+                      height="35px"
+                      my-tooltip
+                      tooltip-content="{{item.name + ' ' + item.code}}"
+                      src="{{item.image}}"
+                      alt=""
+                    /> </a
+                  >{{item.name}}
+                </td>
+                <td>{{item.code}}</td>
+                <td>{{item.email}}</td>
+                <td>
+                  <select
+                    ng-model="item.statusWork"
+                    class="select_status_work_member"
+                    style="border: 2px solid #3cb848"
+                    name=""
+                  >
+                    <option value="0">Đang làm</option>
+                    <option value="1">Nghỉ việc</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    ng-model="item.roleProject"
+                    class="select_role_member"
+                    name=""
+                  >
+                    <option value="0">Quản lý</option>
+                    <option value="1">Trưởng nhóm</option>
+                    <option value="2">Dev</option>
+                    <option value="3">Tester</option>
+                  </select>
+                </td>
+                <td>
+                  <button
+                    ng-click="updateMemberProject(item.idMemberProject, $index)"
+                    my-tooltip
+                    tooltip-content="Cập nhật"
+                    class="btn_update_member_project"
+                  >
+                    <i class="bx bx-pencil"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <span
+            style="text-align: center; font-size: 16px; color: rgb(42, 93, 151)"
+            ng-if="resultsMember.length == 0 && resultsMember != null"
+          >
+            <div class="dropdown-item no-result">
+              Không tìm thấy thành viên nào
+            </div>
+          </span>
+          <span
+            style="font-size: 15px; color: red; font-weight: 500; float: left"
+            >Tổng số thành viên: {{resultsMember.length}}</span
+          >
+          <span
+            style="font-size: 15px; color: red; font-weight: 500; float: right"
+            >(*) Lưu ý: Thành viên bị nghỉ việc sẽ không thể thao tác được các
+            chức năng trong dự án</span
+          >
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Dialog add member in project -->
+  <div
+    class="dialogMemberOutProject"
+    ng-show="showDialogMemberOutProject"
+    ng-style="dialogStyleMemberOutProject"
+  >
+    <div class="dialog-contentMemberOutProject">
+      <button class="backMemberOutProject" ng-click="backMemberOutProject()">
+        <img src="../../../assets/img/back.svg" alt="" />
+      </button>
+      <button
+        type="button"
+        class="closeMemberOutProject"
+        ng-click="closeDialogMemberOutProject()"
+      >
+        &times;
+      </button>
+      <h4 class="dialog-titleMemberOutProject">
+        Danh sách thành viên chưa tham gia dự án
+      </h4>
+      <div class="dialog-bodyMemberOutProject">
+        <div class="container-fluid" style="margin-top: 15px">
+          <div class="box_search_member" style="float: right">
+            <span style="font-size: 15px">Tìm kiếm: </span>
+            <input
+              type="text"
+              ng-model="valueSearchMemberOutProject"
+              placeholder="Nhập tên, mã SV, Email ..."
+              class="input_search_dialog_member_manager"
+            />
+          </div>
+          <br />
+          <table
+            class="table table-bordered m-table d-sm-table m-table--head-bg-primary"
+            style="text-align: center; margin-top: 20px"
+          >
+            <thead
+              style="
+                background-color: rgb(50, 121, 215);
+                color: white;
+                font-size: 15px;
+              "
+            >
+              <tr>
+                <td scope="col" style="width: 30px">STT</td>
+
+                <td scope="col">Họ và tên</td>
+                <td scope="col" style="width: 100px">Mã SV</td>
+                <td scope="col">Email</td>
+                <td scope="col" style="width: 150px">Vai trò</td>
+                <td scope="col" style="width: 150px">Hành động</td>
+              </tr>
+            </thead>
+            <tbody style="font-size: 15px">
+              <tr
+                ng-repeat="item in listMemberNotInProject | filter: valueSearchMemberOutProject as resultslistMemberNotInProject"
+              >
+                <td>{{$index + 1}}</td>
+                <td>
+                  <a style="margin-left: -5px" href="">
+                    <img
+                      class="rounded-circle"
+                      width="35px"
+                      height="35px"
+                      my-tooltip
+                      tooltip-content="{{item.name + ' ' + item.code}}"
+                      src="{{item.image}}"
+                      alt=""
+                    /> </a
+                  >{{item.name}}
+                </td>
+                <td>{{item.code}}</td>
+                <td>{{item.email}}</td>
+                <td>
+                  <select class="select_role_member_out_project" name="">
+                    <option value="0">Quản lý</option>
+                    <option value="1">Trưởng nhóm</option>
+                    <option value="2">Dev</option>
+                    <option value="3">Tester</option>
+                  </select>
+                </td>
+                <td>
+                  <button
+                    ng-click="createMemberProject($index, item.id)"
+                    my-tooltip
+                    tooltip-content="Thêm vào dự án"
+                    class="btn_add_member_out_project"
+                  >
+                    <i class="bx bx-plus"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <span
+            style="text-align: center; font-size: 16px; color: rgb(42, 93, 151)"
+            ng-if="resultslistMemberNotInProject.length === 0"
+          >
+            <div class="dropdown-item no-result">
+              Không tìm thấy thành viên nào
+            </div>
+          </span>
+          <span
+            style="font-size: 15px; color: red; font-weight: 500; float: left"
+            >Tổng số thành viên: {{resultslistMemberNotInProject.length}}</span
+          >
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  -->
+  <div
+    class="dialogAddMemberViewTable"
+    ng-show="showDialogAddMemberViewTable"
+    ng-style="dialogStyleAddMemberViewTable"
+  >
+    <div class="dialog-contentAddMemberViewTable">
+      <button
+        type="button"
+        class="closeAddMemberViewTable"
+        ng-click="closeDialogAddMemberViewTable()"
+      >
+        &times;
+      </button>
+      <h4 class="dialog-titleAddMemberViewTable">Thành viên</h4>
+      <div class="dialog-bodyAddMemberViewTable">
+        <div class="container-fluid">
+          <div class="row">
+            <input
+              type="text"
+              class="input_search_member"
+              placeholder="Tìm kiếm thành viên"
+              name="inputSearchMember"
+              id=""
+              ng-model="searchMemberDialog"
+            />
+            <span
+              style="
+                font-size: 13px;
+                color: rgb(41, 125, 177);
+                font-weight: 500;
+              "
+              >Tìm kiếm theo mã SV, tên, UserEmail</span
+            >
+          </div>
+          <div style="margin-top: 10px; margin-bottom: 10px">
+            <span style="font-size: 14px">Danh sách thành viên</span>
+          </div>
+          <div class="d-flex flex-wrap">
+            <a
+              ng-repeat="member in listMemberProject | filter:searchMemberDialog as results1"
+              my-tooltip
+              tooltip-content="{{member.name + ' ' + member.code}}"
+              href=""
+              ng-click="createOrDeleteAssign($event, member.id, member.name + ' ' + member.code , member.email,idTodoAssign, member.checkMemberAssign)"
+            >
+              <img
+                class="rounded-circle"
+                width="35px"
+                height="35px"
+                src="{{member.image}}"
+                alt="" />
+              <i
+                ng-show="member.checkMemberAssign"
+                class="bx bx-check custom"
+              ></i
+            ></a>
+            <label
+              ng-if="listMemberProject.length > 0 && results1.length == 0"
+              style="
+                text-align: center;
+                font-size: 14px;
+                color: red;
+                font-weight: 550;
+              "
+            >
+              <span>Không tìm thấy thành viên nào</span>
+            </label>
+
+            <label
+              ng-if="listMemberProject.length == 0"
+              style="
+                text-align: center;
+                font-size: 14px;
+                color: red;
+                font-weight: 550;
+              "
+            >
+              <span>Danh sách trống</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+  <div
+    class="dialogAddLabelViewTable"
+    ng-show="showDialogAddLabelViewTable"
+    ng-style="dialogStyleAddLabelViewTable"
+  >
+    <div class="dialog-contentAddLabelViewTable">
+      <button
+        type="button"
+        class="closeAddLabelViewTable"
+        ng-click="closeDialogAddLabelViewTable()"
+      >
+        &times;
+      </button>
+      <h4 class="dialog-titleAddLabelViewTable">Nhãn</h4>
+      <div class="dialog-bodyAddLabelViewTable">
+        <div class="container-fluid">
+          <div class="row">
+            <input
+              type="text"
+              class="input_search_label"
+              placeholder="Tìm kiếm nhãn"
+              name="inputSearchLabel"
+              id=""
+              ng-model="searchLabelDialog"
+            />
+            <span
+              style="
+                font-size: 13px;
+                margin-left: -10px;
+                color: rgb(41, 125, 177);
+                font-weight: 500;
+              "
+              >Tìm kiếm theo mã nhãn, tên nhãn</span
+            >
+          </div>
+          <div style="margin-top: 10px; margin-bottom: 10px">
+            <span style="font-size: 14px">Danh sách nhãn</span>
+          </div>
+          <div
+            ng-repeat="lb in listLabel | filter:searchLabelDialog as results2"
+            class="d-flex flex-wrap custom_label"
+          >
+            <input
+              type="checkbox"
+              ng-click="changeCheckboxLabel(lb.id, idTodoAssign, lb.checkLabel)"
+              value="{{lb.id}}"
+              class="form-check-input custom_label"
+              name="checkbox_label"
+              ng-checked="lb.checkLabel"
+              id="{{lb.id +  '_label'}}"
+            /><label style="cursor: pointer" for="{{lb.id +  '_label'}}">
+              <span
+                class="span_label_detail"
+                ng-style="{ backgroundColor: lb.colorLabel }"
+                ><span class="label_dot_detail"></span>{{lb.name}}</span
+              ></label
+            >
+            <i
+              my-tooltip
+              tooltip-content="Cập nhật nhãn"
+              ng-click="openDialogUpdateLabelViewTable($event, lb.id, lb.name, lb.colorLabel)"
+              class="bx bx-pencil cusom_label"
+            ></i>
+            <i
+              my-tooltip
+              tooltip-content="Xóa nhãn"
+              class="bx bx-trash cusom_label"
+              ng-click="openDialogConfirmDeleteLabelViewTable($event, lb.id)"
+            ></i>
+          </div>
+          <label
+            ng-if="listLabel.length > 0 && results2.length == 0"
+            style="
+              text-align: center;
+              font-size: 14px;
+              color: red;
+              font-weight: 550;
+            "
+          >
+            <span>Không tìm thấy nhãn nào</span>
+          </label>
+
+          <label
+            ng-if="listLabel.length == 0"
+            style="
+              text-align: center;
+              font-size: 14px;
+              color: red;
+              font-weight: 550;
+            "
+          >
+            <span>Danh sách trống</span>
+          </label>
+        </div>
+      </div>
+      <div class="btn_add_label">
+        <button ng-click="openDialogCreateLabelViewTable($event)">
+          <i class="bx bx-plus"></i> Thêm mới nhãn
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="dialogCreateLabelViewTable"
+    ng-show="showDialogCreateLabelViewTable"
+    ng-style="dialogStyleCreateLabelViewTable"
+  >
+    <div class="dialog-contentCreateLabelViewTable">
+      <button
+        type="button"
+        class="closeCreateLabelViewTable"
+        ng-click="closeDialogCreateLabelViewTable()"
+      >
+        &times;
+      </button>
+      <h4 class="dialog-titleCreateLabelViewTable">Thêm nhãn</h4>
+      <div class="dialog-bodyCreateLabelViewTable">
+        <div class="container">
+          <div class="row">
+            <div class="box_show_label_chosen">
+              <label
+                ng-style="{'background-color': colorLabelCreate}"
+                class="span_create_label"
+                ><span class="label_dot_detail"></span
+                >{{nameLabelCreate}}</label
+              >
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px">
+            <span style="margin-left: -12px; font-size: 15px">Tên nhãn:</span>
+            <input
+              type="text"
+              placeholder="Nhập tên nhãn"
+              ng-model="nameLabelCreate"
+              maxlength="27"
+              class="name_label_create"
+            />
+            <span style="margin-left: -12px; font-size: 15px; margin-top: 10px"
+              >Màu nhãn:
+            </span>
+            <div class="container-fluid" style="margin-top: 10px">
+              <div class="row">
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#FA8072'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#FA8072'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#FFD700'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#FFD700'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#cdc150'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#cdc150'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#FF4500'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#FF4500'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#7AA1E4'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#7AA1E4'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#FF6347'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#FF6347'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#EE82EE'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#EE82EE'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#47799C'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#47799C'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#FFA500'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#FFA500'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#06bb00'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#06bb00'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#1b88c7'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#1b88c7'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#9966FF'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#9966FF'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#a15e00'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#a15e00'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#478086'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#478086'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#00085c'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#00085c'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#861919'}"
+                    class="color_label_create"
+                    ng-click="colorLabelCreate = '#861919'"
+                  ></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btn_add_label">
+        <button ng-click="createLabel()">
+          <i class="bx bx-plus"></i> Thêm mới nhãn
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="dialogUpdateLabelViewTable"
+    ng-show="showDialogUpdateLabelViewTable"
+    ng-style="dialogStyleUpdateLabelViewTable"
+  >
+    <div class="dialog-contentUpdateLabelViewTable">
+      <h4 class="dialog-titleUpdateLabelViewTable">Cập nhật nhãn</h4>
+      <div class="dialog-bodyUpdateLabelViewTable">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="box_show_label_chosen">
+              <label
+                ng-style="{'background-color': colorLabelUpdate}"
+                class="span_create_label"
+                ><span class="label_dot_detail"></span
+                >{{nameLabelUpdate}}</label
+              >
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px">
+            <span style="margin-left: -12px; font-size: 15px">Tên nhãn:</span>
+            <input
+              type="text"
+              placeholder="Nhập tên nhãn"
+              ng-model="nameLabelUpdate"
+              maxlength="27"
+              class="name_label_create"
+            />
+            <span style="margin-left: -12px; font-size: 15px; margin-top: 10px"
+              >Màu nhãn:
+            </span>
+            <div class="container-fluid" style="margin-top: 10px">
+              <div class="row">
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#FA8072'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#FA8072'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#FFD700'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#FFD700'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#cdc150'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#cdc150'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#FF4500'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#FF4500'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#7AA1E4'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#7AA1E4'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#FF6347'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#FF6347'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#EE82EE'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#EE82EE'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#47799C'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#47799C'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#FFA500'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#FFA500'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#06bb00'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#06bb00'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#1b88c7'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#1b88c7'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#9966FF'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#9966FF'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#a15e00'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#a15e00'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#478086'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#478086'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#00085c'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#00085c'"
+                  ></label>
+                </div>
+                <div class="col-3">
+                  <label
+                    ng-style="{'background-color':'#861919'}"
+                    class="color_label_create"
+                    ng-click="colorLabelUpdate = '#861919'"
+                  ></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btn_add_label">
+        <button ng-click="updateLabel()" ng-click="createLabel()">
+          <i class="bx bx-pencil"></i> Cập nhật
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="dialogConfirmDeleteLabelViewTable"
+    ng-show="showDialogConfirmDeleteLabelViewTable"
+    ng-style="dialogStyleConfirmDeleteLabelViewTable"
+  >
+    <div class="dialog-contentConfirmDeleteLabelViewTable">
+      <button
+        type="button"
+        class="closeConfirmDeleteLabelViewTable"
+        ng-click="closeDialogConfirmDeleteLabelViewTable()"
+      >
+        &times;
+      </button>
+      <h4 class="dialog-titleConfirmDeleteLabelViewTable">Xác nhận</h4>
+      <div class="dialog-bodyConfirmDeleteLabelViewTable">
+        <div class="container" style="margin-bottom: 7px; padding-top: 10px">
+          <span style="font-size: 14px"
+            >Bạn có chắc muốn xóa nhãn này không ?</span
+          >
+          <button class="delete_image" ng-click="deleteLabel()">Xóa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+  <div
+    class="dialogMenuTodoList"
+    ng-show="showDialogMenuTodoList"
+    ng-style="dialogStyleMenuTodoList"
+  >
+    <div class="dialog-contentMenuTodoList">
+      <button
+        type="button"
+        class="closeMenuTodoList"
+        ng-click="closeDialogMenuTodoList()"
+      >
+        &times;
+      </button>
+      <h4 class="dialog-titleMenuTodoList">Menu</h4>
+      <div class="dialog-bodyMenuTodoList">
+        <div class="container" style="margin-bottom: 7px; padding-top: 10px">
+          <button ng-click="deleteTodoList()" class="btn_delete_todoList">
+            Xóa danh sách
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+  <div class="dialogSort" ng-show="showDialogSort" ng-style="dialogStyleSort">
+    <div class="dialog-contentSort">
+      <button type="button" class="closeSort" ng-click="closeDialogSort()">
+        &times;
+      </button>
+      <h4 class="dialog-titleSort"><i class="fas fa-sort"></i> Sắp xếp</h4>
+      <div class="dialog-bodySort">
+        <div class="container" style="margin-bottom: 7px; padding-top: 10px">
+          <div style="margin-top: 10px">
+            <button ng-click="sortTodoPriority(0)" class="btn_sort_todo">
+              <i class="fas fa-star"></i> Sắp xếp theo độ ưu tiên giảm dần
+            </button>
+          </div>
+          <div style="margin-top: 10px">
+            <button ng-click="sortTodoPriority(1)" class="btn_sort_todo">
+              Sắp xếp theo độ ưu tiên tăng dần
+            </button>
+          </div>
+          <div style="margin-top: 10px">
+            <button ng-click="sortTodoDeadline(1)" class="btn_sort_todo">
+              Sắp xếp theo ngày hạn giảm dần
+            </button>
+          </div>
+          <div style="margin-top: 10px">
+            <button ng-click="sortTodoDeadline(0)" class="btn_sort_todo">
+              Sắp xếp theo ngày hạn tăng dần
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+  <div class="dialogNote" ng-show="showDialogNote" ng-style="dialogStyleNote">
+    <div class="dialog-contentNote">
+      <button type="button" class="closeNote" ng-click="closeDialogNote()">
+        &times;
+      </button>
+      <h4 class="dialog-titleNote">Lưu ý</h4>
+      <div class="dialog-bodyNote">
+        <div class="container" style="margin-bottom: 7px; padding-top: 10px">
+          <span style="font-size: 15px">
+            <strong>I,</strong> Trong mỗi đầu việc bạn hãy phân loại ra đầu việc
+            dùng để đại diện cho tài liệu hoặc công việc để hệ thống tự động
+            tính toán, thống kê tiến độ của dự án.
+          </span>
+          <br />
+          <span style="font-size: 15px">
+            <strong>II,</strong> Khi sử dụng hiển thị đầu việc của dự án dưới
+            dạng Table thì độ ưu tiên của đầu việc đó sẽ dựa vào màu sắc được
+            hiển thị lên tên của đầu việc đó.
+          </span>
+          <br />
+          <span style="font-size: 15px">
+            <strong>III,</strong> Khi bạn sự dụng tính năng nhắc nhở thì tất cả
+            những thành viên có mặt trong đầu việc đó sẽ được gửi mail vào
+            khoảng thời gian mà bạn đã chọn để gửi thông báo.
+          </span>
+          <br />
+          <span style="font-size: 15px">
+            <strong>IV,</strong> Khi bạn sử dụng tính năng sắp xếp đầu việc thì
+            tất cả thành viên trong dự án đều sẽ thấy lựa chọn sắp xếp mà bạn
+            chọn.
+          </span>
+          <br />
+          <span style="font-size: 15px">
+            <strong>V,</strong> Thành viên bị nghỉ việc sẽ không thể thao tác
+            được các chức năng trong dự án.
+          </span>
+          <br />
+          <span style="font-size: 15px">
+            <strong>VI,</strong> Bạn không thể xóa danh sách đang có đầu việc,
+            chỉ có thể xóa danh sách đó khi mà danh sách đó không chứa đầu việc
+            nào.
+          </span>
+          <br />
+          <span style="font-size: 15px">
+            <strong>VII,</strong> Khi bạn xóa 1 đầu việc thì tất cả những thứ
+            liên quan đến đầu việc đó như: thành viên, nhãn, ngày hạn ... sẽ bị
+            mất và không thể khôi phục lại được.
+          </span>
+          <br />
+          <span style="font-size: 15px; float: right"><em>- Ptpm Portal Projects -</em></span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
+</div>

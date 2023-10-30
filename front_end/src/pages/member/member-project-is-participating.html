@@ -1,0 +1,127 @@
+<div id="main" class="main">
+  <h4>Danh sách dự án của tôi</h4>
+  <div class="container-fluid project">
+    <div class="title_filter"><i class="fas fa-filter bx-sm"></i> Bộ lọc</div>
+    <hr />
+    <div class="container" style="margin-top: 30px; text-align: center">
+      <div class="row">
+        <div
+          class="col-6"
+          style="
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <div class="form-group col-md-6 col-12 d-flex align-items-center">
+            <span
+              for=""
+              style="font-size: 15px"
+              class="fillter-name col-6 text-center"
+              >Tên dự án:</span
+            >
+            <input type="text" class="form-control col-3" />
+          </div>
+        </div>
+        <div
+          class="col-6"
+          style="
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <div class="form-group col-md-6 col-12 d-flex align-items-center">
+            <span
+              for=""
+              style="font-size: 15px"
+              class="fillter-name col-6 text-center"
+              >Thể loại:</span
+            >
+            <select
+              name=""
+              style="font-size: 15px"
+              class="form-control col-3"
+              id=""
+            >
+              <option value="">Chọn thể loại</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 40px">
+        <div class="col-6" style="text-align: right">
+          <button class="btn btn-primary">Lọc dữ liệu</button>
+        </div>
+        <div class="col-6" style="text-align: left">
+          <button class="btn btn-danger">Làm mới bộ lọc</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container projects">
+    <h4>{{nodataProjects}}</h4>
+    <div class="row">
+      <div
+        ng-repeat="item in listProjectById"
+        class="col-lg-3 col-md-4 col-sm-6"
+      >
+        <a href="#/member/project-is-participating/{{item.id}}">
+          <div class="card" style="width: 100%; font-size: 15px">
+            <img
+              ng-if="item.backgroundImage != null"
+              src="{{item.backgroundImage}}"
+              class="card-img-top"
+              alt="..."
+            />
+            <div
+              ng-if="item.backgroundColor != null"
+              class="background-color-project"
+              ng-style="{ backgroundColor: item.backgroundColor}"
+            ></div>
+            <div class="card-body">
+              <h5 class="card-title">{{item.name}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted" style="font-size: 15px;">
+                Trạng thái: <span ng-if="item.status == 0" class="span_da_hoan_thanh"
+                >Đã diễn ra</span
+              >
+              <span ng-if="item.status == 1" class="span_da_dien_ra"
+                >Đang diễn ra</span
+              >
+              <span ng-if="item.status == 2" class="span_chua_dien_ra"
+                >Chưa diễn ra</span
+              >
+              </h6>
+              <p class="card-text">{{item.descriptions}}</p>
+
+              <div class="list_member_project">
+                <a
+                  ng-repeat="member in item.listMember"
+                  my-tooltip
+                  tooltip-content="{{member.name + ' ' + member.code}}"
+                  href=""
+                  style="margin-left: -8px"
+                >
+                  <img
+                    class="rounded-circle"
+                    width="28px"
+                    height="28px"
+                    src="{{member.image}}"
+                    alt=""
+                  />
+             
+                </a>
+              </div>
+              <p>
+                Tiến độ: {{item.progress}} %<progress class="progress_projects"
+                  max="100"
+                  value="{{item.progress}}"
+                ></progress>
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

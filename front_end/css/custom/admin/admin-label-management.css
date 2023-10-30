@@ -1,0 +1,27 @@
+.my-button:hover {
+  background-color: red;
+  color: yellow;
+  border: 2px solid yellow;
+}
+
+.container-fluid.label {
+  margin-top: 30px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 2px 2px 2px rgb(235, 235, 235);
+  padding: 20px 20px 50px 20px;
+}
+
+body {
+  overflow-y: auto;
+}
+
+.container-fluid.filter {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 2px 2px 2px rgb(235, 235, 235);
+  padding: 20px 20px 50px 20px;
+  margin-top: 20px;
+}
+
+.title_filter {
+  font-size: 20px;
+}
