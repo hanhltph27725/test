@@ -1,0 +1,240 @@
+.banner {
+    background-image: url(../../assets/banner/page_pricing_banner.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 356px;
+}
+
+.banner__text {
+    text-align: center;
+    width: 504px;
+    padding-top: 42px;
+    padding-bottom: 42px;
+    border-top-left-radius: 37px;
+    border-top-right-radius: 37px;
+    background-color: #fff;
+    color: var(--black-color);
+}
+
+.text__title {
+    font-size: 50px;
+    line-height: 62.5px;
+}
+
+.text__footer>a {
+    font-size: 22px;
+    line-height: 33px;
+    letter-spacing: 1%;
+    color: var(--text-color);
+}
+
+.text__footer>.span__margin {
+    font-size: 22px;
+    line-height: 33px;
+    letter-spacing: 1%;
+    color: var(--text-color);
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.text__footer>span {
+    font-size: 22px;
+    line-height: 33px;
+    letter-spacing: 1%;
+    color: var(--text-color);
+}
+
+
+.plan {
+    padding-top: 150px;
+    padding-bottom: 150px;
+}
+
+.row__plan__list{
+    margin-right: -24px;
+    margin-left: -24px;
+}
+
+.row__plan__list>*{
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.plan__item {
+    padding-top: 64px;
+    padding-bottom: 64px;
+    border-radius: 33px;
+    background-color: var(--pinkgrey-color);
+}
+
+.plan__item__text {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: var(--brown-color);
+    padding: 10px 38px;
+    font-size: 18px;
+    font-weight: 600;
+    width: 238px;
+    min-width: 200px;
+    box-shadow: 0px 10px 20px 0px rgba(192, 192, 192, 0.35);
+    border-radius: 18px;
+}
+
+
+.plan__date {
+    position: relative;
+}
+
+.date__title {
+    color: var(--black-color);
+    text-align: center;
+    line-height: 150%;
+    letter-spacing: 0.25px;
+}
+
+.date__big {
+    color: var(--black-color);
+    font-size: 85px;
+    letter-spacing: 0.85px;
+    margin-top: 10px;
+    align-items: flex-end;
+    font-family: "DM Serif Display";
+}
+
+
+.date__big span {
+    font-size: 25px;
+    line-height: 75px;
+    color: var(--black-color);
+    font-family: "DM Serif Display";
+}
+
+.date__time {
+    font-family: "DM Serif Display";
+
+    color: var(--black-color);
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.85px;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.plan__text {
+    padding: 0 10px;
+    border-top: 1px solid var(--brown-color);
+}
+
+.plan__text__list{
+    flex: 0 0 auto;
+}
+
+.plan__text__list ul {
+    margin-top: 28px;
+    margin-bottom: 28px;
+    flex-direction: column;
+}
+
+.plan__text ul li {
+    padding: 5px 5px;
+    color: var(--text-color);
+    text-align: center;
+    font-family: Jost;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 250%;
+    letter-spacing: 0.2px;
+}
+
+.plan__text p {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    background-color: var(--black-color);
+    text-align: center;
+    font-weight: 600;
+    line-height: 125%;
+    letter-spacing: 0.36px;
+}
+
+.plan__item a {
+    color: white;
+    display: inline-block;
+}
+
+.plan__text a:hover {
+    background-color: var(--black-color);
+}
+
+.plan__text a:hover i {
+    color: var(--brown-color);
+}
+
+
+.plan__item:hover{
+    box-shadow: 0px 10px 20px 0px rgba(136, 136, 136, 0.25);
+transition: 0.2s ease-in-out;
+}
+
+.plan__item:hover .plan__item__text{
+    background-color: var(--black-color);
+    transition: 0.3s ease-in-out;}
+
+.plan__item:hover .plan__text{
+    border-top: 1px solid var(--black-color);
+}
+
+.plan__item:hover .date__big{
+    color: var(--brown-color);
+}
+
+.btn__pricing{
+    background-color: var(--brown-color);
+    padding: 26px 48px;
+    border-radius: 18px;
+    box-shadow: 10px 0 20px rgba(192, 192, 192, 0.1225);
+    font-weight: 600;
+    letter-spacing: 0.36px;
+    transition: 0.3s ease;
+}
+
+@media(max-width:1199px){
+    .date__big{
+        font-size: 75px;
+    }
+    .plan__item__text{
+        width: 205px;
+        font-size: 16px;
+        text-align: center;
+        padding: 10px 20px;
+    }
+
+    .plan__text ul li {
+        line-height: normal;
+    }
+
+    .btn__pricing{
+        padding: 20px 40px;
+    }
+}
+
+@media(max-width:991px){
+    .plan__item__cover {
+        padding-top: 48px;
+    }
+}
+
+@media (max-width: 767px){
+    .banner__text{
+        width: 430px;
+    }
+  }
+
+

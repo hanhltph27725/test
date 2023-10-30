@@ -1,0 +1,139 @@
+@import url(../common/index__banner.css);
+@import url(../common/index__meta.css);
+@import url(../common/index__stylish.css);
+@import url(../common/index__about.css);
+@import url(../common/index__brand.css);
+@import url(../common/index__count.css);
+@import url(../common/index__news.css);
+@import url(../common/index__wanna.css);
+@import url(../common/index__footer.css);
+@import url(../common/index__project.css);
+
+
+.head {
+    height: 140px;
+}
+
+.logo__img {
+    width: 34px;
+    height: 34px;
+
+}
+
+.logo__img>img {
+    max-width: 100%;
+}
+
+.logo__text p {
+    padding-left: 10px;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 50px;
+    color: var(--black-color);
+    font-family: "DM Serif Display";
+}
+
+.menu__list>.list__items {
+    width: 100%;
+}
+
+.menu__list>.list__items li a {
+    display: block;
+    font-size: 20px;
+    padding: 15px 25px;
+    color: var(--black-color);
+    transition: 0.3s;
+}
+
+.menu__list ul li a:hover{
+    color: var(--brown-color);
+}
+
+.list__items__2 {
+    position: relative;
+}
+
+.list__items__2>.sub__menu {
+    display: none;
+    min-width: 180px;
+    position: absolute;
+    top: 100%;
+    box-shadow: 0px 4px 4px rgba(192, 192, 192, 0.4);
+    background-color: #fff;
+}
+
+.list__items__2:hover>.sub__menu {
+    display: block;
+}
+
+.menu__search {
+    margin-left: 6px;
+    font-size: 21px;
+    border: 2px transparent;
+    color: #141414;
+    transition: 0.3s;
+}
+
+.menu__search:hover{
+   color: var(--brown-color);
+   cursor: pointer;
+}
+
+.trigger {
+    font-size: 30px;
+    padding: 15px;
+    color: var(--black-color);
+    border-radius: 10px;
+    transition: 0.2s all;
+}
+.trigger:hover{
+    background-color: var(--brown-color);
+    color:#fff;
+    cursor: pointer;    
+}
+
+
+@media (max-width: 991px) {
+
+    .p-relative{
+        position: relative;
+    }
+
+    .menu {
+        display: none;
+        position: absolute;
+        top: 105px;
+        background-color: #fff;
+        width: 100%;
+        left: 0;
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .display-block{
+        display: block;
+    }
+
+    .trigger:hover~.menu{
+        display:block;
+    }
+
+    .menu .menu__list .list__items{
+        display: block;
+    }
+
+    .menu .menu__search{
+        display: none;
+    }
+
+    .list__items__2>.sub__menu{
+        position: static;
+        box-shadow: none;
+    }
+}
+
+@media (min-width:992px) {
+    .trigger {
+        display: none;
+    }
+
+}

@@ -1,0 +1,45 @@
+.index__banner{
+    background-image: url(../assets/about/Photo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-bottom-left-radius: 290px;
+    padding-top: 330px;
+    padding-bottom: 200px;
+
+}
+.home__banner>.disply-text{
+    margin-bottom: 10px;
+}
+
+
+.home__banner>.text-normal{
+    margin-bottom: 21px;
+}
+.home__banner>a{
+    display: inline-block;
+}
+
+@media (min-width:992px){
+    .home__banner{width: 567px;}
+    
+    .index__banner{
+        height: 1042px;
+    }
+    }
+@media (min-width:992px) and (max-width:1050px){
+.home__banner{
+padding-left: 18px;
+}
+
+}
+        
+@media (max-width:991px){
+    .index__banner{
+    padding: 200px 0;
+    border-bottom-left-radius: 200px;
+    }
+    .home__banner>.disply-text{
+        font-size: 60px;
+        }
+    }

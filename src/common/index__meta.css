@@ -1,0 +1,50 @@
+
+/* meta */
+.services__meta {
+    padding-top: 120px; 
+    padding-bottom: 200px;
+}
+
+.meta__list>* {
+    padding: 80px 20px;
+    border-radius: 30px;
+}
+
+.meta__item:hover {
+    background-color: var(--pinkgrey-color);
+    transition: 0.5s ease-out;
+}
+
+.meta__item__content {
+    padding: 0 28px;
+}
+
+.meta__item__content>.custom-h3 {
+    margin-bottom: 20px;
+}
+
+.meta__item__content>.text-normal {
+    margin-bottom: 52px;
+}
+
+.meta__item__content>a {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22.5px;
+    text-align: center;
+    font-family: "Jost";
+    letter-spacing: 0.36px;
+    color: var(--black-color);
+}
+
+.meta__item__content>a>i {
+    color: var(--brown-color);
+}
+
+
+@media(max-width: 991px){
+    .services__meta {
+        padding-bottom: 100px;
+    }
+}

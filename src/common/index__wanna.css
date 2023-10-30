@@ -1,0 +1,40 @@
+/* wanna */
+.services__wanna {
+    padding-bottom: 150px;
+}
+
+.services__wanna>.container>.wanna__body {
+    border-radius: 70px;
+    background-color: var(--black-color);
+    padding: 80px 0;
+}
+
+.wanna__body>* {
+    text-align: center
+}
+
+.wanna__body>h1 {
+    margin-bottom: 11px;
+}
+
+.wanna__body>p {
+    color: #fff;
+    margin-bottom: 32px;
+}
+
+.wanna__body>div>a {
+    display: inline-block;
+    padding: 26px 37px;
+    font-weight: 600;
+    background-color: var(--brown-color);
+    border-radius: 18px;
+    letter-spacing: 0.36px;
+    color: #fff;
+    font-size: 18px;
+}
+
+.wanna__body>div>a:hover {
+    background-color: var(--pinkgrey-color);
+    color: var(--black-color);
+    transition: 0.3s ease-in-out;
+}

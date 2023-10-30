@@ -1,0 +1,171 @@
+.banner {
+    background-image: url(../../assets/pageteam/BannerTeam.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 356px;
+}
+
+.banner__text {
+    text-align: center;
+    width: 504px;
+    padding-top: 42px;
+    padding-bottom: 42px;
+    border-top-left-radius: 37px;
+    border-top-right-radius: 37px;
+    background-color: #fff;
+    color: var(--black-color);
+}
+
+.text__title {
+    font-size: 50px;
+    line-height: 62.5px;
+    font-weight: 400;
+}
+
+.text__footer>a {
+    font-size: 22px;
+    line-height: 33px;
+    letter-spacing: 1%;
+    color: var(--text-color);
+}
+
+.text__footer>.span__margin {
+    font-size: 22px;
+    line-height: 33px;
+    letter-spacing: 1%;
+    color: var(--text-color);
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.text__footer>span {
+    font-size: 22px;
+    line-height: 33px;
+    letter-spacing: 1%;
+    color: var(--text-color);
+}
+
+
+.team__image{
+    padding-top:200px;
+    padding-bottom:200px;
+}
+
+.row__image__cover{
+    margin-left: -11px;
+    margin-right: -11px;
+}
+
+.row__image__cover >*{
+    padding-left: 11px;
+    padding-right: 11px;
+    margin: 0 auto;
+}
+
+.image__infor{
+    margin-bottom: 22px;
+}
+
+.image__infor>.infor__picture{
+    /* height:100; */
+    margin-bottom: 17px;
+
+}
+
+.image__infor>.infor__picture>img{
+    width:100%;
+    max-width: 100%;
+    border-radius: 30px;
+    object-fit: cover;
+    /* margin-bottom: 17px; */
+}
+
+.image__infor>.infor_name>.text-center>h3{
+    /* font-family: */
+    font-weight: 400;
+    line-height: 27px;
+    letter-spacing: 0.16px;
+    color: var(--black-color);
+}
+
+.image__infor>.infor_name>.text-center>p{
+    font-family: "DM Serif Display";
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 33px;
+    letter-spacing: 0.16px;
+    color: var(--text-color);
+    font-size: 18px;
+
+}
+
+.infor__name>.d-flex>a{
+    display: inline-block;
+}
+
+.infor__name>.d-flex>a>i{
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0.8px;
+    padding: 16px;
+    color: var(--black-color);
+}
+
+.infor__name>.d-flex>a>i:hover{
+    color: var(--brown-color);
+}
+
+@media(max-width: 991px){
+.team__image{
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.infor__name>.d-flex>a>i{
+    font-size: 25px;
+}
+
+.image__infor{
+    margin-bottom: 50px;
+}
+}
+
+
+@media(min-width: 992px){
+.image__infor>.infor__picture{
+    height:433px;  
+    }
+}
+
+@media (max-width: 767px){
+    .banner__text{
+        width: 430px;
+    }
+
+    .image__infor>.infor__picture{
+        height: 550px;
+    }
+
+    .image__infor>.infor__picture>img{
+        object-position: top;
+    }
+}
+
+@media(max-width: 575px){
+    .image__infor>.infor__picture{
+        max-width: 400px;
+        margin-left:auto;
+        margin-right: auto;
+    }
+}
+
+
+
+
+
+
+
+
+

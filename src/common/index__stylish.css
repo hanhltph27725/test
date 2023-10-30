@@ -1,0 +1,90 @@
+.stylish__detail>h1{
+    margin-bottom: 33px;
+}
+
+.stylish__detail>.stylish__contact{
+    margin-bottom: 47px;
+}
+
+.stylish__detail>.text-normal{
+    margin-bottom: 47px;
+}
+
+.stylish__contact:nth-child(1){
+    width: 93px;
+    height: 93px;
+}
+
+.stylish__contact:nth-child(1)>img{
+    border-radius: 50%;
+}
+
+.stylish__detail>.stylish__contact>.contact__text{
+    margin-left: 15px;
+}
+
+.stylish__detail>.contact__text>:nth-child(1){
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.24px;
+    color: var(--text-color);
+}
+
+.stylish__detail>.contact__text>:last-child{
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.24px;
+    color: var(--text-color);
+}
+
+.stylish__detail>.stylish__icon>.btn-black{
+    padding-left: 31px;
+    padding-right: 31px;
+}
+
+.stylish__detail .stylish__icon>a{
+    display: inline-block;
+}
+
+.stylish__img{
+    height:700px;
+}
+
+.stylish__img>img{
+    border-radius:0 327px 0 123px;
+}
+@media(min-width: 992px){
+    .stylish__img
+{   padding-left: 47px;}}
+
+@media (min-width:992px) {
+.stylish__detail{
+    padding-right: 52px;
+}}
+
+@media (max-width:991px){
+    .stylish__detail{
+        margin-bottom: 60px;
+    }
+}
+@media (max-width:1199px){
+    .stylish__detail>h1{
+        font-size: 45px;
+    }
+    .stylish__detail>.text-normal,
+    .stylish__detail>.stylish__contact{
+        margin-bottom: 30px;
+    }
+}
+@media (min-width: 991px){
+    .stylish__detail{
+        padding-bottom: 60px;
+    }
+}
+
+
+    
+    
+    
+    
+    

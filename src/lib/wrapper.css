@@ -1,0 +1,610 @@
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: "DM Serif Display", serif;
+    font-family: 'Jost', sans-serif;
+    box-sizing: border-box;
+}
+
+
+.container {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0;
+}
+
+.d-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.white-color {
+    color: white;
+}
+
+:root {
+    --brown-color: #CDA274;
+    --black-color: #292F26;
+    --pinkgrey-color: #F4F0EC;
+    --text-color: #4d5053;
+}
+
+.al-ct {
+    align-items: center;
+}
+
+.al-end {
+    align-items: end;
+}
+
+.jct-ct {
+    justify-content: center;
+}
+
+.jct-bw {
+    justify-content: space-between;
+}
+
+.brown-color {
+    color: var(--brown-color);
+}
+
+.black-color {
+    color: var(--black-color);
+}
+
+.pinkgrey-color {
+    color: var(--pinkgrey-color);
+}
+
+h1 {
+    color: var(--black-color);
+    font-family: "DM Serif Display";
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 125%; /* 31.25px */
+    /* 31.25px */
+}
+
+h3 {
+    color: var(--black-color);
+    font-family: "DM Serif Display";
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 125%; /* 31.25px */
+}
+
+h2 {
+    font-size: 35px;
+    font-weight: 400;
+}
+
+h4 {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+h5 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+h6 {
+    font-size: 18px;
+}
+
+.btn-black {
+    background-color: var(--black-color);
+    padding: 26px 54px;
+    border-radius: 18px;
+    box-shadow: 10px 0 20px rgba(192, 192, 192, 0.1225);
+    font-weight: 600;
+    letter-spacing: 0.36px;
+}
+
+.btn-color {
+    background-color: var(--brown-color);
+    padding: 26px 54px;
+    border-radius: 18px;
+    box-shadow: 10px 0 20px rgba(192, 192, 192, 0.1225);
+    font-weight: 600;
+    letter-spacing: 0.36px;
+}
+
+.disply-text {
+    font-family: "DM Serif Display";
+    font-size: 85px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 125%; /* 106.25px */
+    color: var(--black-color);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-normal {
+    color: var(--text-color);
+    font-family: "Jost";
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;/* 33px */
+    letter-spacing: 0.22px;
+}
+
+.text-bold {
+    color: var(--text-color);
+    font-family: "Jost";
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;/* 33px */
+    letter-spacing: 0.22px;
+}
+
+.text-italic {
+    color: var(--text-color);
+    font-family: "Jost";
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 150%; /* 33px */
+    letter-spacing: 0.22px;
+}
+
+.arrow-black {
+    color: var(--black-color);
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.arrow-brown {
+    color: var(--brown-color);
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.pd-top-bottom {
+    padding-top: 200px;
+    padding-bottom: 200px;
+}
+
+.img-w-100 {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media(max-width:1199px){
+    h1{
+        font-size: 45px;
+    }
+    h3{
+        font-size: 23px;
+    }   
+    .text-normal{
+        font-size: 20px;
+    }
+}
+
+/* Màn hình điện thoại */
+@media(min-width: 0px) {
+    .col-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .col-11 {
+        flex: 0 0 auto;
+        width: 91.6667%;
+    }
+
+    .col-10 {
+        flex: 0 0 auto;
+        width: 83.3333%;
+    }
+
+    .col-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+
+    .col-8 {
+        flex: 0 0 auto;
+        width: 66.6667%;
+    }
+
+    .col-7 {
+        flex: 0 0 auto;
+        width: 58.3333%;
+    }
+
+    .col-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    .col-5 {
+        flex: 0 0 auto;
+        width: 41.6667%;
+    }
+
+    .col-4 {
+        flex: 0 0 auto;
+        width: 33.3333%;
+    }
+
+    .col-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+
+    .col-2 {
+        flex: 0 0 auto;
+        width: 16.6667%;
+    }
+
+    .col-1 {
+        flex: 0 0 auto;
+        width: 8.3333%;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+}
+
+/* ------------ Màn hình điện thoại ----------------- */
+@media(min-width: 576px) {
+    .col-sm-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .col-sm-11 {
+        flex: 0 0 auto;
+        width: 91.6667%;
+    }
+
+    .col-sm-10 {
+        flex: 0 0 auto;
+        width: 83.3333%;
+    }
+
+    .col-sm-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+
+    .col-sm-8 {
+        flex: 0 0 auto;
+        width: 66.6667%;
+    }
+
+    .col-sm-7 {
+        flex: 0 0 auto;
+        width: 58.3333%;
+    }
+
+    .col-sm-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    .col-sm-5 {
+        flex: 0 0 auto;
+        width: 41.6667%;
+    }
+
+    .col-sm-4 {
+        flex: 0 0 auto;
+        width: 33.3333%;
+    }
+
+    .col-sm-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+
+    .col-sm-2 {
+        flex: 0 0 auto;
+        width: 16.6667%;
+    }
+
+    .col-sm-1 {
+        flex: 0 0 auto;
+        width: 8.3333%;
+    }
+
+    .container {
+        max-width: 540px;
+    }
+}
+
+/* ------------ Màn hình tablet ----------------- */
+@media(min-width: 768px) {
+    .col-md-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .col-md-11 {
+        flex: 0 0 auto;
+        width: 91.6667%;
+    }
+
+    .col-md-10 {
+        flex: 0 0 auto;
+        width: 83.3333%;
+    }
+
+    .col-md-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+
+    .col-md-8 {
+        flex: 0 0 auto;
+        width: 66.6667%;
+    }
+
+    .col-md-7 {
+        flex: 0 0 auto;
+        width: 58.3333%;
+    }
+
+    .col-md-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    .col-md-5 {
+        flex: 0 0 auto;
+        width: 41.6667%;
+    }
+
+    .col-md-4 {
+        flex: 0 0 auto;
+        width: 33.3333%;
+    }
+
+    .col-md-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+
+    .col-md-2 {
+        flex: 0 0 auto;
+        width: 16.6667%;
+    }
+
+    .col-md-1 {
+        flex: 0 0 auto;
+        width: 8.3333%;
+    }
+
+    .container {
+        max-width: 720px;
+    }
+
+}
+
+/* ------------ Màn hình laptop ----------------- */
+@media(min-width: 992px) {
+    .col-lg-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .col-lg-11 {
+        flex: 0 0 auto;
+        width: 91.6667%;
+    }
+
+    .col-lg-10 {
+        flex: 0 0 auto;
+        width: 83.3333%;
+    }
+
+    .col-lg-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+
+    .col-lg-8 {
+        flex: 0 0 auto;
+        width: 66.6667%;
+    }
+
+    .col-lg-7 {
+        flex: 0 0 auto;
+        width: 58.3333%;
+    }
+
+    .col-lg-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    .col-lg-5 {
+        flex: 0 0 auto;
+        width: 41.6667%;
+    }
+
+    .col-lg-4 {
+        flex: 0 0 auto;
+        width: 33.3333%;
+    }
+
+    .col-lg-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+
+    .col-lg-2 {
+        flex: 0 0 auto;
+        width: 16.6667%;
+    }
+
+    .col-lg-1 {
+        flex: 0 0 auto;
+        width: 8.3333%;
+    }
+
+    .container {
+        max-width: 960px;
+    }
+}
+
+/* ------------ Màn hình laptop ----------------- */
+@media(min-width: 1200px) {
+    .col-xl-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .col-xl-11 {
+        flex: 0 0 auto;
+        width: 91.6667%;
+    }
+
+    .col-xl-10 {
+        flex: 0 0 auto;
+        width: 83.3333%;
+    }
+
+    .col-xl-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+
+    .col-xl-8 {
+        flex: 0 0 auto;
+        width: 66.6667%;
+    }
+
+    .col-xl-7 {
+        flex: 0 0 auto;
+        width: 58.3333%;
+    }
+
+    .col-xl-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    .col-xl-5 {
+        flex: 0 0 auto;
+        width: 41.6667%;
+    }
+
+    .col-xl-4 {
+        flex: 0 0 auto;
+        width: 33.3333%;
+    }
+
+    .col-xl-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+
+    .col-xl-2 {
+        flex: 0 0 auto;
+        width: 16.6667%;
+    }
+
+    .col-xl-1 {
+        flex: 0 0 auto;
+        width: 8.3333%;
+    }
+
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* ------------ Màn hình PC ----------------- */
+@media(min-width: 1400px) {
+    .col-xxl-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .col-xxl-11 {
+        flex: 0 0 auto;
+        width: 91.6667%;
+    }
+
+    .col-xxl-10 {
+        flex: 0 0 auto;
+        width: 83.3333%;
+    }
+
+    .col-xxl-9 {
+        flex: 0 0 auto;
+        width: 75%;
+    }
+
+    .col-xxl-8 {
+        flex: 0 0 auto;
+        width: 66.6667%;
+    }
+
+    .col-xxl-7 {
+        flex: 0 0 auto;
+        width: 58.3333%;
+    }
+
+    .col-xxl-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+
+    .col-xxl-5 {
+        flex: 0 0 auto;
+        width: 41.6667%;
+    }
+
+    .col-xxl-4 {
+        flex: 0 0 auto;
+        width: 33.3333%;
+    }
+
+    .col-xxl-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+
+    .col-xxl-2 {
+        flex: 0 0 auto;
+        width: 16.6667%;
+    }
+
+    .col-xxl-1 {
+        flex: 0 0 auto;
+        width: 8.3333%;
+    }
+
+    .container {
+        max-width: 1240px;
+    }
+}

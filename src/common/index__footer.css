@@ -1,0 +1,147 @@
+.index__footer {
+    margin-bottom: 130px;
+}
+
+.detail__detail {
+  
+}
+
+.detail__logo{
+    margin-bottom: 18px;
+}
+
+.logo__img {
+    width: 34px;
+    height: 34px;
+}
+
+.logo__text p {
+    padding-left: 10px;
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 50px;
+}
+
+.detail__text p {
+    font-size: 22px;
+    line-height: 33px;
+    letter-spacing: 1%;
+    color: var(--text-color);
+    margin-bottom: 31px;
+}
+
+.detail__icon{
+    width: 225px;
+}
+
+.detail__icon li a i {
+    text-align: center;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.99px;
+    color: var(--black-color);
+}
+.detail__icon li a:hover i{
+    color: var(--brown-color);
+}
+.footer__pages .pages__title,.services__title,.contact__title{
+    text-align: left;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.services__list li a{
+    color : var(--text-color);
+    line-height: 66px;
+    font-size: 22px;
+    letter-spacing: 0.22px;
+}
+
+.index__footer ul li a:hover{
+    color: var(--brown-color);
+}
+
+.pages__list li a{
+    color : var(--text-color);
+    line-height: 66px;
+    font-size: 22px;
+    letter-spacing: 0.22px;
+}
+
+.contact__list li a{
+    color : var(--text-color);
+    line-height: 66px;
+    font-size: 22px;
+    letter-spacing: 0.22px;
+}
+
+.contact__list .footer__address{
+    margin: 17px 0;
+}
+
+.contact__list .footer__address a{
+    line-height: normal;
+}
+
+.coppyright{
+    padding: 40px 0;
+}
+
+
+
+@media (min-width: 992px) {
+    .footer__detail {
+        width: 300px;
+    }
+
+    .footer__pages {
+        width: 125px;
+    }
+
+    .footer__services {
+        width: 120px;
+    }
+
+    .footer__contact {
+        width: 258px;
+    }
+}
+
+@media (max-width: 991px){
+    .index__footer .container >*{
+        margin-bottom: 24px;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    .footer__detail {
+        width: 394px;
+    }
+}
+
+@media (max-width: 991px){
+    .index__footer {
+        margin-bottom: 30px;
+    }
+
+   .index__footer .container .footer__contact{
+        order: 2;
+        margin-bottom: 20px;
+
+    }
+    .footer__detail{
+        order: 1;
+    }
+
+    .footer__pages{
+        order: 4;
+    }
+    
+
+    .footer__services{
+        order: 3;
+    }
+}
+
+    
